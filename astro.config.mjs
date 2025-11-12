@@ -2,14 +2,16 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
-import node from "@astrojs/node";
+import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
 	output: 'server',
-	adapter: node({
-		mode: 'standalone',
+	adapter: vercel({
+		webAnalytics: {
+			enabled: true,
+		},
 	}),
 	experimental: {
 		session: true,
@@ -21,8 +23,9 @@ export default defineConfig({
 			},
 			proxy: {
 				'/api': {
-					target: 'http://localhost:3000',
+					target: process.env.PUBLIC_API_URL || 'https://dashboard.paxeer.app',
 					changeOrigin: true,
+					secure: true,
 				},
 			},
 		},

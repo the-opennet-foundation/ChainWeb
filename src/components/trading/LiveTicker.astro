@@ -43,8 +43,8 @@ const symbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'do
 <script>
 	import { gsap } from "gsap";
 	
-	// Use empty string for dev (proxied through Vite), production URL for build
-	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+	// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
+	const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
 	const symbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'dotusd', 'maticusd'];
 
 	let prices = {};

@@ -88,7 +88,8 @@ const info = categoryInfo[category || ''] || { name: category || 'Unknown', desc
 	</script>
 
 	<script type="module">
-		const API_URL = '';
+		// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
+		const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
 		const categoryId = window.categoryId;
 		let allMarkets = [];
 		let filteredMarkets = [];

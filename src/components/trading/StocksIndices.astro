@@ -1,6 +1,6 @@
 ---
 // Stocks & Indices Market Data Component
-const API_URL = import.meta.env.PUBLIC_API_URL || '';
+// API URL will be set in script section
 
 const stocksIndices = [
 	{ symbol: 'aapl', name: 'Apple', category: 'Tech' },
@@ -230,7 +230,8 @@ const stocksIndices = [
 	
 	gsap.registerPlugin(ScrollTrigger);
 
-	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+	// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
+	const API_URL = import.meta.env.PUBLIC_API_URL || (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
 	const stocksIndices = [
 		{ symbol: 'aapl', name: 'Apple' },
 		{ symbol: 'tsla', name: 'Tesla' },

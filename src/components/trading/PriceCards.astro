@@ -83,8 +83,8 @@ const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 	
 	gsap.registerPlugin(ScrollTrigger);
 	
-	// Use empty string for dev (proxied through Vite), production URL for build
-	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+	// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
+	const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
 	const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 
 	let previousPrices = {};

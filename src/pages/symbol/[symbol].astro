@@ -205,7 +205,8 @@ const tvSymbol = getTvSymbol(symbol);
 		
 		gsap.registerPlugin(ScrollTrigger);
 
-		const API_URL = import.meta.env.PUBLIC_API_URL || '';
+		// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
+		const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
 		const symbolParam = window.location.pathname.split('/').pop() || 'btcusd';
 
 		async function fetchSymbolData() {
