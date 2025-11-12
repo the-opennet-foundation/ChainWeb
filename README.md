@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > Currently this theme only works with the premium version of GSAP, the steps to use the standard version will be available in the future.
-
+0
 This theme takes inspiration from the Framer theme [formstudio](https://formstudio.site/)
 
 Instruction to change the main title animation will be available in the future.
