@@ -1,0 +1,500 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = false;
+
+const { symbol } = Astro.params;
+const symbolUpper = symbol?.toUpperCase() || 'BTCUSD';
+
+// Map common symbols to TradingView format
+const symbolMap: Record<string, string> = {
+	// Crypto
+	'btcusd': 'BINANCE:BTCUSDT',
+	'ethusd': 'BINANCE:ETHUSDT',
+	'solusd': 'BINANCE:SOLUSDT',
+	'xrpusd': 'BINANCE:XRPUSDT',
+	'bnbusd': 'BINANCE:BNBUSDT',
+	'adausd': 'BINANCE:ADAUSDT',
+	'dotusd': 'BINANCE:DOTUSDT',
+	'maticusd': 'BINANCE:MATICUSDT',
+	// Stocks
+	'aapl': 'NASDAQ:AAPL',
+	'apple': 'NASDAQ:AAPL',
+	'tsla': 'NASDAQ:TSLA',
+	'tesla': 'NASDAQ:TSLA',
+	'goog': 'NASDAQ:GOOG',
+	'googl': 'NASDAQ:GOOGL',
+	'google': 'NASDAQ:GOOG',
+	'msft': 'NASDAQ:MSFT',
+	'microsoft': 'NASDAQ:MSFT',
+	'nvda': 'NASDAQ:NVDA',
+	'nvidia': 'NASDAQ:NVDA',
+	'amzn': 'NASDAQ:AMZN',
+	'amazon': 'NASDAQ:AMZN',
+	'meta': 'NASDAQ:META',
+	'fb': 'NASDAQ:META',
+	'nflx': 'NASDAQ:NFLX',
+	'netflix': 'NASDAQ:NFLX',
+	// Indices
+	'tech100': 'NASDAQ:NDX',
+	'nasdaq': 'NASDAQ:NDX',
+	'usa500': 'SP:SPX',
+	'sp500': 'SP:SPX',
+	'usa30': 'DJ:DJI',
+	'dowjones': 'DJ:DJI',
+	// Futures
+	'esmain': 'CME_MINI:ES1!',
+	'nqmain': 'CME_MINI:NQ1!',
+	'ymmain': 'CBOT_MINI:YM1!',
+};
+
+// Get TradingView symbol or format it automatically
+const getTvSymbol = (sym: string | undefined): string => {
+	if (!sym) return 'BINANCE:BTCUSDT';
+	const lower = sym.toLowerCase();
+	if (symbolMap[lower]) return symbolMap[lower];
+	// Auto-format: assume it's a stock ticker
+	const upper = sym.toUpperCase();
+	return `NASDAQ:${upper}`;
+};
+
+const tvSymbol = getTvSymbol(symbol);
+---
+
+<BaseLayout>
+	<div class="symbol-detail-page min-h-screen py-20">
+		<!-- Header Section -->
+		<div class="container mx-auto px-4 mb-8">
+			<div class="symbol-header opacity-0">
+				<a href="/" class="text-white/60 hover:text-white transition-colors mb-4 inline-block">← Back to Home</a>
+				<h1 class="text-5xl md:text-6xl font-bold mb-4" id="symbol-name">{symbolUpper}</h1>
+				<div class="flex items-center gap-6 flex-wrap">
+					<div class="stat-item">
+						<div class="text-white/50 text-sm mb-1">Current Price</div>
+						<div class="text-3xl font-bold font-mono" data-symbol-price={symbol}>--</div>
+					</div>
+					<div class="stat-item">
+						<div class="text-white/50 text-sm mb-1">24h Change</div>
+						<div class="text-2xl font-bold font-mono" data-symbol-change={symbol}>--</div>
+					</div>
+					<div class="stat-item">
+						<div class="text-white/50 text-sm mb-1">Volume</div>
+						<div class="text-xl font-mono" data-symbol-volume={symbol}>--</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Stats Grid (OHLC + Spread) -->
+		<div class="container mx-auto px-4 mb-8">
+			<div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 opacity-0">
+				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+					<div class="text-white/50 text-xs mb-1">Open</div>
+					<div class="text-xl font-bold font-mono" data-symbol-open={symbol}>--</div>
+				</div>
+				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+					<div class="text-white/50 text-xs mb-1">High</div>
+					<div class="text-xl font-bold font-mono text-green-400" data-symbol-high={symbol}>--</div>
+				</div>
+				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+					<div class="text-white/50 text-xs mb-1">Low</div>
+					<div class="text-xl font-bold font-mono text-red-400" data-symbol-low={symbol}>--</div>
+				</div>
+				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+					<div class="text-white/50 text-xs mb-1">Spread</div>
+					<div class="text-xl font-bold font-mono" data-symbol-spread={symbol}>--</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Chart Section with border mask -->
+		<div class="container mx-auto px-4 mb-12">
+			<div class="chart-wrapper relative">
+				<div class="chart-container opacity-0" style="height: 600px;">
+					<div class="tradingview-widget-container" style="height:100%;width:100%">
+						<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+					</div>
+				</div>
+				<!-- Border mask overlays -->
+				<div class="chart-mask-top"></div>
+				<div class="chart-mask-bottom"></div>
+				<div class="chart-mask-left"></div>
+				<div class="chart-mask-right"></div>
+			</div>
+		</div>
+
+		<!-- Additional Info -->
+		<div class="container mx-auto px-4 mt-12">
+			<div class="info-section opacity-0 p-8 rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur">
+				<h2 class="text-2xl font-bold mb-4">Trading Information</h2>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<div>
+						<div class="text-white/70 mb-2">Symbol</div>
+						<div class="font-mono text-lg">{symbolUpper}</div>
+					</div>
+					<div>
+						<div class="text-white/70 mb-2">Market</div>
+						<div class="font-mono text-lg">ChainFlow BookView Router</div>
+					</div>
+					<div>
+						<div class="text-white/70 mb-2">Asset Type</div>
+						<div class="font-mono text-lg" data-symbol-type={symbol}>--</div>
+					</div>
+					<div>
+						<div class="text-white/70 mb-2">Bid</div>
+						<div class="font-mono text-lg" data-symbol-bid={symbol}>--</div>
+					</div>
+					<div>
+						<div class="text-white/70 mb-2">Ask</div>
+						<div class="font-mono text-lg" data-symbol-ask={symbol}>--</div>
+					</div>
+					<div>
+						<div class="text-white/70 mb-2">Lot Size</div>
+						<div class="font-mono text-lg" data-symbol-lotsize={symbol}>--</div>
+					</div>
+				</div>
+				
+				<!-- Lot Size Info Box -->
+				<div class="mt-6 p-4 rounded-lg bg-white/5 border border-white/10">
+					<div class="text-sm text-white/80" data-symbol-lotinfo={symbol}>
+						<strong>Lot Size Information:</strong><br/>
+						Loading...
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script define:vars={{ tvSymbol, symbol }}>
+		// Load TradingView widget
+		const script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+		script.async = true;
+		script.innerHTML = JSON.stringify({
+			autosize: true,
+			symbol: tvSymbol,
+			interval: "15",
+			timezone: "Etc/UTC",
+			theme: "dark",
+			style: "1",
+			locale: "en",
+			allow_symbol_change: false,
+			calendar: false,
+			details: false,
+			hide_side_toolbar: true,
+			hide_top_toolbar: true,
+			hide_legend: true,
+			hide_volume: false,
+			hotlist: false,
+			save_image: false,
+			backgroundColor: "rgba(0, 0, 0, 1)",
+			gridColor: "rgba(0, 0, 0, 0)",
+			border_color: "rgba(0, 0, 0, 0)",
+			watchlist: [],
+			withdateranges: false,
+			compareSymbols: [],
+			studies: []
+		});
+		document.querySelector('.tradingview-widget-container__widget')?.appendChild(script);
+	</script>
+
+	<script>
+		import { gsap } from "gsap";
+		import { ScrollTrigger } from "gsap/ScrollTrigger";
+		
+		gsap.registerPlugin(ScrollTrigger);
+
+		const API_URL = import.meta.env.PUBLIC_API_URL || '';
+		const symbolParam = window.location.pathname.split('/').pop() || 'btcusd';
+
+		async function fetchSymbolData() {
+			try {
+				const controller = new AbortController();
+				const timeoutId = setTimeout(() => controller.abort(), 10000);
+				
+				const res = await fetch(`${API_URL}/api/v1/quotes?symbols=${symbolParam}`, {
+					signal: controller.signal
+				});
+				clearTimeout(timeoutId);
+				
+				if (!res.ok) throw new Error(`HTTP ${res.status}`);
+				
+				const data = await res.json();
+				const quote = data[symbolParam];
+				
+				if (quote) {
+					const last = quote.last ?? quote.close ?? quote.bid;
+					const open = quote.open;
+					const high = quote.high;
+					const low = quote.low;
+					const bid = quote.bid;
+					const ask = quote.ask;
+					
+					// Update price
+					const priceEl = document.querySelector(`[data-symbol-price="${symbolParam}"]`);
+					if (priceEl && last) {
+						priceEl.textContent = `$${last.toFixed(2)}`;
+					}
+					
+					// Update change
+					const changeEl = document.querySelector(`[data-symbol-change="${symbolParam}"]`);
+					if (changeEl && last && open) {
+						const change = ((last - open) / open * 100);
+						changeEl.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+						changeEl.classList.add(change >= 0 ? 'text-green-400' : 'text-red-400');
+					}
+					
+					// Update volume
+					const volumeEl = document.querySelector(`[data-symbol-volume="${symbolParam}"]`);
+					if (volumeEl && quote.volume) {
+						const vol = quote.volume > 1000000 
+							? `${(quote.volume / 1000000).toFixed(1)}M` 
+							: `${(quote.volume / 1000).toFixed(0)}K`;
+						volumeEl.textContent = vol;
+					}
+					
+					// Update OHLC
+					if (open) document.querySelector(`[data-symbol-open="${symbolParam}"]`)!.textContent = `$${open.toFixed(2)}`;
+					if (high) document.querySelector(`[data-symbol-high="${symbolParam}"]`)!.textContent = `$${high.toFixed(2)}`;
+					if (low) document.querySelector(`[data-symbol-low="${symbolParam}"]`)!.textContent = `$${low.toFixed(2)}`;
+					
+					// Update spread
+					if (bid && ask) {
+						const spread = ask - bid;
+						document.querySelector(`[data-symbol-spread="${symbolParam}"]`)!.textContent = `$${spread.toFixed(2)}`;
+					}
+					
+					// Update bid/ask
+					if (bid) document.querySelector(`[data-symbol-bid="${symbolParam}"]`)!.textContent = `$${bid.toFixed(2)}`;
+					if (ask) document.querySelector(`[data-symbol-ask="${symbolParam}"]`)!.textContent = `$${ask.toFixed(2)}`;
+					
+					// Determine asset type and lot size
+					const cryptoSymbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'dotusd', 'maticusd'];
+					const indexSymbols = ['tech100', 'usa500', 'usa30', 'sp500', 'nasdaq', 'dowjones'];
+					const futuresSymbols = ['esmain', 'nqmain', 'ymmain'];
+					
+					let assetType = '';
+					let lotSize = '';
+					let lotInfo = '';
+					
+					if (cryptoSymbols.includes(symbolParam.toLowerCase())) {
+						assetType = 'Cryptocurrency';
+						lotSize = '1 mClust';
+						lotInfo = '<strong>Crypto Lot Sizing:</strong><br/>' +
+								 '• Trade in <span class="text-blue-400">mClusts</span> (mini Clusts)<br/>' +
+								 '• 1 mClust = <span class="text-green-400">10 Units</span> of the Underlying<br/>' +
+								 '• 1 point (or Dollar) = <span class="text-green-400">$10 per mClust</span><br/>' +
+								 '• Example: 0.1 mClust BTC = 1 Bitcoin<br/>' +
+								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
+					} else if (indexSymbols.includes(symbolParam.toLowerCase())) {
+						assetType = 'Index';
+						lotSize = '1 mClust';
+						lotInfo = '<strong>Index Lot Sizing:</strong><br/>' +
+								 '• Trade in <span class="text-blue-400">mClusts</span> (mini Clusts)<br/>' +
+								 '• 1 mClust = <span class="text-green-400">10 Units</span> of the Underlying<br/>' +
+								 '• 1 point (or Dollar) = <span class="text-green-400">$10 per mClust</span><br/>' +
+								 '• Perfect for trading major indices<br/>' +
+								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
+					} else if (futuresSymbols.includes(symbolParam.toLowerCase())) {
+						assetType = 'Futures';
+						lotSize = '1 mClust';
+						lotInfo = '<strong>Futures Lot Sizing:</strong><br/>' +
+								 '• Trade in <span class="text-blue-400">mClusts</span> (mini Clusts)<br/>' +
+								 '• 1 mClust = <span class="text-green-400">10 Units</span> of the Underlying<br/>' +
+								 '• 1 point (or Dollar) = <span class="text-green-400">$10 per mClust</span><br/>' +
+								 '• Direct futures market access<br/>' +
+								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
+					} else {
+						// Stocks, Forex, Commodities - everything else
+						assetType = 'Stock / Forex / Commodity';
+						lotSize = '1 Clust';
+						lotInfo = '<strong>Standard Lot Sizing:</strong><br/>' +
+								 '• Trade in <span class="text-purple-400">Clusts</span><br/>' +
+								 '• 1 Clust = <span class="text-green-400">500 Units</span> of the Underlying<br/>' +
+								 '• 1 point (or Dollar) = <span class="text-green-400">$500 per Clust</span><br/>' +
+								 '• Example: 0.5 Clust AAPL = 250 shares<br/>' +
+								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
+					}
+					
+					// Update asset type
+					const typeEl = document.querySelector(`[data-symbol-type="${symbolParam}"]`);
+					if (typeEl) typeEl.textContent = assetType;
+					
+					// Update lot size
+					const lotsizeEl = document.querySelector(`[data-symbol-lotsize="${symbolParam}"]`);
+					if (lotsizeEl) lotsizeEl.textContent = lotSize;
+					
+					// Update lot info
+					const lotinfoEl = document.querySelector(`[data-symbol-lotinfo="${symbolParam}"]`);
+					if (lotinfoEl) lotinfoEl.innerHTML = lotInfo;
+				}
+			} catch (error) {
+				console.error('Failed to fetch symbol data:', error);
+			}
+		}
+
+		function initAnimations() {
+			// Header fade in with slide up
+			gsap.from('.symbol-header', {
+				duration: 1,
+				opacity: 0,
+				y: 50,
+				ease: 'power3.out'
+			});
+			
+			// Chart container with fade and scale effect
+			gsap.from('.chart-container', {
+				duration: 1.2,
+				opacity: 0,
+				scale: 0.98,
+				ease: 'power3.out',
+				delay: 0.3,
+				onComplete: () => {
+					gsap.to('.chart-container', {
+						opacity: 1,
+						duration: 0.1
+					});
+				}
+			});
+			
+			// Stats grid with stagger (OHLC appears before chart)
+			gsap.from('.stat-card', {
+				duration: 0.8,
+				opacity: 0,
+				y: 20,
+				stagger: 0.08,
+				ease: 'back.out(1.7)',
+				delay: 0.5,
+				onStart: () => {
+					gsap.to('.stats-grid', { opacity: 1, duration: 0.1 });
+				}
+			});
+			
+			// Info section with rotation
+			gsap.from('.info-section', {
+				duration: 1,
+				opacity: 0,
+				rotationX: -15,
+				transformOrigin: 'center top',
+				ease: 'power3.out',
+				delay: 0.9,
+				onComplete: () => {
+					gsap.to('.info-section', {
+						opacity: 1,
+						duration: 0.1
+					});
+				}
+			});
+			
+			// Pulsing animation on price
+			gsap.to('[data-symbol-price]', {
+				scale: 1.05,
+				duration: 0.5,
+				repeat: -1,
+				yoyo: true,
+				ease: 'sine.inOut'
+			});
+		}
+
+		// Initialize
+		fetchSymbolData();
+		setInterval(fetchSymbolData, 5000);
+		
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initAnimations);
+		} else {
+			initAnimations();
+		}
+	</script>
+
+	<style>
+		.chart-wrapper {
+			position: relative;
+			overflow: hidden;
+		}
+		
+		.chart-container {
+			position: relative;
+			background: transparent;
+		}
+		
+		/* Hide TradingView borders and blend seamlessly */
+		.tradingview-widget-container {
+			background: transparent !important;
+		}
+		
+		.tradingview-widget-container iframe {
+			border: none !important;
+			outline: none !important;
+			box-shadow: none !important;
+		}
+		
+		/* Hide the widget's internal borders */
+		.tradingview-widget-container__widget {
+			background: transparent !important;
+		}
+		
+		/* Override any TradingView border styles */
+		:global(.tradingview-widget-container *) {
+			border-color: transparent !important;
+		}
+		
+		/* Border mask overlays with gradient to hide chart edges */
+		.chart-mask-top,
+		.chart-mask-bottom,
+		.chart-mask-left,
+		.chart-mask-right {
+			position: absolute;
+			pointer-events: none;
+			z-index: 10;
+		}
+		
+		.chart-mask-top {
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 30px;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		}
+		
+		.chart-mask-bottom {
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 30px;
+			background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		}
+		
+		.chart-mask-left {
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 20px;
+			background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		}
+		
+		.chart-mask-right {
+			top: 0;
+			right: 0;
+			bottom: 0;
+			width: 20px;
+			background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+		}
+		
+		.stat-item {
+			position: relative;
+			padding-left: 1rem;
+			border-left: 2px solid rgba(255, 255, 255, 0.1);
+		}
+		
+		.stat-card {
+			transition: transform 0.2s ease, border-color 0.3s ease;
+		}
+		
+		.stat-card:hover {
+			transform: translateY(-4px);
+			border-color: rgba(255, 255, 255, 0.2);
+		}
+	</style>
+</BaseLayout>

@@ -1,0 +1,251 @@
+---
+// Trading Statistics with animated SVGs
+---
+
+<div class="section gap-y-10 py-20 bg-gradient-to-b from-transparent to-white/5">
+	<div class="col-span-full text-center px-4 mb-8">
+		<h2 class="text-3xl md:text-4xl font-bold">Trade with Confidence</h2>
+	</div>
+
+	<div class="col-span-full px-4">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+			<!-- Stat 1: Total Market Cap (Live from Webull) -->
+			<div class="stat-card text-center p-8 rounded-xl border border-white/10 bg-white/5">
+				<svg class="stat-icon w-16 h-16 mx-auto mb-4" viewBox="0 0 100 100" fill="none">
+					<circle class="circle-bg" cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/>
+					<circle id="circle-progress-1" cx="50" cy="50" r="45" stroke="#10b981" stroke-width="4" fill="none" 
+						stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round" 
+						transform="rotate(-90 50 50)"/>
+				</svg>
+				<h3 class="text-2xl font-bold mb-2 font-mono" id="total-market-cap">--</h3>
+				<p class="text-white/60 text-sm">Total Market Cap (Top Stocks)</p>
+			</div>
+
+			<!-- Stat 2: 24h Trading Volume (Live from Webull) -->
+			<div class="stat-card text-center p-8 rounded-xl border border-white/10 bg-white/5">
+				<svg class="stat-icon w-16 h-16 mx-auto mb-4" viewBox="0 0 100 100" fill="none">
+					<path id="pulse-line" d="M10,50 L25,50 L30,30 L40,70 L50,20 L60,60 L70,40 L90,50" 
+						stroke="#3b82f6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"
+						stroke-dasharray="200" stroke-dashoffset="200"/>
+					<circle id="pulse-dot" cx="90" cy="50" r="4" fill="#3b82f6" opacity="0"/>
+				</svg>
+				<h3 class="text-2xl font-bold mb-2 font-mono" id="total-volume">--</h3>
+				<p class="text-white/60 text-sm">24h Trading Volume</p>
+			</div>
+
+			<!-- Stat 3: Active Traders -->
+			<div class="stat-card text-center p-8 rounded-xl border border-white/10 bg-white/5">
+				<svg class="stat-icon w-16 h-16 mx-auto mb-4" viewBox="0 0 100 100" fill="none">
+					<g id="speed-meter">
+						<path d="M20,70 A40,40 0 1,1 80,70" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/>
+						<path id="speed-arc" d="M20,70 A40,40 0 0,1 80,70" stroke="#f59e0b" stroke-width="4" fill="none" 
+							stroke-linecap="round" stroke-dasharray="126" stroke-dashoffset="126"/>
+						<line id="speed-needle" x1="50" y1="70" x2="50" y2="35" stroke="white" stroke-width="2" 
+							transform="rotate(-90 50 70)"/>
+					</g>
+				</svg>
+				<h3 class="text-2xl font-bold mb-2" id="avg-pe">--</h3>
+				<p class="text-white/60 text-sm">Average P/E Ratio (Top 6)</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Blockchain verification graphic -->
+	<div class="col-span-full px-4 mt-16">
+		<div class="max-w-4xl mx-auto">
+			<svg class="w-full h-32" viewBox="0 0 800 120" fill="none">
+				<defs>
+					<linearGradient id="blockGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+						<stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+						<stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.3" />
+					</linearGradient>
+				</defs>
+				
+				<!-- Blockchain blocks -->
+				{[...Array(7)].map((_, i) => (
+					<g class="blockchain-block" data-index={i} opacity="0">
+						<rect x={i * 110 + 20} y="30" width="80" height="60" rx="4" 
+							fill="url(#blockGradient)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+						<circle cx={i * 110 + 60} cy="60" r="8" fill="#10b981" opacity="0.5"/>
+						{i < 6 && (
+							<line class="block-connector" x1={i * 110 + 100} y1="60" x2={i * 110 + 130} y2="60" 
+								stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="30" 
+								stroke-dashoffset="30"/>
+						)}
+					</g>
+				))}
+			</svg>
+			<p class="text-center text-white/60 text-sm mt-4">All trades verified on-chain with complete transparency</p>
+		</div>
+	</div>
+</div>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+	
+	gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+
+	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+	
+	async function updateWebullStats() {
+		try {
+			const symbols = ['aapl', 'msft', 'nvda', 'tsla', 'goog', 'amzn'];
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 10000);
+			
+			const res = await fetch(`${API_URL}/api/v1/display?symbols=${symbols.join(',')}`, {
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			
+			if (!res.ok) {
+				throw new Error(`HTTP ${res.status}`);
+			}
+			
+			const data = await res.json();
+			console.log('Webull stats data:', data);
+			
+			// Calculate total market cap
+			let totalMarketCap = 0;
+			let totalVolume = 0;
+			let totalPE = 0;
+			let peCount = 0;
+			
+			for (const symbol of symbols) {
+				const quote = data[symbol];
+				if (!quote) continue;
+				
+				if (quote.marketValue) {
+					totalMarketCap += parseFloat(quote.marketValue);
+				}
+				
+				if (quote.volume) {
+					totalVolume += parseFloat(quote.volume);
+				}
+				
+				if (quote.pe && quote.pe > 0 && quote.pe < 1000) {
+					totalPE += parseFloat(quote.pe);
+					peCount++;
+				}
+			}
+			
+			// Update market cap
+			const mcapEl = document.getElementById('total-market-cap');
+			if (mcapEl && totalMarketCap > 0) {
+				if (totalMarketCap > 1000000000000) {
+					mcapEl.textContent = `$${(totalMarketCap / 1000000000000).toFixed(2)}T`;
+				} else if (totalMarketCap > 1000000000) {
+					mcapEl.textContent = `$${(totalMarketCap / 1000000000).toFixed(2)}B`;
+				}
+			}
+			
+			// Update volume
+			const volEl = document.getElementById('total-volume');
+			if (volEl && totalVolume > 0) {
+				if (totalVolume > 1000000000) {
+					volEl.textContent = `${(totalVolume / 1000000000).toFixed(2)}B`;
+				} else if (totalVolume > 1000000) {
+					volEl.textContent = `${(totalVolume / 1000000).toFixed(1)}M`;
+				}
+			}
+			
+			// Update average P/E
+			const peEl = document.getElementById('avg-pe');
+			if (peEl && peCount > 0) {
+				const avgPE = totalPE / peCount;
+				peEl.textContent = avgPE.toFixed(1);
+			}
+		} catch (error) {
+			console.error('Failed to fetch Webull stats:', error);
+		}
+	}
+
+	function init() {
+		// Fetch and update Webull stats
+		updateWebullStats();
+		setInterval(updateWebullStats, 10000); // Update every 10 seconds
+		// Animate circular progress for stat 1
+		gsap.to("#circle-progress-1", {
+			scrollTrigger: {
+				trigger: ".stat-card",
+				start: "top 80%",
+				toggleActions: "play none none reverse",
+			},
+			strokeDashoffset: 0,
+			duration: 2,
+			ease: "power2.out",
+		});
+
+		// Animate pulse line for stat 2
+		const pulseTl = gsap.timeline({
+			scrollTrigger: {
+				trigger: ".stat-card",
+				start: "top 80%",
+			},
+			repeat: -1,
+		});
+		
+		pulseTl
+			.to("#pulse-line", { strokeDashoffset: 0, duration: 2, ease: "none" })
+			.to("#pulse-dot", { opacity: 1, duration: 0.1 }, "-=0.5")
+			.to("#pulse-dot", { opacity: 0, duration: 0.3 }, "+=0.2")
+			.to("#pulse-line", { strokeDashoffset: -200, duration: 1, ease: "none" });
+
+		// Animate speed meter for stat 3
+		gsap.to("#speed-arc", {
+			scrollTrigger: {
+				trigger: ".stat-card",
+				start: "top 80%",
+				toggleActions: "play none none reverse",
+			},
+			strokeDashoffset: 0,
+			duration: 1.5,
+			ease: "power2.out",
+		});
+
+		gsap.to("#speed-needle", {
+			scrollTrigger: {
+				trigger: ".stat-card",
+				start: "top 80%",
+				toggleActions: "play none none reverse",
+			},
+			rotation: 90,
+			duration: 1.5,
+			ease: "elastic.out(1, 0.5)",
+			transformOrigin: "50% 70%",
+		});
+
+		// Animate blockchain blocks
+		gsap.from(".blockchain-block", {
+			scrollTrigger: {
+				trigger: ".blockchain-block",
+				start: "top 90%",
+				toggleActions: "play none none reverse",
+			},
+			opacity: 0,
+			y: 20,
+			stagger: 0.15,
+			duration: 0.6,
+		});
+
+		// Animate connectors
+		gsap.to(".block-connector", {
+			scrollTrigger: {
+				trigger: ".blockchain-block",
+				start: "top 90%",
+			},
+			strokeDashoffset: 0,
+			stagger: 0.15,
+			duration: 0.4,
+			delay: 0.3,
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+</script>

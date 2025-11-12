@@ -1,0 +1,25 @@
+---
+interface Props {
+	title: string;
+	subtitle: string;
+	class?: string;
+	center?: boolean;
+}
+
+const { title, subtitle, class: className, center = true } = Astro.props;
+---
+
+<div class:list={[`flex ${center ? "justify-center" : ""}`, className]}>
+	<div class={`inline-flex flex-col justify-center gap-4 ${center ? "items-center text-center" : ""}`}>
+		<div class={`inline-flex items-center ${center ? " justify-center" : ""}`}>
+			<span class="font-mono text-xs font-semibold uppercase tracking-wide" set:html={subtitle} />
+		</div>
+		<h1 class="font-display text-5xl font-extrabold sm:text-6xl md:text-7xl xl:text-9xl">{title}</h1>
+	</div>
+</div>
+
+<style>
+	h1 {
+		word-break: break-word;
+	}
+</style>

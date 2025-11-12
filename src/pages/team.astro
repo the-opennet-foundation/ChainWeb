@@ -1,0 +1,56 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-32">
+		<div class="container mx-auto px-4">
+			<div class="max-w-6xl mx-auto">
+				<div class="text-center mb-16">
+					<h1 class="text-5xl md:text-6xl font-bold mb-6">Our Team</h1>
+					<p class="text-xl text-white/70 max-w-3xl mx-auto">
+						Meet the traders, developers, and blockchain experts building the future of prop trading.
+					</p>
+				</div>
+
+				<!-- Team Grid -->
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+					<!-- Team Member Card Template -->
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+						<div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10"></div>
+						<h3 class="text-xl font-bold mb-1">Team Member</h3>
+						<p class="text-sm text-white/50 mb-3">Position</p>
+						<p class="text-sm text-white/70">Brief bio and background information.</p>
+					</div>
+
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+						<div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-white/10"></div>
+						<h3 class="text-xl font-bold mb-1">Team Member</h3>
+						<p class="text-sm text-white/50 mb-3">Position</p>
+						<p class="text-sm text-white/70">Brief bio and background information.</p>
+					</div>
+
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+						<div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-white/10"></div>
+						<h3 class="text-xl font-bold mb-1">Team Member</h3>
+						<p class="text-sm text-white/50 mb-3">Position</p>
+						<p class="text-sm text-white/70">Brief bio and background information.</p>
+					</div>
+				</div>
+
+				<!-- Join Us CTA -->
+				<div class="text-center p-8 rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent">
+					<h2 class="text-3xl font-bold mb-4">Join Our Team</h2>
+					<p class="text-white/70 mb-6 max-w-2xl mx-auto">
+						We're always looking for talented individuals who are passionate about trading, blockchain, and building innovative financial technology.
+					</p>
+					<a href="/careers" class="inline-block px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+						View Open Positions
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

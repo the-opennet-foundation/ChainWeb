@@ -1,0 +1,96 @@
+---
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+
+const { class: className } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<!-- The best thing? It's all in one -->
+<div id="majestico-motto" class:list={["section motto-section gap-y-20 py-20 text-xl md:text-2xl", className]}>
+	<div id="scramble-text-subtitle" class="scramble-text col-span-full col-start-1 break-words px-4 font-mono sm:col-span-1 sm:col-start-2">
+		{t("hero.subtitle")}
+	</div>
+	<div
+		id="scramble-text-tagline"
+		class="scramble-text col-span-full col-start-1 row-start-2 break-words px-4 font-mono sm:col-span-1 sm:col-start-3">
+		{t("tagline")}
+	</div>
+</div>
+
+<style></style>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+	import { SplitText } from "gsap/SplitText";
+
+	gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, SplitText);
+
+	function init() {
+		var scrambleSubtitleText = new SplitText("#scramble-text-subtitle", { type: "words" });
+		var scrambleTaglineText = new SplitText("#scramble-text-tagline", { type: "words" });
+
+		var subtitleTl = gsap.timeline({
+			defaults: { duration: 1, ease: "none" },
+			scrollTrigger: {
+				trigger: "#scramble-text-subtitle",
+				start: "start bottom",
+				end: "center 80%",
+				toggleActions: "play none resume reset",
+				markers: false,
+			},
+		});
+
+		scrambleSubtitleText.words.forEach((word) => {
+			subtitleTl.from(
+				word,
+				{
+					duration: 0.5,
+					scrambleText: {
+						text: "{original}",
+						chars: "lowerCase",
+						revealDelay: 0.5,
+						speed: 0.5,
+						tweenLength: false,
+					},
+				},
+				0,
+			);
+		});
+
+		var taglineTl = gsap.timeline({
+			defaults: { duration: 1, ease: "none" },
+			scrollTrigger: {
+				trigger: "#scramble-text-tagline",
+				start: "start bottom",
+				end: "center 80%",
+				toggleActions: "play none resume reset",
+				markers: false,
+			},
+		});
+
+		scrambleTaglineText.words.forEach((word) => {
+			taglineTl.from(
+				word,
+				{
+					duration: 0.5,
+					scrambleText: {
+						text: "{original}",
+						chars: "lowerCase",
+						revealDelay: 0.5,
+						speed: 0.5,
+						tweenLength: false,
+					},
+				},
+				0,
+			);
+		});
+	}
+
+	document.removeEventListener("DOMContentLoaded", init); // astro:page-load
+	document.addEventListener("DOMContentLoaded", init); // astro:page-load
+</script>

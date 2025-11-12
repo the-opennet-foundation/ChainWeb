@@ -1,0 +1,143 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import yourProjectImage from "@assets/images/projects/yourProject.png";
+import WokCard from "@components/work/WokCard.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const { class: className } = Astro.props;
+
+const steps = [10, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96];
+
+const randomSteps = (minStep: number, maxStep: number) => {
+	// Filter the steps array to include only values within the specified range
+	const filteredSteps = steps.filter((step) => step >= minStep && step <= maxStep);
+
+	// Generate a random index within the range of the filteredSteps array
+	const randomIndex = Math.floor(Math.random() * filteredSteps.length);
+
+	// Return the step at the random index
+	return filteredSteps[randomIndex];
+};
+
+const possiblePositions = [
+	{
+		column: 1,
+		row: 1,
+		translateY: 40,
+	},
+	{
+		column: 3,
+		row: 2,
+		translateY: randomSteps(60, 80),
+	},
+	{
+		column: 2,
+		row: 3,
+		translateY: randomSteps(40, 80),
+	},
+	{
+		column: 1,
+		row: 4,
+		translateY: randomSteps(20, 40),
+	},
+	{
+		column: 3,
+		row: 5,
+		translateY: randomSteps(20, 80),
+	},
+	{
+		column: 2,
+		row: 6,
+		translateY: randomSteps(60, 96),
+	},
+];
+
+const allProjects = (await getCollection("projects"))
+	.filter((prj) => {
+		const [postLang, ...slug] = prj.slug.split("/");
+		return postLang === lang;
+	})
+	.map((prj) => {
+		const [postLang, slug] = prj.slug.split("/");
+
+		return {
+			...prj,
+			slug: slug,
+		};
+	})
+	.sort((a, b) => Number(a.data.order) - Number(b.data.order));
+---
+
+<section id="projects" class:list={["work-preview-section py-12", className]}>
+	<h2 class="sr-only">{t("projects")}</h2>
+	<ol class="grid auto-rows-auto grid-cols-1 grid-rows-3 justify-start gap-10 gap-y-48 px-5 md:grid-cols-4">
+		{
+			allProjects.map((project, index) => (
+				<WokCard
+					image={project.data.image?.source}
+					video={project.data.video}
+					project={project.data.title}
+					link={`/work/${project.slug}`}
+					class:list={[
+						possiblePositions[index]
+							? `col-span-full col-start-1 translate-y-40 md:col-span-2 md:translate-y-${possiblePositions[index].translateY} md:col-start-${possiblePositions[index].column} md:row-start-${possiblePositions[index].row}`
+							: "",
+					]}
+				/>
+			))
+		}
+	</ol>
+</section>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	function init() {
+		const projects = gsap.utils.toArray(".work-preview-section ol li") as gsap.DOMTarget[];
+
+		if (window.innerWidth >= 768) {
+			projects.forEach((project) => {
+				gsap.to(project, {
+					scrollTrigger: {
+						trigger: project,
+						start: "top bottom",
+						end: "bottom top",
+						scrub: 1,
+						markers: false,
+					},
+					ease: "none",
+					y: () => {
+						let min = 10;
+						let max = 20;
+						return `-=${Math.floor(Math.random() * (max - min + 1)) + min}rem`;
+					},
+				});
+			});
+		} else {
+			projects.forEach((project) => {
+				gsap.to(project, {
+					scrollTrigger: {
+						trigger: project,
+						start: "top-=50% bottom",
+						end: "top+=20% bottom",
+						scrub: 1,
+						markers: false,
+					},
+					ease: "back.out(2)",
+					y: "-=10rem",
+				});
+			});
+		}
+	}
+
+	document.removeEventListener("DOMContentLoaded", init); // astro:page-load
+	document.addEventListener("DOMContentLoaded", init); // astro:page-load
+</script>

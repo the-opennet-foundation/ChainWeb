@@ -1,0 +1,135 @@
+---
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
+---
+
+<footer class="relative flex min-h-screen w-full flex-col gap-y-10 font-mono uppercase">
+	<div class="relative flex-grow"></div>
+	<div class="container mx-auto px-4 py-12">
+		<!-- Logo and Brand -->
+		<div class="flex items-center gap-3 mb-8">
+			<img src="/Logo.svg" alt="ChainFlow Logo" class="h-12 w-12" />
+			<span class="text-2xl font-bold">ChainFlow</span>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+			<!-- Resources -->
+			<div>
+				<h3 class="font-bold text-lg mb-4">Resources</h3>
+				<div class="flex flex-col gap-2 text-sm">
+					<a href="https://tradeflow.paxeer.app/" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors">TradeFlow Academy</a>
+					<a href="https://tradeflow.paxeer.app/" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors">Free Market Analysis</a>
+					<a href="https://dashboard.paxeer.app/support" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors">Help Center</a>
+					<a href="https://dashboard.paxeer.app/support" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors">Contact Support</a>
+					<a href="https://t.me/paxeer" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors">Community</a>
+				</div>
+			</div>
+
+			<!-- News & Updates -->
+			<div>
+				<h3 class="font-bold text-lg mb-4">News & Updates</h3>
+				<div class="flex flex-col gap-2 text-sm">
+					<a href={translatePath("/status")} class="text-white/70 hover:text-white transition-colors">Status Updates</a>
+					<a href={translatePath("/calendar")} class="text-white/70 hover:text-white transition-colors">Economic Calendar</a>
+					<a href={translatePath("/newsletter")} class="text-white/70 hover:text-white transition-colors">Newsletter</a>
+					<a href={translatePath("/blog")} class="text-white/70 hover:text-white transition-colors">Blog</a>
+					<a href="https://dashboard.paxeer.app/referral" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors">Referral Program</a>
+				</div>
+			</div>
+
+			<!-- About -->
+			<div>
+				<h3 class="font-bold text-lg mb-4">About</h3>
+				<div class="flex flex-col gap-2 text-sm">
+					<a href={translatePath("/about")} class="text-white/70 hover:text-white transition-colors">About Us</a>
+					<a href={translatePath("/team")} class="text-white/70 hover:text-white transition-colors">Our Team</a>
+					<a href={translatePath("/careers")} class="text-white/70 hover:text-white transition-colors">Current Openings</a>
+				</div>
+			</div>
+
+			<!-- Legal -->
+			<div>
+				<h3 class="font-bold text-lg mb-4">Legal</h3>
+				<div class="flex flex-col gap-2 text-sm">
+					<a href={translatePath("/privacy")} class="text-white/70 hover:text-white transition-colors">Privacy Policy</a>
+					<a href={translatePath("/terms")} class="text-white/70 hover:text-white transition-colors">Terms of Use</a>
+					<a href={translatePath("/disclosures")} class="text-white/70 hover:text-white transition-colors">Disclosures & Notices</a>
+					<a href={translatePath("/cookies")} class="text-white/70 hover:text-white transition-colors">Manage Cookie Preferences</a>
+					<a href={translatePath("/do-not-sell")} class="text-white/70 hover:text-white transition-colors text-xs">DO NOT SELL OR SHARE MY PERSONAL INFORMATION</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Comprehensive Disclaimer -->
+		<div class="border-t border-white/10 pt-8 mb-8">
+			<div class="max-w-6xl text-xs text-white/50 space-y-4 normal-case leading-relaxed">
+				<p class="font-bold text-white/70 text-sm uppercase">Not a Deposit | Not FDIC Insured | May Lose Value | Not Regulated by SEC or CFTC</p>
+				
+				<p><strong class="text-white/70">ChainFlow Disclaimer:</strong> ChainFlow and its affiliates, including Paxeer Foundation, PaxLabs Inc, OpenLabs Inc, OpenNet LTD, The OpenNetwork Foundation, and TradeFlow LTD (collectively, "ChainFlow"), provide information on this website for general informational purposes only. Testimonials appearing on ChainFlow's websites may not be representative of other clients or customers and are not a guarantee of future performance or success. Use of the information on ChainFlow's websites is at your own risk and ChainFlow and its partners, representatives, agents, employees, and contractors assume no responsibility or liability for any use or misuse of such information. ChainFlow does not provide tax, legal, investment, or accounting advice. You should consult your own advisors before engaging in any transaction.</p>
+				
+				<p><strong class="text-white/70">Risk Disclosure:</strong> Trading virtual and on-chain assets involves substantial risk of loss. All investments involve risk, and not all risks are suitable for every investor. The value of investments may fluctuate significantly and as a result, traders may lose more than their original capital allocation. The past performance of any trading strategy, asset, or trader does not guarantee future results or returns. Blockchain-based transactions are irreversible and may be subject to network congestion, smart contract vulnerabilities, and other technical risks. Please carefully consider whether trading is appropriate for you in light of your personal financial circumstances. You should only use funds that you can afford to lose without affecting your financial security or lifestyle, and only a portion of those funds should be allocated to any single trade because you cannot expect to profit on every trade.</p>
+				
+				<p class="uppercase"><strong class="text-white/70">NOTHING CONTAINED IN THIS WEBSITE CONSTITUTES INVESTMENT ADVICE, NOR DOES IT CONSTITUTE THE SOLICITATION, ENDORSEMENT, OR RECOMMENDATION OF THE PURCHASE OR SALE OF ANY SECURITIES, CRYPTOCURRENCIES, DERIVATIVES, OR OTHER FINANCIAL PRODUCTS. THE WEBSITE CONTENT IS FOR GENERAL INFORMATION ONLY AND SHOULD NOT BE REGARDED AS CONSTITUTING AN OFFER, SOLICITATION, ENDORSEMENT, OR RECOMMENDATION TO BUY OR SELL ANY FINANCIAL PRODUCT AND SHOULD NOT BE REGARDED AS INVESTMENT ADVICE.</strong></p>
+				
+				<p><strong class="text-white/70">On-Chain Prop Firm Structure:</strong> ChainFlow operates as a fully on-chain proprietary trading firm. Trading capital is provided through Community and Partner funded Liquidity Pools (LPs). ChainFlow does not charge evaluation fees, monthly fees, or platform fees. ChainFlow does not hold, custody, or have direct access to user assets. All funded accounts operate through smart contracts on blockchain networks, providing transparent, immutable records of all trading activity. Traders maintain non-custodial control of their allocated capital within the parameters of the trading agreement.</p>
+				
+				<p><strong class="text-white/70">Available Trading Instruments:</strong> ChainFlow traders may have access to various asset classes depending on their account level and platform integration, including but not limited to: cryptocurrencies (spot and perpetual contracts), tokenized stocks and indices, commodities, forex pairs, and other blockchain-based financial instruments. The availability of specific instruments may vary by jurisdiction and is subject to change. Traders are prohibited from engaging in wash trading, spoofing, layering, or any form of market manipulation. ChainFlow reserves the right to review all trading activity for compliance.</p>
+				
+				<p><strong class="text-white/70">Evaluation Process Disclaimer:</strong> ChainFlow's evaluation process is designed to assess trading skill, risk management, and consistency. Evaluations may include both simulated and live trading environments on blockchain networks. Simulated performance results have certain limitations. Unlike actual performance records, simulated results do not represent actual trading and may have under- or over-compensated for certain market factors such as liquidity constraints, slippage, or network congestion. Simulated trading programs are designed with the benefit of hindsight. Simulated trading does not involve financial risk in the same manner as live trading, and no simulated trading record can completely account for the psychological impact of actual capital at risk. No representation is being made that any account will or is likely to achieve profit or losses similar to those shown in simulations or past performance data.</p>
+				
+				<p><strong class="text-white/70">Blockchain and Smart Contract Risks:</strong> Trading on blockchain networks involves unique risks including but not limited to: smart contract bugs or vulnerabilities, blockchain network congestion or downtime, irreversible transactions, private key loss or theft, oracle failures, MEV (Miner Extractable Value) attacks, and regulatory uncertainty. ChainFlow conducts security audits of smart contracts but cannot guarantee absolute security. Users are responsible for securing their own wallets, private keys, and authentication credentials. ChainFlow is not liable for losses resulting from blockchain network issues, smart contract failures, or user security breaches.</p>
+				
+				<p><strong class="text-white/70">Prohibited Conduct:</strong> To promote responsible trading and maintain platform integrity, all trading activity is subject to review by ChainFlow's Risk and Compliance Teams. Prohibited Conduct includes but is not limited to: exploiting system vulnerabilities, wash trading, spoofing, layering, using unauthorized trading bots or automation, sharing accounts, coordinating with other traders to manipulate results, or any activity that violates the spirit of fair trading evaluation. If ChainFlow identifies Prohibited Conduct, it reserves the right to: invalidate trades, forfeit profits, reset or terminate accounts, suspend or permanently ban traders from the platform, and pursue legal remedies where applicable. All determinations are made at ChainFlow's sole discretion.</p>
+				
+				<p><strong class="text-white/70">No Custody or Asset Holding:</strong> ChainFlow does not hold, custody, or have access to user funds outside of allocated trading capital within smart contracts. Traders retain self-custody of their personal assets. Trading capital allocations are provided through decentralized liquidity pools and governed by transparent smart contracts. All profit distributions are processed on-chain and subject to the terms of each specific trading agreement. ChainFlow cannot reverse, modify, or interfere with on-chain transactions once confirmed.</p>
+				
+				<p><strong class="text-white/70">Market Data and System Risks:</strong> Market data, price feeds, and similar information are provided by third-party oracles and data providers. ChainFlow does not prepare, edit, or guarantee the accuracy of market data and makes no representations or warranties about its accuracy, completeness, or timeliness. ChainFlow shall not be liable for any loss arising from errors, delays, or omissions in market data. Trading through blockchain networks and decentralized protocols exposes you to risks associated with network congestion, system downtime, smart contract failures, and oracle malfunctions. Response times may vary significantly due to network conditions, gas fees, transaction priority, and other factors beyond ChainFlow's control.</p>
+				
+				<p><strong class="text-white/70">TradeFlow Academy Disclaimer:</strong> All content, opinions, and analysis provided through TradeFlow Academy, including from hosts, guests, educators, and community members (collectively, "Contributors"), are solely the individual Contributors' current opinions and do not reflect the official opinions of ChainFlow or its affiliates. Neither the Contributors nor ChainFlow represent, warrant, or guarantee the completeness or accuracy of any educational content, trading signals, or market analysis. Educational content does not take into account your particular investment objectives, financial situation, or needs, and is not intended as personalized trading advice. Past trading results shared for educational purposes are not indicative of future results. Neither Contributors nor ChainFlow guarantee any specific outcome or profit. Any strategies or techniques discussed may result in substantial losses and may not be suitable for all traders.</p>
+				
+				<p><strong class="text-white/70">Regulatory Status:</strong> ChainFlow operates as a decentralized on-chain prop firm and is not registered with the U.S. Securities and Exchange Commission (SEC), Commodity Futures Trading Commission (CFTC), Financial Industry Regulatory Authority (FINRA), or the National Futures Association (NFA). ChainFlow accounts and assets are not protected by the Securities Investor Protection Corporation (SIPC) or the Federal Deposit Insurance Corporation (FDIC). Trading activities may be subject to different regulatory frameworks depending on your jurisdiction. Cryptocurrency and blockchain-based financial products may not be regulated or may be prohibited in certain jurisdictions. It is your responsibility to understand and comply with applicable laws and regulations in your jurisdiction.</p>
+				
+				<p><strong class="text-white/70">International Traders:</strong> ChainFlow's services may not be available in all jurisdictions. Certain countries and regions may restrict or prohibit cryptocurrency trading, decentralized finance activities, or prop trading arrangements. Traders are solely responsible for ensuring their participation complies with local laws and regulations. ChainFlow reserves the right to restrict access based on geographic location or regulatory requirements.</p>
+				
+				<p><strong class="text-white/70">Affiliate Entities:</strong> Paxeer Foundation provides blockchain infrastructure and developer tools. PaxLabs Inc and OpenLabs Inc conduct research and development of decentralized trading protocols. OpenNet LTD operates blockchain network infrastructure. The OpenNetwork Foundation supports the broader ecosystem and community development. TradeFlow LTD operates the TradeFlow Academy educational platform. Each entity operates independently within the ChainFlow ecosystem and maintains separate operational responsibilities.</p>
+				
+				<p class="text-white/60 pt-4">By using ChainFlow's platform, websites, and services, you acknowledge that you have read, understood, and agree to this disclaimer and all associated risks. If you do not understand or agree to these terms, do not use ChainFlow's services.</p>
+			</div>
+		</div>
+
+		<!-- Bottom Bar -->
+		<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+			<div class="text-sm text-white/70">©2025 ChainFlow - First Fully on Chain Prop Firm</div>
+			<button id="go-top-button" aria-label="Go to Top" class="flex items-center gap-2 hover:text-white/80 transition-colors">
+				<span class="text-sm">Back to Top</span>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+					<g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m15 12l-3-3m0 0l-3 3m3-3v6"></path>
+					</g>
+				</svg>
+			</button>
+		</div>
+	</div>
+</footer>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+	gsap.registerPlugin(ScrollToPlugin);
+
+	function init() {
+		var goTopButton = document.getElementById("go-top-button");
+
+		if (!goTopButton) return;
+
+		goTopButton.addEventListener("click", function () {
+			gsap.to(window, { duration: 0.5, scrollTo: 0 });
+		});
+	}
+
+	document.removeEventListener("DOMContentLoaded", init); // astro:page-load
+	document.addEventListener("DOMContentLoaded", init); // astro:page-load
+</script>

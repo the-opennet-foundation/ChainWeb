@@ -1,0 +1,77 @@
+---
+import type { AstroSeoProps } from "@astrolib/seo";
+import BaseHead from "@components/BaseHead.astro";
+import BackgroundLines from "@components/global/BackgroundLines.astro";
+import Footer from "@components/global/Footer.astro";
+import Navigation from "@components/global/Navigation.astro";
+import CookieBanner from "@components/CookieBanner.astro";
+import { getLangFromUrl } from "../i18n/utils";
+
+type Props = {
+	seo?: AstroSeoProps;
+};
+
+const { seo: seoProp } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+
+const shareImage = new URL("/images/meta/chainflow.jpeg", Astro.site).toString();
+
+const defaultSeo: AstroSeoProps = {
+	title: "ChainFlow - First Fully On-Chain Prop Firm | Zero Cost Evaluations",
+	description:
+		"ChainFlow is the world's first fully on-chain proprietary trading firm. Free evaluations on OpenNet, public ledger transparency, and blockchain-verified trades. Start your trading journey today.",
+	canonical: "https://chainflow.trading",
+	openGraph: {
+		url: "https://chainflow.trading",
+		title: "ChainFlow - First Fully On-Chain Prop Firm | Zero Cost Evaluations",
+		description:
+			"The world's first fully on-chain proprietary trading firm. Free evaluations, public ledger transparency, and blockchain-verified trades on OpenNet and Paxeer.",
+		images: [
+			{
+				url: shareImage,
+				width: 1200,
+				height: 630,
+				alt: "Social open graph",
+				type: "image/gif",
+			},
+			{
+				url: shareImage,
+				width: 4096,
+				height: 4096,
+				alt: "Twitter open graph",
+				type: "image/gif",
+			},
+		],
+		site_name: "ChainFlow",
+	},
+	twitter: {
+		handle: "@chainflow",
+		site: "@chainflow",
+		cardType: "summary_large_image",
+	},
+	additionalMetaTags: [
+		{
+			name: "publisher",
+			content: "ChainFlow",
+		},
+	],
+};
+
+const seo = {
+	...defaultSeo,
+	...seoProp,
+};
+---
+
+<html lang={lang}>
+	<head>
+		<BaseHead seo={seo} />
+	</head>
+	<body class="bg-black">
+		<Navigation />
+		<slot />
+		<Footer />
+		<CookieBanner />
+	</body>
+</html>

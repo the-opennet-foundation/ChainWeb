@@ -1,0 +1,16 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PrivacyPage from "@/components/infopages/Privacy.astro";
+import { type AstroSeoProps } from "@astrolib/seo";
+
+const seo: AstroSeoProps = {
+	title: "Privacy Policy - Majestico Studio: Your Privacy Matters",
+	description:
+		"Our Privacy Policy outlines how Majestico Studio protects your personal information. Discover our commitment to your privacy and data security.",
+	canonical: "https://majestico.co/privacy/",
+};
+---
+
+<BaseLayout seo={seo}>
+	<PrivacyPage />
+</BaseLayout>

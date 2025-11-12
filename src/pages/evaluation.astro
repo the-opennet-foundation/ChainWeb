@@ -1,0 +1,281 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BootstrapIcon from "@/components/icons/BootstrapIcon.astro";
+
+export const prerender = true;
+
+const tiers = [
+	{ id: "EVAL_10K", balance: "$10,000", target: "$2,000", daily: "$1,000", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_25K", balance: "$25,000", target: "$5,000", daily: "$2,500", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_50K", balance: "$50,000", target: "$10,000", daily: "$5,000", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_100K", balance: "$100,000", target: "$20,000", daily: "$10,000", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_250K", balance: "$250,000", target: "$50,000", daily: "$25,000", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_500K", balance: "$500,000", target: "$100,000", daily: "$50,000", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_1M", balance: "$1,000,000", target: "$200,000", daily: "$100,000", total: "20%", days: 5, price: "$0" },
+	{ id: "EVAL_10M", balance: "$10,000,000", target: "$2,000,000", daily: "$1,000,000", total: "20%", days: 5, price: "$0" },
+];
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-20">
+		<!-- Hero Section -->
+		<div class="container mx-auto px-4 mb-16">
+			<div class="text-center max-w-4xl mx-auto eval-hero">
+				<h1 class="text-5xl md:text-7xl font-bold mb-6">Evaluation Program</h1>
+				<p class="text-xl text-white/70 mb-8">
+					Prove your trading skills. Get funded. Trade real capital on ChainFlow.
+				</p>
+				<div class="flex gap-4 justify-center">
+					<a href="https://dashboard.paxeer.app" target="_blank" class="bg-white text-black px-8 py-3 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+						Start Free Evaluation
+					</a>
+					<a href="/markets" class="border border-white/20 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition-colors">
+						View Markets
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Evaluation Tiers Table -->
+		<div class="container mx-auto px-4 mb-20">
+			<div class="tiers-section max-w-7xl mx-auto">
+				<h2 class="text-4xl font-bold mb-8 text-center">Evaluation Tiers</h2>
+				<div class="overflow-x-auto">
+					<table class="w-full border border-white/10 rounded-xl overflow-hidden">
+						<thead class="bg-white/5">
+							<tr>
+								<th class="px-4 py-4 text-left text-sm font-bold">Tier ID</th>
+								<th class="px-4 py-4 text-left text-sm font-bold">Initial Balance</th>
+								<th class="px-4 py-4 text-left text-sm font-bold">Profit Target</th>
+								<th class="px-4 py-4 text-left text-sm font-bold">Daily DD Limit</th>
+								<th class="px-4 py-4 text-left text-sm font-bold">Total DD %</th>
+								<th class="px-4 py-4 text-left text-sm font-bold">Min Days</th>
+								<th class="px-4 py-4 text-left text-sm font-bold">Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							{tiers.map((tier, index) => (
+								<tr class:list={[
+									"tier-row border-t border-white/10 hover:bg-white/5 transition-colors",
+									tier.id === "EVAL_10M" ? "bg-gradient-to-r from-yellow-500/10 to-transparent" : ""
+								]}>
+									<td class="px-4 py-4 font-mono text-sm font-bold">{tier.id}</td>
+									<td class="px-4 py-4 font-mono text-sm">{tier.balance}</td>
+									<td class="px-4 py-4 font-mono text-sm text-green-400">{tier.target}</td>
+									<td class="px-4 py-4 font-mono text-sm text-red-400">{tier.daily}</td>
+									<td class="px-4 py-4 font-mono text-sm">{tier.total}</td>
+									<td class="px-4 py-4 font-mono text-sm">{tier.days}</td>
+									<td class="px-4 py-4 font-mono text-sm font-bold text-green-400">{tier.price}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- Trading Rules -->
+		<div class="container mx-auto px-4 mb-20">
+			<div class="rules-section max-w-5xl mx-auto">
+				<div class="flex items-center justify-center gap-3 mb-8">
+				<BootstrapIcon name="clipboard-check" class="w-10 h-10 text-white/80" />
+				<h2 class="text-4xl font-bold">Trading Rules</h2>
+			</div>
+				
+				<div class="grid md:grid-cols-2 gap-6 mb-12">
+					<!-- Daily Drawdown Rule -->
+					<div class="rule-card p-6 rounded-xl border border-white/10 bg-white/5">
+						<h3 class="text-2xl font-bold mb-4">Daily Drawdown Rule</h3>
+						<ul class="space-y-3 text-white/80">
+							<li><strong>Baseline:</strong> Set at 00:00 UTC daily based on current equity</li>
+							<li><strong>Calculation:</strong> <code class="bg-black/50 px-2 py-1 rounded">(dayStartEquity - minIntradayEquity)</code></li>
+							<li><strong>Breach:</strong> When drawdown exceeds 10% of initial balance</li>
+							<li class="text-red-400"><strong>Example:</strong> On $100K account, breach at $10,000 daily loss</li>
+						</ul>
+					</div>
+
+					<!-- Total Drawdown Rule -->
+					<div class="rule-card p-6 rounded-xl border border-white/10 bg-white/5">
+						<h3 class="text-2xl font-bold mb-4">Total Drawdown Rule (Trailing to Peak)</h3>
+						<ul class="space-y-3 text-white/80">
+							<li><strong>Peak Tracking:</strong> Automatically tracks highest equity reached</li>
+							<li><strong>Calculation:</strong> <code class="bg-black/50 px-2 py-1 rounded">(peakEquity - currentEquity) / peakEquity</code></li>
+							<li><strong>Breach:</strong> When drawdown exceeds 20% from peak</li>
+							<li class="text-red-400"><strong>Example:</strong> Peak at $120K, breach at $96K (20% down)</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Pass Criteria -->
+				<div class="pass-criteria p-8 rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent mb-12">
+					<h3 class="text-3xl font-bold mb-6">Pass Criteria (EVAL → LIVE)</h3>
+					<p class="text-white/80 mb-4">Must meet ALL of the following:</p>
+					<ul class="space-y-3 text-lg">
+						<li class="flex items-center gap-3">
+							<BootstrapIcon name="check-circle-fill" class="w-6 h-6 text-green-400" />
+							<span>No breaches (daily or total drawdown)</span>
+						</li>
+						<li class="flex items-center gap-3">
+							<BootstrapIcon name="check-circle-fill" class="w-6 h-6 text-green-400" />
+							<span>Zero open positions</span>
+						</li>
+						<li class="flex items-center gap-3">
+							<BootstrapIcon name="check-circle-fill" class="w-6 h-6 text-green-400" />
+							<span>Cash balance ≥ initial + profit target</span>
+						</li>
+						<li class="flex items-center gap-3">
+							<BootstrapIcon name="check-circle-fill" class="w-6 h-6 text-green-400" />
+							<span>Consecutive trading days ≥ 5</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Consecutive Trading Days -->
+				<div class="trading-days p-6 rounded-xl border border-white/10 bg-white/5">
+					<h3 class="text-2xl font-bold mb-4">Consecutive Trading Days</h3>
+					<ul class="space-y-3 text-white/80">
+						<li>• Counts unique UTC calendar days with ≥1 trade execution</li>
+						<li>• Streak resets if a day is skipped (no trading)</li>
+						<li>• Updated automatically after each trade</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Funded Account Info -->
+		<div class="container mx-auto px-4">
+			<div class="funded-section max-w-5xl mx-auto p-8 rounded-xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-transparent">
+				<div class="flex items-center justify-center gap-3 mb-6">
+					<BootstrapIcon name="bullseye" class="w-10 h-10 text-blue-400" />
+					<h2 class="text-4xl font-bold">Get Funded</h2>
+				</div>
+				<div class="grid md:grid-cols-3 gap-6 text-center">
+					<div>
+						<div class="text-5xl font-bold text-blue-400 mb-2">80%</div>
+						<div class="text-white/70">Profit Split</div>
+					</div>
+					<div>
+						<div class="text-5xl font-bold text-green-400 mb-2">∞</div>
+						<div class="text-white/70">No Time Limit</div>
+					</div>
+					<div>
+						<div class="text-5xl font-bold text-yellow-400 mb-2">$0</div>
+						<div class="text-white/70">Evaluation Cost</div>
+					</div>
+				</div>
+				<p class="text-center text-white/70 mt-6">
+					Pass your evaluation and trade up to $10M in live capital. Keep 80% of your profits with bi-weekly payouts on the OpenNet blockchain.
+				</p>
+				<div class="text-center mt-6">
+					<a href="https://dashboard.paxeer.app" target="_blank" class="inline-block bg-white text-black px-8 py-3 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+						Start Your Journey →
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		import { gsap } from "gsap";
+		import { ScrollTrigger } from "gsap/ScrollTrigger";
+		
+		gsap.registerPlugin(ScrollTrigger);
+
+		function initAnimations() {
+			// Hero animation
+			gsap.from('.eval-hero', {
+				duration: 1,
+				opacity: 0,
+				y: 50,
+				ease: 'power3.out'
+			});
+			
+			// Tiers table animation
+			gsap.from('.tiers-section', {
+				scrollTrigger: {
+					trigger: '.tiers-section',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				y: 30,
+				ease: 'power3.out'
+			});
+
+			// Table rows stagger
+			gsap.from('.tier-row', {
+				scrollTrigger: {
+					trigger: '.tier-row',
+					start: 'top 85%',
+				},
+				duration: 0.5,
+				opacity: 0,
+				x: -20,
+				stagger: 0.1,
+				ease: 'power2.out'
+			});
+			
+			// Rules cards animation
+			gsap.from('.rule-card', {
+				scrollTrigger: {
+					trigger: '.rules-section',
+					start: 'top 80%',
+				},
+				duration: 0.6,
+				opacity: 0,
+				y: 30,
+				stagger: 0.2,
+				ease: 'back.out(1.7)'
+			});
+
+			// Pass criteria animation
+			gsap.from('.pass-criteria', {
+				scrollTrigger: {
+					trigger: '.pass-criteria',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				scale: 0.95,
+				ease: 'power3.out'
+			});
+
+			// Funded section animation
+			gsap.from('.funded-section', {
+				scrollTrigger: {
+					trigger: '.funded-section',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				y: 30,
+				ease: 'power3.out'
+			});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initAnimations);
+		} else {
+			initAnimations();
+		}
+	</script>
+
+	<style>
+		code {
+			font-family: 'Courier New', monospace;
+		}
+		
+		table {
+			border-collapse: separate;
+			border-spacing: 0;
+		}
+		
+		thead th {
+			position: sticky;
+			top: 0;
+			background: rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(10px);
+			z-index: 10;
+		}
+	</style>
+</BaseLayout>

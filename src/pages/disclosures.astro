@@ -1,0 +1,103 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-32">
+		<div class="container mx-auto px-4">
+			<div class="max-w-4xl mx-auto prose prose-invert">
+				<h1 class="text-5xl md:text-6xl font-bold mb-6">Disclosures & Notices</h1>
+				<p class="text-xl text-white/70 mb-12">
+					Important information about trading risks and ChainFlow operations.
+				</p>
+
+				<div class="space-y-8 text-white/80">
+					<section>
+						<h2 class="text-3xl font-bold mb-4">Risk Disclosure</h2>
+						<p class="mb-4">
+							Trading derivatives and leveraged instruments involves substantial risk of loss and is not suitable for all investors. The high degree of leverage can work against you as well as for you. Before deciding to trade, you should carefully consider your investment objectives, level of experience, and risk appetite.
+						</p>
+						<p class="mb-4">
+							The possibility exists that you could sustain a loss of some or all of your initial investment and therefore you should not invest money that you cannot afford to lose. You should be aware of all the risks associated with trading and seek advice from an independent financial advisor if you have any doubts.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-3xl font-bold mb-4">No Financial Advice</h2>
+						<p class="mb-4">
+							ChainFlow does not provide investment, tax, or legal advice. The information provided on this platform is for educational and informational purposes only and should not be construed as financial advice.
+						</p>
+						<p class="mb-4">
+							All trading decisions are made by the individual trader at their own risk. ChainFlow is not responsible for any losses incurred as a result of trading activities.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-3xl font-bold mb-4">Evaluation Accounts</h2>
+						<p class="mb-4">
+							Evaluation accounts are simulated trading environments recorded on the OpenNet blockchain. Performance in evaluation accounts does not guarantee similar performance in live funded accounts.
+						</p>
+						<p class="mb-4">
+							All evaluations are subject to our trading rules and risk management parameters. Violation of these rules may result in account termination.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-3xl font-bold mb-4">Funded Accounts</h2>
+						<p class="mb-4">
+							Funded accounts trade with ChainFlow capital on the Paxeer Mainnet blockchain. Traders receive a percentage of profits generated according to their profit split agreement.
+						</p>
+						<p class="mb-4">
+							Funded accounts are subject to ongoing risk management and may be paused or terminated if risk parameters are breached.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-3xl font-bold mb-4">Blockchain Transparency</h2>
+						<p class="mb-4">
+							All trades are recorded on public blockchains (OpenNet for evaluations, Paxeer Mainnet for funded accounts). This provides complete transparency but also means that trading activity is publicly visible.
+						</p>
+						<p class="mb-4">
+							While wallet addresses provide pseudonymity, on-chain analysis may be able to link trading activity to individuals in certain circumstances.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-3xl font-bold mb-4">Regulatory Notice</h2>
+						<p class="mb-4">
+							ChainFlow operates using blockchain technology and may not be regulated in the same manner as traditional prop trading firms. Users should consult with local legal and tax advisors regarding the regulatory status of cryptocurrency-based trading in their jurisdiction.
+						</p>
+					</section>
+
+					<section>
+						<h2 class="text-3xl font-bold mb-4">Contact Information</h2>
+						<p class="mb-4">
+							For questions about these disclosures, please contact us at{" "}
+							<a href="mailto:legal@chainflowtrading.com" class="text-blue-400 hover:text-blue-300">
+								legal@chainflowtrading.com
+							</a>
+						</p>
+					</section>
+
+					<div class="mt-12 p-6 rounded-xl border border-yellow-500/30 bg-yellow-500/10">
+						<p class="text-yellow-400 font-bold mb-2">⚠️ Important</p>
+						<p class="text-sm">
+							Past performance is not indicative of future results. All trading involves risk. Only trade with capital you can afford to lose.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.prose h2 {
+		color: white;
+	}
+	.prose a {
+		text-decoration: underline;
+	}
+</style>

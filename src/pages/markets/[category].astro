@@ -1,0 +1,250 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BootstrapIcon from "@/components/icons/BootstrapIcon.astro";
+
+export const prerender = false;
+
+const { category } = Astro.params;
+
+const categoryInfo: Record<string, { name: string, description: string, icon: string, multiplier: number }> = {
+	crypto: { name: "Cryptocurrencies", description: "Bitcoin, Ethereum, and other digital assets", icon: "currency-bitcoin", multiplier: 10 },
+	forex_major: { name: "Major Forex Pairs", description: "EUR/USD, GBP/USD, USD/JPY, etc.", icon: "cash-stack", multiplier: 500 },
+	forex_minor: { name: "Minor Forex Pairs", description: "Cross currency pairs", icon: "currency-exchange", multiplier: 500 },
+	us_stocks_tech: { name: "US Tech Stocks", description: "Apple, Microsoft, Google, Tesla, etc.", icon: "cpu", multiplier: 500 },
+	us_stocks_finance: { name: "US Financial Stocks", description: "Banks, insurance, financial services", icon: "bank", multiplier: 500 },
+	us_stocks_healthcare: { name: "US Healthcare Stocks", description: "Pharma, biotech, medical devices", icon: "heart-pulse", multiplier: 500 },
+	us_stocks_energy: { name: "US Energy Stocks", description: "Oil, gas, renewables", icon: "lightning-charge", multiplier: 500 },
+	us_stocks_consumer: { name: "US Consumer Stocks", description: "Retail, consumer goods and services", icon: "cart", multiplier: 500 },
+	us_stocks_industrial: { name: "US Industrial Stocks", description: "Manufacturing, aerospace, defense", icon: "gear", multiplier: 500 },
+	indices_major: { name: "Major Indices", description: "S&P 500, Nasdaq, Dow Jones, etc.", icon: "graph-up-arrow", multiplier: 10 },
+	commodities_energy: { name: "Energy Commodities", description: "Crude oil, natural gas, heating oil", icon: "fuel-pump", multiplier: 500 },
+	commodities_metals: { name: "Metal Commodities", description: "Gold, silver, copper, platinum", icon: "gem", multiplier: 500 },
+	etfs: { name: "ETFs", description: "Exchange-traded funds", icon: "box-seam", multiplier: 500 },
+};
+
+const info = categoryInfo[category || ''] || { name: category || 'Unknown', description: '', icon: 'graph-up', multiplier: 500 };
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-20">
+		<!-- Category Header -->
+		<div class="container mx-auto px-4 mb-12">
+			<div class="max-w-6xl mx-auto category-header">
+				<a href="/markets" class="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6">
+					<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+					</svg>
+					Back to All Markets
+				</a>
+				
+				<div class="flex items-start gap-6 mb-6">
+					<BootstrapIcon name={info.icon} class="w-20 h-20 text-white/80" />
+					<div class="flex-1">
+						<h1 class="text-5xl md:text-6xl font-bold mb-4">{info.name}</h1>
+						<p class="text-xl text-white/70 mb-4">{info.description}</p>
+						<div class="flex items-center gap-6 text-sm">
+							<div class="px-4 py-2 rounded-lg bg-white/10 border border-white/20">
+								<span class="text-white/50">Lot Size: </span>
+								<span class="font-mono font-bold">
+									{info.multiplier === 10 ? "1 mClust (10 units)" : "1 Clust (500 units)"}
+								</span>
+							</div>
+							<div class="px-4 py-2 rounded-lg bg-white/10 border border-white/20">
+								<span class="text-white/50">Markets: </span>
+								<span class="font-mono font-bold" id="market-count">Loading...</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Search Bar -->
+				<div class="max-w-2xl">
+					<input
+						type="text"
+						id="market-search"
+						placeholder="Search markets..."
+						class="w-full px-6 py-4 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-colors"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<!-- Markets Grid -->
+		<div class="container mx-auto px-4">
+			<div id="markets-container" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+				<div class="col-span-full text-center text-white/50 py-12">
+					<div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+					<p class="mt-4">Loading markets...</p>
+				</div>
+			</div>
+
+			<!-- Pagination -->
+			<div id="pagination" class="mt-8 flex justify-center gap-2"></div>
+		</div>
+	</div>
+
+	<script is:inline define:vars={{ category }}>
+		window.categoryId = category;
+	</script>
+
+	<script type="module">
+		const API_URL = '';
+		const categoryId = window.categoryId;
+		let allMarkets = [];
+		let filteredMarkets = [];
+		let currentPage = 1;
+		const pageSize = 50;
+
+		async function loadMarkets() {
+			try {
+				const response = await fetch(`${API_URL}/api/v1/categories/${categoryId}/markets?page=1&limit=5000`);
+				const data = await response.json();
+				
+				allMarkets = data.markets || [];
+				filteredMarkets = allMarkets;
+				
+				// Update count
+				const countEl = document.getElementById('market-count');
+				if (countEl) countEl.textContent = data.total || 0;
+				
+				renderMarkets();
+			} catch (error) {
+				console.error('Failed to load markets:', error);
+				const container = document.getElementById('markets-container');
+				if (container) {
+					container.innerHTML = '<div class="col-span-full text-center text-red-400 py-12">Failed to load markets. Please try again.</div>';
+				}
+			}
+		}
+
+		function filterMarkets() {
+			const searchInput = document.getElementById('market-search');
+			const query = searchInput?.value.toLowerCase() || '';
+			
+			if (query) {
+				filteredMarkets = allMarkets.filter(m => 
+					m.symbol?.toLowerCase().includes(query) || 
+					m.name?.toLowerCase().includes(query)
+				);
+			} else {
+				filteredMarkets = allMarkets;
+			}
+			
+			currentPage = 1;
+			renderMarkets();
+		}
+
+		function renderMarkets() {
+			const container = document.getElementById('markets-container');
+			if (!container) return;
+			
+			if (filteredMarkets.length === 0) {
+				container.innerHTML = '<div class="col-span-full text-center text-white/50 py-12">No markets found.</div>';
+				return;
+			}
+			
+			// Pagination
+			const startIndex = (currentPage - 1) * pageSize;
+			const endIndex = startIndex + pageSize;
+			const pageMarkets = filteredMarkets.slice(startIndex, endIndex);
+			
+			container.innerHTML = pageMarkets.map(market => `
+				<a href="/symbol/${market.symbol}" class="market-item block p-4 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all group">
+					<div class="flex items-center justify-between mb-2">
+						<span class="font-bold text-lg group-hover:text-white transition-colors">${market.symbol?.toUpperCase() || 'N/A'}</span>
+						<span class="text-white/50 text-xs">${market.category || ''}</span>
+					</div>
+					<div class="text-white/70 text-sm mb-3 line-clamp-1">${market.name || market.symbol}</div>
+					<div class="flex items-center justify-between">
+						<div class="flex items-center gap-3 text-xs">
+							<span class="text-white/50">Last:</span>
+							<span class="text-white font-mono font-bold">${market.last ? '$' + market.last.toFixed(2) : '--'}</span>
+						</div>
+						<svg class="w-5 h-5 text-white/30 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
+					</div>
+				</a>
+			`).join('');
+			
+			renderPagination();
+		}
+
+		function renderPagination() {
+			const paginationEl = document.getElementById('pagination');
+			if (!paginationEl || filteredMarkets.length <= pageSize) {
+				if (paginationEl) paginationEl.innerHTML = '';
+				return;
+			}
+			
+			const totalPages = Math.ceil(filteredMarkets.length / pageSize);
+			let html = '';
+			
+			// Previous button
+			html += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">← Prev</button>`;
+			
+			// Page numbers
+			for (let i = 1; i <= totalPages; i++) {
+				if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+					html += `<button onclick="changePage(${i})" class="px-4 py-2 rounded-lg border ${i === currentPage ? 'bg-white text-black border-white' : 'border-white/20 hover:bg-white/10'} transition-colors">${i}</button>`;
+				} else if (i === currentPage - 3 || i === currentPage + 3) {
+					html += '<span class="px-2 text-white/50">...</span>';
+				}
+			}
+			
+			// Next button
+			html += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">Next →</button>`;
+			
+			paginationEl.innerHTML = html;
+		}
+
+		window.changePage = function(page) {
+			const totalPages = Math.ceil(filteredMarkets.length / pageSize);
+			if (page < 1 || page > totalPages) return;
+			
+			currentPage = page;
+			renderMarkets();
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		};
+
+		// Search listener
+		const searchInput = document.getElementById('market-search');
+		if (searchInput) {
+			searchInput.addEventListener('input', filterMarkets);
+		}
+
+		// Load markets on page load
+		loadMarkets();
+	</script>
+
+	<script>
+		import { gsap } from "gsap";
+		import { ScrollTrigger } from "gsap/ScrollTrigger";
+		
+		gsap.registerPlugin(ScrollTrigger);
+
+		function initAnimations() {
+			gsap.from('.category-header', {
+				duration: 1,
+				opacity: 0,
+				y: 30,
+				ease: 'power3.out'
+			});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initAnimations);
+		} else {
+			initAnimations();
+		}
+	</script>
+
+	<style>
+		.line-clamp-1 {
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+		}
+	</style>
+</BaseLayout>

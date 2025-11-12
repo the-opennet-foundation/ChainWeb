@@ -1,0 +1,462 @@
+---
+// Stocks & Indices Market Data Component
+const API_URL = import.meta.env.PUBLIC_API_URL || '';
+
+const stocksIndices = [
+	{ symbol: 'aapl', name: 'Apple', category: 'Tech' },
+	{ symbol: 'tsla', name: 'Tesla', category: 'Auto' },
+	{ symbol: 'goog', name: 'Google', category: 'Tech' },
+	{ symbol: 'msft', name: 'Microsoft', category: 'Tech' },
+	{ symbol: 'nvda', name: 'NVIDIA', category: 'Tech' },
+	{ symbol: 'amzn', name: 'Amazon', category: 'Retail' },
+];
+---
+
+<div class="section gap-y-10 py-20 bg-gradient-to-b from-white/5 to-transparent">
+	<div class="col-span-full text-center px-4">
+		<h2 class="text-3xl md:text-4xl font-bold mb-2">Global Markets</h2>
+		<p class="text-white/60">Real-time stocks and indices</p>
+	</div>
+
+	<div class="col-span-full px-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+			{stocksIndices.map(item => (
+				<a href={`/symbol/${item.symbol}`} data-stock-card={item.symbol} class="stock-card group relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-6 backdrop-blur hover:border-white/20 transition-all duration-300 block cursor-pointer">
+					<div class="flex items-start justify-between mb-4">
+						<div>
+							<h3 class="font-bold text-xl mb-1">{item.name}</h3>
+							<span class="text-xs text-white/50 px-2 py-1 rounded bg-white/5">{item.category}</span>
+						</div>
+						<div class="flex flex-col items-end gap-1">
+							<span data-stock-price={item.symbol} class="text-2xl font-bold font-mono">--</span>
+							<span data-stock-change={item.symbol} class="stock-change text-sm font-medium">--</span>
+						</div>
+					</div>
+					
+					<div class="grid grid-cols-2 gap-3 text-sm">
+						<div>
+							<div class="text-white/50 text-xs mb-1">Open</div>
+							<div data-stock-open={item.symbol} class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 text-xs mb-1">High</div>
+							<div data-stock-high={item.symbol} class="font-mono text-green-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 text-xs mb-1">Low</div>
+							<div data-stock-low={item.symbol} class="font-mono text-red-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 text-xs mb-1">Volume</div>
+							<div data-stock-volume={item.symbol} class="font-mono text-xs">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 text-xs mb-1">Market Cap</div>
+							<div data-stock-mcap={item.symbol} class="font-mono text-xs">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 text-xs mb-1">P/E Ratio</div>
+							<div data-stock-pe={item.symbol} class="font-mono text-xs">--</div>
+						</div>
+					</div>
+
+					<!-- Animated gradient overlay -->
+					<div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+				</a>
+			))}
+		</div>
+	</div>
+
+	<!-- Futures Contracts (ES, NQ, YM) -->
+	<div class="col-span-full px-4 mt-8">
+		<div class="max-w-6xl mx-auto">
+			<h3 class="text-2xl font-bold mb-6 text-center">Live Futures</h3>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<!-- E-mini S&P 500 -->
+				<div class="futures-card p-6 rounded-xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-blue-500/5 backdrop-blur">
+					<div class="flex justify-between items-start mb-4">
+						<div>
+							<div class="text-white/50 text-xs mb-1">E-mini S&P 500</div>
+							<div class="text-lg font-bold">ES</div>
+						</div>
+						<div class="text-right">
+							<div data-futures-price="ESmain" class="text-2xl font-bold font-mono">--</div>
+							<div data-futures-change="ESmain" class="futures-change text-sm font-medium">--</div>
+						</div>
+					</div>
+					<div class="grid grid-cols-2 gap-3 text-xs">
+						<div>
+							<div class="text-white/50 mb-1">Open</div>
+							<div data-futures-open="ESmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">High</div>
+							<div data-futures-high="ESmain" class="font-mono text-green-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Low</div>
+							<div data-futures-low="ESmain" class="font-mono text-red-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Volume</div>
+							<div data-futures-volume="ESmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Open Interest</div>
+							<div data-futures-oi="ESmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Expires</div>
+							<div data-futures-expiry="ESmain" class="font-mono">--</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- E-mini Nasdaq-100 -->
+				<div class="futures-card p-6 rounded-xl border border-white/10 bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur">
+					<div class="flex justify-between items-start mb-4">
+						<div>
+							<div class="text-white/50 text-xs mb-1">E-mini Nasdaq-100</div>
+							<div class="text-lg font-bold">NQ</div>
+						</div>
+						<div class="text-right">
+							<div data-futures-price="NQmain" class="text-2xl font-bold font-mono">--</div>
+							<div data-futures-change="NQmain" class="futures-change text-sm font-medium">--</div>
+						</div>
+					</div>
+					<div class="grid grid-cols-2 gap-3 text-xs">
+						<div>
+							<div class="text-white/50 mb-1">Open</div>
+							<div data-futures-open="NQmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">High</div>
+							<div data-futures-high="NQmain" class="font-mono text-green-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Low</div>
+							<div data-futures-low="NQmain" class="font-mono text-red-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Volume</div>
+							<div data-futures-volume="NQmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Open Interest</div>
+							<div data-futures-oi="NQmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Expires</div>
+							<div data-futures-expiry="NQmain" class="font-mono">--</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- E-mini Dow Jones -->
+				<div class="futures-card p-6 rounded-xl border border-white/10 bg-gradient-to-br from-orange-500/10 to-orange-500/5 backdrop-blur">
+					<div class="flex justify-between items-start mb-4">
+						<div>
+							<div class="text-white/50 text-xs mb-1">E-mini Dow Jones</div>
+							<div class="text-lg font-bold">YM</div>
+						</div>
+						<div class="text-right">
+							<div data-futures-price="YMmain" class="text-2xl font-bold font-mono">--</div>
+							<div data-futures-change="YMmain" class="futures-change text-sm font-medium">--</div>
+						</div>
+					</div>
+					<div class="grid grid-cols-2 gap-3 text-xs">
+						<div>
+							<div class="text-white/50 mb-1">Open</div>
+							<div data-futures-open="YMmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">High</div>
+							<div data-futures-high="YMmain" class="font-mono text-green-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Low</div>
+							<div data-futures-low="YMmain" class="font-mono text-red-400">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Volume</div>
+							<div data-futures-volume="YMmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Open Interest</div>
+							<div data-futures-oi="YMmain" class="font-mono">--</div>
+						</div>
+						<div>
+							<div class="text-white/50 mb-1">Expires</div>
+							<div data-futures-expiry="YMmain" class="font-mono">--</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.stock-card {
+		position: relative;
+		transition: transform 0.2s ease;
+	}
+	
+	.stock-card:hover {
+		transform: translateY(-4px);
+	}
+	
+	.stock-change.positive, .index-change.positive, .futures-change.positive {
+		color: #10b981;
+	}
+	
+	.stock-change.negative, .index-change.negative, .futures-change.negative {
+		color: #ef4444;
+	}
+	
+	.futures-card {
+		transition: transform 0.2s ease, border-color 0.2s ease;
+	}
+	
+	.futures-card:hover {
+		transform: translateY(-2px);
+		border-color: rgba(255, 255, 255, 0.3);
+	}
+</style>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	
+	gsap.registerPlugin(ScrollTrigger);
+
+	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+	const stocksIndices = [
+		{ symbol: 'aapl', name: 'Apple' },
+		{ symbol: 'tsla', name: 'Tesla' },
+		{ symbol: 'goog', name: 'Google' },
+		{ symbol: 'msft', name: 'Microsoft' },
+		{ symbol: 'nvda', name: 'NVIDIA' },
+		{ symbol: 'amzn', name: 'Amazon' },
+	];
+	
+	const futuresSymbols = ['ESmain', 'NQmain', 'YMmain'];
+
+	async function updateFutures() {
+		try {
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 10000);
+			
+			const res = await fetch(`${API_URL}/api/v1/futures`, {
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			
+			if (!res.ok) {
+				throw new Error(`HTTP ${res.status}`);
+			}
+			
+			const data = await res.json();
+			console.log('Futures data received:', data);
+			
+			futuresSymbols.forEach(symbol => {
+				const contract = data[symbol];
+				if (!contract) return;
+				
+				const priceEl = document.querySelector(`[data-futures-price="${symbol}"]`);
+				const changeEl = document.querySelector(`[data-futures-change="${symbol}"]`);
+				const openEl = document.querySelector(`[data-futures-open="${symbol}"]`);
+				const highEl = document.querySelector(`[data-futures-high="${symbol}"]`);
+				const lowEl = document.querySelector(`[data-futures-low="${symbol}"]`);
+				const volumeEl = document.querySelector(`[data-futures-volume="${symbol}"]`);
+				const oiEl = document.querySelector(`[data-futures-oi="${symbol}"]`);
+				const expiryEl = document.querySelector(`[data-futures-expiry="${symbol}"]`);
+				
+				// Update price
+				if (priceEl && contract.price) {
+					priceEl.textContent = contract.price.toLocaleString('en-US', { 
+						minimumFractionDigits: 2, 
+						maximumFractionDigits: 2 
+					});
+				}
+				
+				// Update change
+				if (changeEl && contract.changeRatio !== undefined) {
+					const percentChange = contract.changeRatio * 100;
+					changeEl.textContent = `${percentChange >= 0 ? '+' : ''}${percentChange.toFixed(2)}%`;
+					changeEl.className = `futures-change text-sm font-medium ${percentChange >= 0 ? 'positive' : 'negative'}`;
+				}
+				
+				// Update OHLC
+				if (openEl && contract.open) openEl.textContent = contract.open.toFixed(2);
+				if (highEl && contract.high) highEl.textContent = contract.high.toFixed(2);
+				if (lowEl && contract.low) lowEl.textContent = contract.low.toFixed(2);
+				
+				// Update volume
+				if (volumeEl && contract.volume) {
+					const vol = parseFloat(contract.volume);
+					if (vol > 1000) {
+						volumeEl.textContent = `${(vol / 1000).toFixed(1)}K`;
+					} else {
+						volumeEl.textContent = vol.toString();
+					}
+				}
+				
+				// Update open interest
+				if (oiEl && contract.openInterest) {
+					const oi = parseFloat(contract.openInterest);
+					if (oi > 1000) {
+						oiEl.textContent = `${(oi / 1000).toFixed(0)}K`;
+					} else {
+						oiEl.textContent = oi.toString();
+					}
+				}
+				
+				// Update expiry (days remaining)
+				if (expiryEl && contract.toExpiryDate) {
+					expiryEl.textContent = `${contract.toExpiryDate}d`;
+				}
+			});
+		} catch (error) {
+			console.error('Failed to fetch futures:', error);
+		}
+	}
+
+	async function updateStockPrices() {
+		try {
+			const symbolsQuery = stocksIndices.map(s => s.symbol).join(',');
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 10000);
+			
+			// Fetch from Webull endpoint for detailed data
+			const res = await fetch(`${API_URL}/api/v1/display?symbols=${symbolsQuery}`, {
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			
+			if (!res.ok) {
+				throw new Error(`HTTP ${res.status}`);
+			}
+			
+			const data = await res.json();
+			console.log('Webull stock data received:', data);
+			
+			stocksIndices.forEach(({ symbol }) => {
+				const quote = data[symbol];
+				if (!quote) {
+					console.warn(`No data for symbol: ${symbol}`);
+					return;
+				}
+				
+				const priceEl = document.querySelector(`[data-stock-price="${symbol}"]`);
+				const changeEl = document.querySelector(`[data-stock-change="${symbol}"]`);
+				const openEl = document.querySelector(`[data-stock-open="${symbol}"]`);
+				const highEl = document.querySelector(`[data-stock-high="${symbol}"]`);
+				const lowEl = document.querySelector(`[data-stock-low="${symbol}"]`);
+				const volumeEl = document.querySelector(`[data-stock-volume="${symbol}"]`);
+				const mcapEl = document.querySelector(`[data-stock-mcap="${symbol}"]`);
+				const peEl = document.querySelector(`[data-stock-pe="${symbol}"]`);
+				
+				// Get values from Webull data
+				const price = quote.close || quote.price;
+				const open = quote.open;
+				const high = quote.high;
+				const low = quote.low;
+				const change = quote.change;
+				const changeRatio = quote.changeRatio;
+				
+				if (priceEl && price !== undefined && price !== null) {
+					priceEl.textContent = `$${price.toFixed(2)}`;
+				}
+				
+				if (changeEl && changeRatio !== undefined) {
+					const percentChange = changeRatio * 100;
+					changeEl.textContent = `${percentChange >= 0 ? '+' : ''}${percentChange.toFixed(2)}%`;
+					changeEl.className = `stock-change text-sm font-medium ${percentChange >= 0 ? 'positive' : 'negative'}`;
+				}
+				
+				if (openEl && open !== undefined) openEl.textContent = `$${open.toFixed(2)}`;
+				if (highEl && high !== undefined) highEl.textContent = `$${high.toFixed(2)}`;
+				if (lowEl && low !== undefined) lowEl.textContent = `$${low.toFixed(2)}`;
+				
+				// Volume
+				if (volumeEl && quote.volume) {
+					const vol = parseFloat(quote.volume);
+					if (vol > 1000000) {
+						volumeEl.textContent = `${(vol / 1000000).toFixed(1)}M`;
+					} else if (vol > 1000) {
+						volumeEl.textContent = `${(vol / 1000).toFixed(0)}K`;
+					} else {
+						volumeEl.textContent = vol.toString();
+					}
+				}
+				
+				// Market Cap
+				if (mcapEl && quote.marketValue) {
+					const mcap = parseFloat(quote.marketValue);
+					if (mcap > 1000000000000) {
+						mcapEl.textContent = `$${(mcap / 1000000000000).toFixed(2)}T`;
+					} else if (mcap > 1000000000) {
+						mcapEl.textContent = `$${(mcap / 1000000000).toFixed(2)}B`;
+					} else if (mcap > 1000000) {
+						mcapEl.textContent = `$${(mcap / 1000000).toFixed(2)}M`;
+					}
+				}
+				
+				// P/E Ratio
+				if (peEl && quote.pe) {
+					const pe = parseFloat(quote.pe);
+					if (pe > 0 && pe < 1000) {
+						peEl.textContent = pe.toFixed(2);
+					} else {
+						peEl.textContent = 'N/A';
+					}
+				}
+			});
+		} catch (error) {
+			console.error('Failed to fetch stock prices:', error);
+		}
+	}
+
+	function init() {
+		// Animate cards on scroll
+		gsap.from('.stock-card', {
+			scrollTrigger: {
+				trigger: '.stock-card',
+				start: 'top 80%',
+				toggleActions: 'play none none reverse',
+			},
+			duration: 0.6,
+			opacity: 0,
+			y: 30,
+			stagger: 0.1,
+		});
+		
+		// Animate futures cards
+		gsap.from('.futures-card', {
+			scrollTrigger: {
+				trigger: '.futures-card',
+				start: 'top 80%',
+				toggleActions: 'play none none reverse',
+			},
+			duration: 0.6,
+			opacity: 0,
+			y: 30,
+			stagger: 0.1,
+		});
+		
+		// Fetch prices and futures immediately and every 5 seconds
+		updateStockPrices();
+		updateFutures();
+		setInterval(() => {
+			updateStockPrices();
+			updateFutures();
+		}, 5000);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+</script>

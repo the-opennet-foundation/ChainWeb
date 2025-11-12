@@ -1,0 +1,16 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServicesMain from "@/components/services/ServicesMain.astro";
+
+import { type AstroSeoProps } from "@astrolib/seo";
+
+const seo: AstroSeoProps = {
+	title: "Services | Majestico Studio",
+	description: "We are a digital studio that creates beautiful and functional websites and applications.",
+	canonical: "https://majestico.co/services/",
+};
+---
+
+<BaseLayout seo={seo}>
+	<ServicesMain />
+</BaseLayout>

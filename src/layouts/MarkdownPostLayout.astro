@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Cta from "@/components/blog/Cta.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Comments from "@components/blog/Comments.astro";
+import Title from "@components/global/Title.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+import { Icon } from "astro-icon/components";
+import BaseLayout from "./BaseLayout.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+type Props = {
+	frontmatter: CollectionEntry<"projects"> | CollectionEntry<"posts">;
+	body: string;
+	seo?: AstroSeoProps;
+};
+
+const { frontmatter, body, seo } = Astro.props;
+
+function getArticleReadingTime(body: string): number {
+	if (!body) return 0;
+	const wordsPerMinute = 183;
+	const numberOfWords = body.split(/\s/g).length;
+	const minutes = numberOfWords / wordsPerMinute;
+	const readTime = Math.ceil(minutes);
+	return readTime;
+}
+
+const readingTime = getArticleReadingTime(body);
+---
+
+<BaseLayout seo={seo}>
+	<section class="section">
+		<div class="relative z-20 col-span-full col-start-1 mx-auto max-w-7xl bg-black px-8 py-12 lg:col-span-2 lg:col-start-2 lg:py-32">
+			<div class="flex flex-col gap-6 pt-20">
+				<Title
+					title={frontmatter.data.title}
+					center={false}
+					subtitle={`Written by: <a href="${frontmatter.data.author.link}" rel="author">${frontmatter.data.author.name}</a> on ${frontmatter.data.pubDate
+						.toString()
+						.slice(0, 10)}`}
+				/>
+
+				<p class="max-w-2xl text-base text-slate-400">
+					<em>{frontmatter.data.description}</em>
+				</p>
+
+				{
+					frontmatter.data?.link && (
+						<a class="font-mono text-xl font-bold" href={frontmatter.data?.link} target="_blank">
+							<Icon name="iconamoon:link-external-thin" class="inline" /> {t("blog.gotoproject")}
+						</a>
+					)
+				}
+			</div>
+			<div class="mt-12 w-full justify-center">
+				{
+					frontmatter.data.image != null ? (
+						<Image class="mt-12" src={frontmatter.data.image?.source} alt={frontmatter.data.image.alt} />
+					) : frontmatter.data.video ? (
+						<video src={frontmatter.data.video} loop muted playsinline autoplay />
+					) : (
+						<div>{frontmatter.data.title}</div>
+					)
+				}
+				<div class="flex justify-between px-2 pt-4 font-mono text-sm">
+					<div class="flex flex-wrap gap-1">
+						{(frontmatter.data?.tags?.length ?? 0) > 0 && <span class="py-3">TAGS:</span>}
+						<ul class="flex flex-wrap justify-center">
+							{
+								frontmatter?.data.tags?.map((tag: string) => (
+									<li class="inline-flex items-center rounded-full px-1 py-3 font-medium uppercase tracking-widest">
+										<a href={`/tags/${tag}`}>{tag}</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+					<span class="py-3">~{readingTime} MIN</span>
+				</div>
+
+				<div class="prose-styles py-12"><slot /></div>
+			</div>
+			<Comments />
+		</div>
+	</section>
+	<Cta />
+</BaseLayout>

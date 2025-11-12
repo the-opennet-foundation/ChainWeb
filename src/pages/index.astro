@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@components/landing/Hero.astro";
+import LiveTicker from "@components/trading/LiveTicker.astro";
+import PriceCards from "@components/trading/PriceCards.astro";
+import FeaturesSection from "@components/landing/FeaturesSection.astro";
+import TradingStats from "@components/trading/TradingStats.astro";
+import PricingSection from "@components/landing/PricingSection.astro";
+import StocksIndices from "@components/trading/StocksIndices.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout>
+	<Hero />
+	<LiveTicker />
+	<PriceCards />
+	<FeaturesSection />
+	<TradingStats />
+	<PricingSection />
+	<StocksIndices />
+</BaseLayout>

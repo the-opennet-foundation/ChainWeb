@@ -1,0 +1,479 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { getLangFromUrl, getUrlWithoutLang, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const path = getUrlWithoutLang(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+let pages = [
+	{
+		id: "home",
+		initialTitle: "H",
+		title: "Home",
+		class: "home",
+		url: "/",
+	},
+	{
+		id: "markets",
+		initialTitle: "M",
+		title: "Markets",
+		class: "markets",
+		url: "/markets",
+	},
+	{
+		id: "evaluation",
+		initialTitle: "E",
+		title: "Evaluation",
+		class: "evaluation",
+		url: "/evaluation",
+	},
+	{
+		id: "features",
+		initialTitle: "F",
+		title: "Features",
+		class: "features",
+		url: "/features",
+	},
+	{
+		id: "promotions",
+		initialTitle: "C",
+		title: "Competition",
+		class: "promotions",
+		url: "/promotions",
+	},
+	{
+		id: "about",
+		initialTitle: "A",
+		title: "About",
+		class: "about",
+		url: "/about",
+	},
+	{
+		id: "faq",
+		initialTitle: "Q",
+		title: "FAQ",
+		class: "faq",
+		url: "/faq",
+	},
+];
+
+const { pathname } = Astro.url;
+---
+
+<header class="header section">
+	{
+		pages.map((page) => (
+			<div class={`menu-item ${page.class}`} data-item-id={page.id}>
+				<a
+					href={translatePath(page.url)}
+					data-title={page.title}
+					class="flex h-full items-center justify-center py-3 font-mono text-xs font-bold uppercase sm:text-base md:text-xl">
+					{page.title}
+				</a>
+			</div>
+		))
+	}
+	
+	<!-- Auth buttons -->
+	<div class="auth-buttons hidden md:flex ml-auto gap-3 px-4">
+		<a href="https://dashboard.paxeer.app/" target="_blank" class="auth-button signin font-mono text-xs font-bold uppercase px-4 py-2 border border-white/20 rounded hover:bg-white/10 transition-colors">
+			Sign In
+		</a>
+		<a href="https://dashboard.paxeer.app/" target="_blank" class="auth-button signup font-mono text-xs font-bold uppercase px-4 py-2 bg-white text-black rounded hover:bg-gray-200 transition-colors">
+			Sign Up
+		</a>
+	</div>
+</header>
+
+<!-- Mobile slide-in menu -->
+<div id="mobile-menu-overlay" class="mobile-menu-overlay opacity-0 pointer-events-none md:hidden">
+	<div id="mobile-menu" class="mobile-menu">
+		<button id="mobile-menu-close" class="mobile-menu-close">✕</button>
+		<nav class="mobile-menu-nav">
+			{
+				pages.map((page) => (
+					<a href={translatePath(page.url)} class="mobile-menu-item font-mono text-lg font-bold uppercase">
+						{page.title}
+					</a>
+				))
+			}
+			<div class="mobile-auth-buttons mt-6 flex flex-col gap-3">
+				<a href="https://dashboard.paxeer.app/" target="_blank" class="font-mono text-sm font-bold uppercase px-4 py-3 border border-white/20 rounded hover:bg-white/10 transition-colors text-center">
+					Sign In
+				</a>
+				<a href="https://dashboard.paxeer.app/" target="_blank" class="font-mono text-sm font-bold uppercase px-4 py-3 bg-white text-black rounded hover:bg-gray-200 transition-colors text-center">
+					Sign Up
+				</a>
+			</div>
+		</nav>
+	</div>
+</div>
+
+<!-- Scroll to top button -->
+<button id="scroll-to-top" class="scroll-to-top opacity-0 pointer-events-none">
+	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+		<path d="M18 15l-6-6-6 6"/>
+	</svg>
+</button>
+
+<style>
+	header.header {
+		mix-blend-mode: exclusion;
+		height: auto;
+		position: relative;
+		z-index: 10;
+		gap: 0;
+	}
+	
+	/* Mobile slide-in menu */
+	.mobile-menu-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.8);
+		z-index: 999;
+		transition: opacity 0.3s ease;
+	}
+	
+	.mobile-menu {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 280px;
+		background: rgba(0, 0, 0, 0.95);
+		backdrop-filter: blur(20px);
+		border-left: 1px solid rgba(255, 255, 255, 0.1);
+		transform: translateX(100%);
+		transition: transform 0.3s ease;
+		display: flex;
+		flex-direction: column;
+		padding: 2rem;
+	}
+	
+	.mobile-menu-close {
+		align-self: flex-end;
+		background: none;
+		border: none;
+		color: white;
+		font-size: 2rem;
+		cursor: pointer;
+		padding: 0.5rem;
+		margin-bottom: 2rem;
+	}
+	
+	.mobile-menu-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	
+	.mobile-menu-item {
+		color: white;
+		text-decoration: none;
+		padding: 1rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		transition: background-color 0.2s ease;
+	}
+	
+	.mobile-menu-item:hover {
+		background-color: rgba(255, 255, 255, 0.05);
+	}
+	
+	/* Scroll to top button */
+	.scroll-to-top {
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		backdrop-filter: blur(10px);
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		z-index: 998;
+	}
+	
+	.scroll-to-top:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: translateY(-4px);
+	}
+	
+	@media (max-width: 768px) {
+		.scroll-to-top {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+	import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+	gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin, ScrollToPlugin);
+
+	function init() {
+		const homeScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.home a", {
+				scrambleText: {
+					text: "H",
+					speed: 0.4,
+				},
+			});
+
+		const marketsScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.markets a", {
+				scrambleText: {
+					text: "M",
+					speed: 0.4,
+				},
+			});
+
+		const evaluationScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.evaluation a", {
+				scrambleText: {
+					text: "E",
+					speed: 0.4,
+				},
+			});
+
+		const featuresScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.features a", {
+				scrambleText: {
+					text: "F",
+					speed: 0.4,
+				},
+			});
+
+		const promotionsScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.promotions a", {
+				scrambleText: {
+					text: "C",
+					speed: 0.4,
+				},
+			});
+
+		const aboutScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.about a", {
+				scrambleText: {
+					text: "A",
+					speed: 0.4,
+				},
+			});
+
+		const faqScrambleTl = gsap
+			.timeline({
+				defaults: {
+					duration: 0.8,
+					ease: "power4.inOut",
+				},
+			})
+			.from("header .menu-item.faq a", {
+				scrambleText: {
+					text: "Q",
+					speed: 0.4,
+				},
+			});
+
+		const headerScrambleTl = gsap
+		.timeline()
+		.add(homeScrambleTl)
+		.add(marketsScrambleTl, "<=+0.2")
+		.add(evaluationScrambleTl, "<=+0.2")
+		.add(featuresScrambleTl, "<=+0.2")
+		.add(promotionsScrambleTl, "<=+0.2")
+		.add(aboutScrambleTl, "<=+0.2")
+		.add(faqScrambleTl, "<=+0.2");
+
+		ScrollTrigger.create({
+			start: "top top",
+			end: "max",
+			onUpdate: (self) => {
+				self.direction === -1 ? headerScrambleTl.timeScale(1).play() : headerScrambleTl.timeScale(1.5).reverse();
+			},
+		});
+
+		// Scroll to top button
+		const scrollToTopBtn = document.getElementById('scroll-to-top');
+		
+		ScrollTrigger.create({
+			start: 'top -500',
+			end: 'max',
+			onUpdate: (self) => {
+				if (self.progress > 0 && scrollToTopBtn) {
+					gsap.to(scrollToTopBtn, {
+						duration: 0.3,
+						opacity: 1,
+						scale: 1,
+						ease: 'back.out(1.7)',
+						onStart: () => {
+							scrollToTopBtn.classList.remove('pointer-events-none');
+						}
+					});
+				} else if (scrollToTopBtn) {
+					gsap.to(scrollToTopBtn, {
+						duration: 0.3,
+						opacity: 0,
+						scale: 0.8,
+						ease: 'power2.in',
+						onComplete: () => {
+							scrollToTopBtn.classList.add('pointer-events-none');
+						}
+					});
+				}
+			}
+		});
+
+		if (scrollToTopBtn) {
+			scrollToTopBtn.addEventListener('click', () => {
+				gsap.to(window, {
+					duration: 1,
+					scrollTo: { y: 0 },
+					ease: 'power2.inOut'
+				});
+			});
+		}
+
+		// Mobile swipe menu
+		const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const mobileMenuClose = document.getElementById('mobile-menu-close');
+		let touchStartX = 0;
+		let touchEndX = 0;
+		let isMobileMenuOpen = false;
+
+		// Swipe gesture detection
+		document.addEventListener('touchstart', (e) => {
+			touchStartX = e.changedTouches[0].screenX;
+		});
+
+		document.addEventListener('touchend', (e) => {
+			touchEndX = e.changedTouches[0].screenX;
+			handleSwipe();
+		});
+
+		function handleSwipe() {
+			// Swipe from right to left (open menu)
+			if (touchStartX - touchEndX > 50 && touchStartX > window.innerWidth - 50 && !isMobileMenuOpen) {
+				openMobileMenu();
+			}
+			// Swipe from left to right (close menu)
+			if (touchEndX - touchStartX > 50 && isMobileMenuOpen) {
+				closeMobileMenu();
+			}
+		}
+
+		function openMobileMenu() {
+			if (!mobileMenuOverlay || !mobileMenu) return;
+			isMobileMenuOpen = true;
+			
+			gsap.to(mobileMenuOverlay, {
+				duration: 0.3,
+				opacity: 1,
+				onStart: () => {
+					mobileMenuOverlay.classList.remove('pointer-events-none');
+				}
+			});
+			
+			gsap.to(mobileMenu, {
+				duration: 0.3,
+				x: 0,
+				ease: 'power2.out'
+			});
+			
+			gsap.from('.mobile-menu-item', {
+				duration: 0.3,
+				opacity: 0,
+				x: 50,
+				stagger: 0.05,
+				delay: 0.1,
+				ease: 'power2.out'
+			});
+		}
+
+		function closeMobileMenu() {
+			if (!mobileMenuOverlay || !mobileMenu) return;
+			isMobileMenuOpen = false;
+			
+			gsap.to(mobileMenuOverlay, {
+				duration: 0.3,
+				opacity: 0,
+				onComplete: () => {
+					mobileMenuOverlay.classList.add('pointer-events-none');
+				}
+			});
+			
+			gsap.to(mobileMenu, {
+				duration: 0.3,
+				x: '100%',
+				ease: 'power2.in'
+			});
+		}
+
+		// Close button
+		if (mobileMenuClose) {
+			mobileMenuClose.addEventListener('click', closeMobileMenu);
+		}
+
+		// Close when clicking overlay
+		if (mobileMenuOverlay) {
+			mobileMenuOverlay.addEventListener('click', (e) => {
+				if (e.target === mobileMenuOverlay) {
+					closeMobileMenu();
+				}
+			});
+		}
+	}
+
+	document.removeEventListener("DOMContentLoaded", init); // astro:page-load
+	document.addEventListener("DOMContentLoaded", init); // astro:page-load
+</script>

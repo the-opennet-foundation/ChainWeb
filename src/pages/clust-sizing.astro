@@ -1,0 +1,431 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+	<div class="clust-sizing-page min-h-screen py-20">
+		<div class="container mx-auto px-4">
+			<!-- Hero Section -->
+			<div class="text-center mb-16 hero-section">
+				<h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+					Clust-Based Position Sizing
+				</h1>
+				<p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto">
+					Trade with precision using our innovative Clust system with <span class="text-green-400 font-bold">10x leverage</span>
+				</p>
+			</div>
+
+			<!-- Main Content Grid -->
+			<div class="grid lg:grid-cols-2 gap-8 mb-16">
+				<!-- Standard Assets (Stocks, Forex, Commodities) -->
+				<div class="clust-card p-8 rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-transparent backdrop-blur">
+					<div class="flex items-center gap-3 mb-6">
+						<div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+							<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+							</svg>
+						</div>
+						<h2 class="text-3xl font-bold">Standard Assets</h2>
+					</div>
+					<p class="text-white/60 mb-4">Stocks, Forex, Commodities</p>
+					
+					<div class="space-y-4">
+						<div class="p-4 rounded-lg bg-white/5 border border-white/10">
+							<div class="text-purple-400 font-bold mb-2">1 Clust = 500 Units</div>
+							<p class="text-sm text-white/70">of the underlying asset</p>
+						</div>
+						
+						<div class="p-4 rounded-lg bg-white/5 border border-white/10">
+							<div class="text-green-400 font-bold mb-2">1 Point = $500 per Clust</div>
+							<p class="text-sm text-white/70">profit or loss per point movement</p>
+						</div>
+						
+						<div class="mt-6 p-4 rounded-lg bg-purple-500/10 border border-purple-500/30">
+							<div class="font-bold mb-2 text-purple-300">Example: AAPL Stock</div>
+							<div class="text-sm space-y-1">
+								<p>• 0.5 Clust = <span class="text-green-400">250 shares</span></p>
+								<p>• 1 Clust = <span class="text-green-400">500 shares</span></p>
+								<p>• 2 Clusts = <span class="text-green-400">1,000 shares</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Crypto & Indices (mClust) -->
+				<div class="clust-card p-8 rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-transparent backdrop-blur">
+					<div class="flex items-center gap-3 mb-6">
+						<div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+							<svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+							</svg>
+						</div>
+						<h2 class="text-3xl font-bold">Crypto & Indices</h2>
+					</div>
+					<p class="text-white/60 mb-4">mClust (mini Clust)</p>
+					
+					<div class="space-y-4">
+						<div class="p-4 rounded-lg bg-white/5 border border-white/10">
+							<div class="text-blue-400 font-bold mb-2">1 mClust = 10 Units</div>
+							<p class="text-sm text-white/70">of the underlying asset</p>
+						</div>
+						
+						<div class="p-4 rounded-lg bg-white/5 border border-white/10">
+							<div class="text-green-400 font-bold mb-2">1 Point = $10 per mClust</div>
+							<p class="text-sm text-white/70">profit or loss per point movement</p>
+						</div>
+						
+						<div class="mt-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/30">
+							<div class="font-bold mb-2 text-blue-300">Supported Assets</div>
+							<div class="text-sm space-y-1">
+								<p>• <span class="text-green-400">Crypto:</span> btcusd, ethusd, solusd</p>
+								<p>• <span class="text-green-400">Indices:</span> sp500, nasdaq, dowjones</p>
+								<p>• <span class="text-green-400">Futures:</span> ES, NQ, YM</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- P&L Calculation Section -->
+			<div class="mb-16">
+				<h2 class="text-4xl font-bold text-center mb-12 pl-calc-title">
+					<span class="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+						P&L Calculation Formula
+					</span>
+				</h2>
+				
+				<div class="max-w-4xl mx-auto p-8 rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-transparent backdrop-blur formula-box">
+					<div class="text-center mb-8">
+						<div class="text-3xl font-bold font-mono text-green-400">
+							P&L = (Exit Price - Entry Price) × Clusts × Multiplier
+						</div>
+					</div>
+					
+					<div class="grid md:grid-cols-3 gap-4 text-center">
+						<div class="p-4 rounded-lg bg-white/5">
+							<div class="text-white/50 text-sm mb-1">Price Difference</div>
+							<div class="text-xl font-bold">Exit - Entry</div>
+						</div>
+						<div class="p-4 rounded-lg bg-white/5">
+							<div class="text-white/50 text-sm mb-1">Position Size</div>
+							<div class="text-xl font-bold">Clusts/mClusts</div>
+						</div>
+						<div class="p-4 rounded-lg bg-white/5">
+							<div class="text-white/50 text-sm mb-1">Contract Size</div>
+							<div class="text-xl font-bold">500 or 10</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Trading Examples -->
+			<div class="grid lg:grid-cols-2 gap-8 mb-16">
+				<!-- Long Example -->
+				<div class="example-card">
+					<div class="p-8 rounded-2xl border border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent backdrop-blur">
+						<div class="flex items-center gap-3 mb-6">
+							<div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+								<svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-green-400">LONG Example</h3>
+						</div>
+						
+						<div class="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+							<div class="text-lg font-bold mb-2">BUY 0.1 mClust BTC @ $67,000</div>
+							<div class="text-sm text-white/70">Going long on Bitcoin</div>
+						</div>
+						
+						<div class="space-y-4">
+							<div class="p-4 rounded-lg bg-white/5">
+								<div class="text-white/50 text-sm mb-1">Notional Value</div>
+								<div class="font-mono">0.1 × $67,000 × 10 = <span class="text-green-400 font-bold">$67,000</span></div>
+							</div>
+							
+							<div class="p-4 rounded-lg bg-white/5">
+								<div class="text-white/50 text-sm mb-1">Collateral Required (10x Leverage)</div>
+								<div class="font-mono">$67,000 ÷ 10 = <span class="text-blue-400 font-bold">$6,700</span></div>
+							</div>
+							
+							<div class="p-4 rounded-lg bg-green-500/20 border border-green-500/40">
+								<div class="text-green-400 font-bold mb-2">If BTC → $68,000 📈</div>
+								<div class="font-mono text-sm">P&L = $1,000 × 0.1 × 10</div>
+								<div class="text-2xl font-bold text-green-400 mt-2">+$1,000 Profit</div>
+								<div class="text-sm text-white/70 mt-1">+14.9% Return on Collateral</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Short Example -->
+				<div class="example-card">
+					<div class="p-8 rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-500/10 to-transparent backdrop-blur">
+						<div class="flex items-center gap-3 mb-6">
+							<div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+								<svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6 6" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-red-400">SHORT Example</h3>
+						</div>
+						
+						<div class="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+							<div class="text-lg font-bold mb-2">SELL 0.1 mClust BTC @ $67,000</div>
+							<div class="text-sm text-white/70">Going short on Bitcoin</div>
+						</div>
+						
+						<div class="space-y-4">
+							<div class="p-4 rounded-lg bg-white/5">
+								<div class="text-white/50 text-sm mb-1">Notional Value</div>
+								<div class="font-mono">0.1 × $67,000 × 10 = <span class="text-red-400 font-bold">$67,000</span></div>
+							</div>
+							
+							<div class="p-4 rounded-lg bg-white/5">
+								<div class="text-white/50 text-sm mb-1">Collateral Required (10x Leverage)</div>
+								<div class="font-mono">$67,000 ÷ 10 = <span class="text-blue-400 font-bold">$6,700</span></div>
+							</div>
+							
+							<div class="space-y-3">
+								<div class="p-4 rounded-lg bg-green-500/20 border border-green-500/40">
+									<div class="text-green-400 font-bold mb-2">If BTC → $66,000 📉</div>
+									<div class="font-mono text-sm">P&L = $1,000 × 0.1 × 10</div>
+									<div class="text-2xl font-bold text-green-400 mt-2">+$1,000 Profit</div>
+									<div class="text-sm text-white/70 mt-1">+14.9% Return on Collateral</div>
+								</div>
+								
+								<div class="p-4 rounded-lg bg-red-500/20 border border-red-500/40">
+									<div class="text-red-400 font-bold mb-2">If BTC → $68,000 📈</div>
+									<div class="font-mono text-sm">P&L = -$1,000 × 0.1 × 10</div>
+									<div class="text-2xl font-bold text-red-400 mt-2">-$1,000 Loss</div>
+									<div class="text-sm text-white/70 mt-1">-14.9% on Collateral</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Stock Example -->
+			<div class="max-w-4xl mx-auto mb-16">
+				<div class="stock-example p-8 rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-transparent backdrop-blur">
+					<h3 class="text-3xl font-bold mb-6 text-center">
+						<span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+							Stock Trading Example
+						</span>
+					</h3>
+					
+					<div class="grid md:grid-cols-2 gap-6">
+						<div>
+							<div class="p-4 rounded-lg bg-purple-500/10 border border-purple-500/30 mb-4">
+								<div class="text-lg font-bold mb-2">BUY 0.5 Clust AAPL @ $270</div>
+								<div class="text-sm text-white/70">Long position on Apple stock</div>
+							</div>
+							
+							<div class="space-y-3">
+								<div class="p-3 rounded-lg bg-white/5">
+									<div class="text-white/50 text-xs mb-1">Position Size</div>
+									<div class="font-mono">0.5 Clust = <span class="text-green-400">250 shares</span></div>
+								</div>
+								
+								<div class="p-3 rounded-lg bg-white/5">
+									<div class="text-white/50 text-xs mb-1">Notional Value</div>
+									<div class="font-mono">250 × $270 = <span class="text-green-400">$67,500</span></div>
+								</div>
+								
+								<div class="p-3 rounded-lg bg-white/5">
+									<div class="text-white/50 text-xs mb-1">Collateral (10x)</div>
+									<div class="font-mono">$67,500 ÷ 10 = <span class="text-blue-400">$6,750</span></div>
+								</div>
+							</div>
+						</div>
+						
+						<div>
+							<div class="p-4 rounded-lg bg-green-500/20 border border-green-500/40 mb-3">
+								<div class="text-green-400 font-bold mb-2">If AAPL → $271 (+$1)</div>
+								<div class="font-mono text-sm">P&L = $1 × 0.5 × 500</div>
+								<div class="text-xl font-bold text-green-400 mt-2">+$250 Profit</div>
+								<div class="text-xs text-white/70 mt-1">+3.7% Return</div>
+							</div>
+							
+							<div class="p-4 rounded-lg bg-green-500/20 border border-green-500/40">
+								<div class="text-green-400 font-bold mb-2">If AAPL → $275 (+$5)</div>
+								<div class="font-mono text-sm">P&L = $5 × 0.5 × 500</div>
+								<div class="text-xl font-bold text-green-400 mt-2">+$1,250 Profit</div>
+								<div class="text-xs text-white/70 mt-1">+18.5% Return</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Key Benefits -->
+			<div class="max-w-6xl mx-auto mb-16">
+				<h2 class="text-4xl font-bold text-center mb-12 benefits-title">Why Use Clusts?</h2>
+				
+				<div class="grid md:grid-cols-3 gap-6">
+					<div class="benefit-card p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+						<div class="w-12 h-12 mx-auto mb-4 rounded-full bg-yellow-500/20 flex items-center justify-center">
+							<svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold mb-2">Easy Position Sizing</h3>
+						<p class="text-white/60 text-sm">Simple fractional units make calculating position sizes intuitive</p>
+					</div>
+					
+					<div class="benefit-card p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+						<div class="w-12 h-12 mx-auto mb-4 rounded-full bg-purple-500/20 flex items-center justify-center">
+							<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold mb-2">10x Leverage Built-In</h3>
+						<p class="text-white/60 text-sm">Amplify your trading power with integrated leverage</p>
+					</div>
+					
+					<div class="benefit-card p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+						<div class="w-12 h-12 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center">
+							<svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+						</div>
+						<h3 class="text-xl font-bold mb-2">Precise Risk Management</h3>
+						<p class="text-white/60 text-sm">Control your exposure with granular position sizing</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- CTA -->
+			<div class="text-center cta-section">
+				<h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Trading?</h2>
+				<p class="text-xl text-white/70 mb-8">Experience the power of Clust-based trading with 10x leverage</p>
+				<a href="https://tradeflow.paxeer.app/" target="_blank" rel="noopener noreferrer" 
+				   class="inline-block px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 font-bold text-lg transition-all hover:scale-105">
+					Start Trading Now →
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		import { gsap } from "gsap";
+		import { ScrollTrigger } from "gsap/ScrollTrigger";
+		
+		gsap.registerPlugin(ScrollTrigger);
+
+		function initAnimations() {
+			// Hero
+			gsap.from('.hero-section', {
+				duration: 1,
+				opacity: 0,
+				y: 50,
+				ease: 'power3.out'
+			});
+			
+			// Clust cards
+			gsap.from('.clust-card', {
+				scrollTrigger: {
+					trigger: '.clust-card',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				y: 40,
+				stagger: 0.2,
+				ease: 'back.out(1.7)'
+			});
+			
+			// P&L Calc
+			gsap.from('.pl-calc-title', {
+				scrollTrigger: {
+					trigger: '.pl-calc-title',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				scale: 0.9,
+				ease: 'back.out(1.7)'
+			});
+			
+			gsap.from('.formula-box', {
+				scrollTrigger: {
+					trigger: '.formula-box',
+					start: 'top 80%',
+				},
+				duration: 1,
+				opacity: 0,
+				y: 30,
+				ease: 'power3.out',
+				delay: 0.2
+			});
+			
+			// Examples
+			gsap.from('.example-card', {
+				scrollTrigger: {
+					trigger: '.example-card',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				x: (i) => i === 0 ? -40 : 40,
+				stagger: 0.2,
+				ease: 'power3.out'
+			});
+			
+			// Stock example
+			gsap.from('.stock-example', {
+				scrollTrigger: {
+					trigger: '.stock-example',
+					start: 'top 80%',
+				},
+				duration: 1,
+				opacity: 0,
+				y: 40,
+				ease: 'power3.out'
+			});
+			
+			// Benefits
+			gsap.from('.benefits-title', {
+				scrollTrigger: {
+					trigger: '.benefits-title',
+					start: 'top 80%',
+				},
+				duration: 0.8,
+				opacity: 0,
+				y: 30,
+				ease: 'power3.out'
+			});
+			
+			gsap.from('.benefit-card', {
+				scrollTrigger: {
+					trigger: '.benefit-card',
+					start: 'top 80%',
+				},
+				duration: 0.6,
+				opacity: 0,
+				y: 30,
+				stagger: 0.15,
+				ease: 'back.out(1.7)'
+			});
+			
+			// CTA
+			gsap.from('.cta-section', {
+				scrollTrigger: {
+					trigger: '.cta-section',
+					start: 'top 80%',
+				},
+				duration: 1,
+				opacity: 0,
+				y: 40,
+				ease: 'power3.out'
+			});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initAnimations);
+		} else {
+			initAnimations();
+		}
+	</script>
+</BaseLayout>

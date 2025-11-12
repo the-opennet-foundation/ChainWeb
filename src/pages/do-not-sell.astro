@@ -1,0 +1,169 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-32">
+		<div class="container mx-auto px-4">
+			<div class="max-w-4xl mx-auto">
+				<h1 class="text-5xl md:text-6xl font-bold mb-6">Do Not Sell or Share My Personal Information</h1>
+				<p class="text-xl text-white/70 mb-12">
+					Your California Privacy Rights under CCPA
+				</p>
+
+				<!-- Notice -->
+				<div class="p-6 rounded-xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-transparent mb-12">
+					<h2 class="text-2xl font-bold mb-4">Important Notice</h2>
+					<p class="text-white/80 mb-4">
+						ChainFlow does not sell or share personal information as defined by the California Consumer Privacy Act (CCPA). We do not sell your personal information to third parties for monetary or other valuable consideration.
+					</p>
+					<p class="text-white/80">
+						However, we respect your right to opt-out and provide this page to honor your privacy preferences.
+					</p>
+				</div>
+
+				<!-- Your Rights -->
+				<div class="mb-12">
+					<h2 class="text-3xl font-bold mb-6">Your California Privacy Rights</h2>
+					<div class="space-y-4">
+						<div class="p-4 rounded-lg border border-white/10 bg-white/5">
+							<h3 class="font-bold mb-2">Right to Know</h3>
+							<p class="text-sm text-white/70">
+								You have the right to request information about the personal data we collect, use, disclose, and sell.
+							</p>
+						</div>
+						
+						<div class="p-4 rounded-lg border border-white/10 bg-white/5">
+							<h3 class="font-bold mb-2">Right to Delete</h3>
+							<p class="text-sm text-white/70">
+								You have the right to request deletion of your personal information, subject to certain exceptions.
+							</p>
+						</div>
+						
+						<div class="p-4 rounded-lg border border-white/10 bg-white/5">
+							<h3 class="font-bold mb-2">Right to Opt-Out</h3>
+							<p class="text-sm text-white/70">
+								You have the right to opt-out of the sale or sharing of your personal information.
+							</p>
+						</div>
+						
+						<div class="p-4 rounded-lg border border-white/10 bg-white/5">
+							<h3 class="font-bold mb-2">Right to Non-Discrimination</h3>
+							<p class="text-sm text-white/70">
+								You have the right not to receive discriminatory treatment for exercising your privacy rights.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Opt-Out Form -->
+				<div class="p-8 rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent mb-12">
+					<h2 class="text-3xl font-bold mb-6">Submit Your Request</h2>
+					<p class="text-white/70 mb-6">
+						If you would like to exercise your right to opt-out or have questions about your personal information, please fill out the form below or contact us directly.
+					</p>
+					
+					<form class="space-y-6">
+						<div>
+							<label for="name" class="block mb-2 font-semibold">Full Name</label>
+							<input 
+								type="text" 
+								id="name" 
+								class="w-full px-4 py-3 rounded-lg bg-black border border-white/20 focus:border-white/40 focus:outline-none transition-colors"
+								required
+							/>
+						</div>
+
+						<div>
+							<label for="email" class="block mb-2 font-semibold">Email Address</label>
+							<input 
+								type="email" 
+								id="email" 
+								class="w-full px-4 py-3 rounded-lg bg-black border border-white/20 focus:border-white/40 focus:outline-none transition-colors"
+								required
+							/>
+						</div>
+
+						<div>
+							<label for="request-type" class="block mb-2 font-semibold">Request Type</label>
+							<select 
+								id="request-type" 
+								class="w-full px-4 py-3 rounded-lg bg-black border border-white/20 focus:border-white/40 focus:outline-none transition-colors"
+								required
+							>
+								<option value="">Select a request type</option>
+								<option value="opt-out">Opt-Out of Sale/Sharing</option>
+								<option value="know">Right to Know</option>
+								<option value="delete">Right to Delete</option>
+								<option value="other">Other Privacy Request</option>
+							</select>
+						</div>
+
+						<div>
+							<label for="details" class="block mb-2 font-semibold">Additional Details</label>
+							<textarea 
+								id="details" 
+								rows="4"
+								class="w-full px-4 py-3 rounded-lg bg-black border border-white/20 focus:border-white/40 focus:outline-none transition-colors"
+								placeholder="Please provide any additional information about your request..."
+							></textarea>
+						</div>
+
+						<div class="flex items-start gap-3">
+							<input type="checkbox" id="verify" class="mt-1" required />
+							<label for="verify" class="text-sm text-white/70">
+								I certify that I am a California resident and that the information provided is accurate.
+							</label>
+						</div>
+
+						<button type="submit" class="w-full px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+							Submit Request
+						</button>
+					</form>
+				</div>
+
+				<!-- Contact Information -->
+				<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+					<h3 class="text-xl font-bold mb-4">Alternative Contact Methods</h3>
+					<div class="space-y-2 text-white/70">
+						<p>
+							<strong>Email:</strong>{" "}
+							<a href="mailto:privacy@chainflowtrading.com" class="text-blue-400 hover:text-blue-300">
+								privacy@chainflowtrading.com
+							</a>
+						</p>
+						<p>
+							<strong>Phone:</strong> 1-800-CHAINFLOW (Toll-Free)
+						</p>
+						<p class="text-sm mt-4">
+							We will respond to your request within 45 days as required by CCPA. You may be asked to verify your identity before we process your request.
+						</p>
+					</div>
+				</div>
+
+				<!-- Additional Resources -->
+				<div class="mt-8 text-center">
+					<p class="text-white/70">
+						For more information about how we handle your data, please read our{" "}
+						<a href="/privacy" class="text-blue-400 hover:text-blue-300 underline">Privacy Policy</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const form = document.querySelector('form');
+		if (form) {
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+				alert('Thank you for your submission. We will process your request within 45 days.');
+				form.reset();
+			});
+		}
+	});
+</script>

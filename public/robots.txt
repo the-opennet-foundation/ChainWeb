@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://majestico.co/sitemap-index.xml

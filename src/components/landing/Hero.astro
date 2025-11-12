@@ -1,0 +1,347 @@
+---
+import LinkBlend from "@components/global/LinkBlend.astro";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section id="hero" class="section dark-section hero min-h-screen">
+	<div class="mx-auto flex h-full flex-col">
+		<div class="relative flex flex-1 flex-col justify-center gap-8 rounded-lg py-10 pb-28 md:gap-20 md:pb-10 lg:rounded-2xl">
+			<div class="flex flex-col items-center justify-center gap-6">
+				<img src="/Logo.svg" alt="ChainFlow Logo" class="h-24 w-24 md:h-32 md:w-32 lg:h-40 lg:w-40 hero-logo" />
+				<h1 class="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tight hero-title">ChainFlow</h1>
+			</div>
+			
+			<div class="flex flex-col items-center gap-6 px-4 text-center max-w-4xl mx-auto">
+				<h2 class="text-3xl md:text-4xl lg:text-5xl font-bold hero-subtitle">Revolutionary On-Chain Trading</h2>
+				<p class="text-lg md:text-xl text-white/70 max-w-2xl hero-description">
+					Experience complete transparency with blockchain-verified trades and zero evaluation costs
+				</p>
+			</div>
+
+			<div class="flex justify-center">
+				<!--?xml version="1.0" encoding="utf-8"?-->
+				<!-- SVG Hidden but kept for future use -->
+				<svg
+					version="1.1"
+					id="majestico-logo-svg"
+					xmlns="http://www.w3.org/2000/svg"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					viewBox="0 0 1333.5 196"
+					enable-background="new 0 0 1333.5 196"
+					class="title-svg w-[min(90rem,90vw)] hidden"
+					xml:space="preserve">
+					<g id="M">
+						<defs>
+							<path
+								id="M_x5F_Mask"
+								d="M36.2,53.4v131.1H13.8V10h29.9l57.1,141.5h1.2L159.1,10H189v174.4h-22.4V53.4H165L112,184.4H90.8
+			L37.7,53.4H36.2z">
+							</path>
+						</defs>
+						<clipPath id="M_x5F_Mask_00000096770518741426740400000009189978287050670243_">
+							<use xlink:href="#M_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<polyline
+							id="M_x5F_Path"
+							clip-path="url(#M_x5F_Mask_00000096770518741426740400000009189978287050670243_)"
+							fill="none"
+							stroke="#FFFFFF"
+							class="logo-path-mask"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							points="
+		25,187.2 27,10 101.4,184.4 174.3,10 182,186 	">
+						</polyline>
+					</g>
+					<g id="A">
+						<defs>
+							<path
+								id="A_x5F_Mask"
+								d="M322,132.1h-74l-19.9,52.3h-23.9l67-174.4h27.4l67,174.4h-23.9L322,132.1z M285.9,36.7h-2l-28.4,75.5
+			h58.8L285.9,36.7z">
+							</path>
+						</defs>
+						<clipPath id="A_x5F_Mask_00000037678601105432892380000012529143596060145033_">
+							<use xlink:href="#A_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<polyline
+							id="A_x5F_Path"
+							clip-path="url(#A_x5F_Mask_00000037678601105432892380000012529143596060145033_)"
+							fill="none"
+							stroke="#FFFFFF"
+							class="logo-path-mask"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							points="
+		217.9,191 284.9,10 329,119.7 358.5,187.5 329,119.7 245.7,119 	">
+						</polyline>
+					</g>
+					<g id="J">
+						<defs>
+							<path
+								id="J_x5F_Mask"
+								d="M378.3,123.4h22.4c0,14.5,2.4,25.2,7.2,32.1c4.8,7,12.7,10.5,23.7,10.5s18.9-3.4,23.8-10.3
+			c4.9-6.9,7.4-17.6,7.4-32.3V10h22.4v113.4c0,42.5-17.9,63.8-53.6,63.8C396.1,187.2,378.3,165.9,378.3,123.4z">
+							</path>
+						</defs>
+						<clipPath id="J_x5F_Mask_00000119094009115737901400000004815366034736149687_">
+							<use xlink:href="#J_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<path
+							id="J_x5F_Path"
+							clip-path="url(#J_x5F_Mask_00000119094009115737901400000004815366034736149687_)"
+							fill="none"
+							class="logo-path-mask"
+							stroke="#FFFFFF"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							d="
+		M387.8,120c0,0,4.7,64.5,44,58.3C471,172,474,141,474,141V10">
+						</path>
+					</g>
+					<g id="E">
+						<defs>
+							<path id="E_x5F_Mask" d="M626.8,164.5v19.9H509.2V10h117.6v19.9h-95.2v57.3h83v19.9h-83v57.3H626.8z"></path>
+						</defs>
+						<clipPath id="E_x5F_Mask_00000098198300135129560250000010768648456595972771_">
+							<use xlink:href="#E_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<polyline
+							id="E_x5F_Path"
+							clip-path="url(#E_x5F_Mask_00000098198300135129560250000010768648456595972771_)"
+							fill="none"
+							class="logo-path-mask"
+							stroke="#FFFFFF"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							points="
+		628,19.3 521.3,19.3 521.3,97.2 623,94.3 521.3,97.2 521.3,178.7 629,178.7 	">
+						</polyline>
+					</g>
+					<g id="S">
+						<defs>
+							<path
+								id="S_x5F_Mask"
+								d="M724,86.7c18.9,3.7,32.8,9.6,41.7,17.7c8.9,8.1,13.3,19.1,13.3,32.9c0,16.3-6.1,28.7-18.2,37.1
+			c-12.1,8.5-27.7,12.7-46.8,12.7c-8.8,0-17.1-0.9-24.9-2.6c-7.8-1.7-15-4.5-21.7-8.3c-6.6-3.8-11.9-9.1-15.8-15.8
+			c-3.9-6.7-5.9-14.6-5.9-23.5v-1.7h23.7v1.2c0,19.8,14.9,29.7,44.6,29.7c12.3,0,22.3-2.3,29.9-7c7.6-4.6,11.5-11.7,11.5-21.2
+			c0-8-2.7-14.1-8-18.4c-5.3-4.3-15-8-29.2-11l-19.9-4.2c-31.9-6.8-47.8-22.8-47.8-48.1c0-15,5.8-26.8,17.4-35.6
+			c11.6-8.8,26.2-13.2,43.9-13.2c20.3,0,35.8,4.4,46.6,13.3c10.8,8.9,16.2,21,16.2,36.3v1.2h-23.9v-1c0-9-3.2-16-9.7-21.1
+			c-6.5-5.1-15.9-7.6-28.4-7.6c-11.5,0-20.7,2.4-27.8,7.2c-7.1,4.8-10.6,11.4-10.6,19.7c0,8.6,2.7,15,8,18.9c5.3,4,13.1,7,23.4,9
+			L724,86.7z">
+							</path>
+						</defs>
+						<clipPath id="S_x5F_Mask_00000048492160201443585990000017206624758945857183_">
+							<use xlink:href="#S_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<path
+							id="S_x5F_Path"
+							clip-path="url(#S_x5F_Mask_00000048492160201443585990000017206624758945857183_)"
+							fill="none"
+							class="logo-path-mask"
+							stroke="#FFFFFF"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							d="
+		M765.2,63c0,0-3.5-48.4-52.8-43.7s-50.3,19.2-50.3,19.2S652,69,681,88c0,0,58,12,68,19s21,10,16,34s-4,27-25,32s-68.5-1-73.2-7
+		s-6.4-33-6.4-33">
+						</path>
+					</g>
+					<g id="T">
+						<defs>
+							<path id="T_x5F_Mask" d="M788,29.9V10h134.1v19.9h-55.8v154.5h-22.4V29.9H788z"></path>
+						</defs>
+						<clipPath id="T_x5F_Mask_00000116951300969580086640000012441786884314804641_">
+							<use xlink:href="#T_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<polyline
+							id="T_x5F_Path"
+							clip-path="url(#T_x5F_Mask_00000116951300969580086640000012441786884314804641_)"
+							fill="none"
+							class="logo-path-mask"
+							stroke="#FFFFFF"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							points="
+		855,185 855,18.9 787,19.3 924,18.9 	">
+						</polyline>
+					</g>
+					<g id="I">
+						<defs>
+							<path id="I_x5F_Mask" d="M960.9,10v174.4h-22.4V10H960.9z"></path>
+						</defs>
+						<clipPath id="I_x5F_Mask_00000171721944521342947480000007976815643322046373_">
+							<use xlink:href="#I_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<line
+							id="I_x5F_Path"
+							clip-path="url(#I_x5F_Mask_00000171721944521342947480000007976815643322046373_)"
+							fill="none"
+							stroke="#FFFFFF"
+							class="logo-path-mask"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							x1="949.7"
+							y1="9"
+							x2="949.7"
+							y2="187">
+						</line>
+					</g>
+					<g id="C">
+						<defs>
+							<path
+								id="C_x5F_Mask"
+								d="M1137.9,74.3h-23.4c-1.7-14.5-7.2-25.7-16.7-33.8c-9.5-8.1-21.6-12.1-36.4-12.1
+			c-16.9,0-30.4,6.2-40.4,18.7c-10,12.5-15,29.6-15,51.3c0,21.1,5,37.6,15,49.6c10,12,23.4,17.9,40.4,17.9
+			c13.3,0,24.7-3.7,34.3-11.1c9.6-7.4,15.4-17.6,17.6-30.5h23.9c-2.7,19.8-10.8,35.2-24.4,46.2c-13.6,11-30.7,16.6-51.3,16.6
+			c-24.4,0-43.7-8.1-57.8-24.2c-14.1-16.1-21.2-37.6-21.2-64.5c0-27.6,7.1-49.7,21.3-66.3c14.2-16.6,33.4-24.9,57.7-24.9
+			c22.3,0,40,5.9,53.3,17.6C1128,36.5,1135.7,53,1137.9,74.3z">
+							</path>
+						</defs>
+						<clipPath id="C_x5F_Mask_00000062872912612276495140000008034629371513245619_">
+							<use xlink:href="#C_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<path
+							id="C_x5F_Path"
+							clip-path="url(#C_x5F_Mask_00000062872912612276495140000008034629371513245619_)"
+							fill="none"
+							class="logo-path-mask"
+							stroke="#FFFFFF"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							d="
+		M1129.3,79c0,0-14.9-61.1-63.1-60.1C1018,20,1001,53,1001,53s-12.3,34.3-7.6,59.2s25.5,53.8,25.5,53.8s44.8,15.4,51,12.7
+		s54.7-23.3,59.5-60.7">
+						</path>
+					</g>
+					<g id="O">
+						<defs>
+							<path
+								id="O_x5F_Mask"
+								d="M1178.6,32.2c14.5-16.6,34.3-24.9,59.4-24.9c25.1,0,44.8,8.3,59.1,24.9c14.3,16.6,21.4,38.7,21.4,66.3
+			c0,26.9-7.1,48.4-21.4,64.5c-14.3,16.1-34,24.2-59.1,24.2c-25.1,0-44.9-8.1-59.4-24.2c-14.5-16.1-21.8-37.6-21.8-64.5
+			C1156.8,70.9,1164.1,48.8,1178.6,32.2z M1238,166c17.6,0,31.5-6,41.6-17.9c10.1-12,15.2-28.5,15.2-49.6c0-21.8-5.1-38.9-15.2-51.3
+			c-10.1-12.5-24-18.7-41.6-18.7c-17.6,0-31.6,6.2-42,18.7c-10.4,12.5-15.6,29.6-15.6,51.3c0,21.1,5.1,37.6,15.5,49.6
+			C1206.2,160,1220.3,166,1238,166z">
+							</path>
+						</defs>
+						<clipPath id="O_x5F_Mask_00000011747446453532554160000011773768268075636659_">
+							<use xlink:href="#O_x5F_Mask" overflow="visible"></use>
+						</clipPath>
+
+						<path
+							id="O_x5F_Path"
+							clip-path="url(#O_x5F_Mask_00000011747446453532554160000011773768268075636659_)"
+							fill="none"
+							class="logo-path-mask"
+							stroke="#FFFFFF"
+							stroke-width="32"
+							stroke-miterlimit="10"
+							d="
+		M1180.5,46c0,0-11.5,23-11.5,36s4.5,48.6,5.7,53.8s13.1,24.2,23.7,30.2s36.1,11.7,47.3,8.9c11.2-2.9,41-11.3,49.1-22.1
+		s13.9-49,14-55.9C1309,90,1306,61,1300,51s-26.6-33.4-34.8-31.7c-8.2,1.7-41.9-9.5-48.5-0.4C1210,28,1180.5,46,1180.5,46z">
+						</path>
+					</g>
+				</svg>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		padding-bottom: 0;
+		position: relative;
+		border-radius: inherit;
+		overflow: hidden;
+	}
+	.hero > div {
+		grid-column: 1 / span 4;
+	}
+
+	#hero .title-svg {
+		opacity: 0;
+	}
+
+	/* Hero appearance */
+	.hero h1,
+	.hero h2,
+	.hero h3 {
+		margin: 0;
+	}
+	.hero h1 {
+		margin: 0;
+		position: relative;
+		overflow: hidden;
+	}
+	.hero h1 > div {
+		position: relative;
+		margin: 0;
+	}
+</style>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { SplitText } from "gsap/SplitText";
+	import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+	import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+
+	gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, DrawSVGPlugin);
+
+	function init() {
+		// Animate logo
+		gsap.from(".hero-logo", {
+			duration: 1,
+			opacity: 0,
+			scale: 0.5,
+			rotation: -180,
+			ease: "back.out(1.7)",
+		});
+
+		// Animate ChainFlow title with split text
+		let titleSplit = new SplitText(".hero-title", { type: "chars" });
+		gsap.from(titleSplit.chars, {
+			duration: 0.8,
+			opacity: 0,
+			y: 100,
+			rotateX: -90,
+			stagger: 0.05,
+			delay: 0.3,
+			ease: "back.out(1.7)",
+		});
+
+		// Animate subtitle
+		gsap.from(".hero-subtitle", {
+			duration: 0.8,
+			opacity: 0,
+			y: 30,
+			delay: 0.8,
+			ease: "power2.out",
+		});
+
+		// Animate description
+		gsap.from(".hero-description", {
+			duration: 0.8,
+			opacity: 0,
+			y: 30,
+			delay: 1.0,
+			ease: "power2.out",
+		});
+	}
+
+	document.removeEventListener("DOMContentLoaded", init); // astro:page-load
+	document.addEventListener("DOMContentLoaded", init); // astro:page-load
+</script>

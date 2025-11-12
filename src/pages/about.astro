@@ -1,0 +1,207 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BootstrapIcon from "@/components/icons/BootstrapIcon.astro";
+---
+
+<BaseLayout>
+	<div class="section gap-y-20 py-32">
+		<!-- Hero Section -->
+		<div class="col-span-full text-center px-4">
+			<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">Built by Traders, for Traders</h1>
+			<p class="text-lg md:text-xl text-white/70 max-w-4xl mx-auto">
+				ChainFlow was created by professional traders who witnessed the sketchy, self-serving prop firm industry and decided to build something better—a fair, transparent firm that actually helps traders succeed.
+			</p>
+		</div>
+
+		<!-- Mission Section -->
+		<div class="col-span-full px-4">
+			<div class="max-w-4xl mx-auto">
+				<h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">Our Mission</h2>
+				<div class="space-y-4 text-white/70 text-lg">
+					<p>
+						The prop firm industry has long been plagued by hidden fees, opaque practices, and firms that profit from trader failures. We saw this firsthand and knew there had to be a better way.
+					</p>
+					<p>
+						ChainFlow is the first fully on-chain prop firm, leveraging blockchain technology to create complete transparency, eliminate evaluation costs, and ensure every trade is publicly verifiable. We're not just another prop firm—we're reimagining what prop trading should be.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Key Values -->
+		<div class="col-span-full px-4">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+				<div class="value-card p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="flex justify-center mb-3">
+						<BootstrapIcon name="search" class="w-12 h-12 text-white/80" />
+					</div>
+					<h3 class="text-xl font-bold mb-2">100% Transparent</h3>
+					<p class="text-sm text-white/60">Every trade on public ledgers</p>
+				</div>
+				<div class="value-card p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="flex justify-center mb-3">
+						<BootstrapIcon name="gem" class="w-12 h-12 text-white/80" />
+					</div>
+					<h3 class="text-xl font-bold mb-2">Zero Cost Evals</h3>
+					<p class="text-sm text-white/60">No upfront fees ever</p>
+				</div>
+				<div class="value-card p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="flex justify-center mb-3">
+						<BootstrapIcon name="bullseye" class="w-12 h-12 text-white/80" />
+					</div>
+					<h3 class="text-xl font-bold mb-2">Trader First</h3>
+					<p class="text-sm text-white/60">Built by traders who get it</p>
+				</div>
+				<div class="value-card p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="flex justify-center mb-3">
+						<BootstrapIcon name="cash-coin" class="w-12 h-12 text-white/80" />
+					</div>
+					<h3 class="text-xl font-bold mb-2">Fair Profit Splits</h3>
+					<p class="text-sm text-white/60">Up to 90% to traders</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Paxeer Technology -->
+		<div class="col-span-full px-4 mt-20">
+			<div class="max-w-4xl mx-auto">
+				<h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">Built on Paxeer Technology</h2>
+				<p class="text-lg text-white/70 text-center mb-12">
+					ChainFlow is powered by the Paxeer Network, a revolutionary blockchain infrastructure designed to create a fairer, more accessible, and more efficient global economy.
+				</p>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div class="network-card p-8 rounded-xl border border-blue-500/30 bg-gradient-to-br from-blue-500/10 to-transparent backdrop-blur">
+						<h3 class="text-2xl font-bold mb-4">OpenNet</h3>
+						<p class="text-white/70 mb-6">
+							Our custom EVM-compatible chain for evaluation accounts. Every evaluation trade is recorded on OpenNet, providing complete transparency during your challenge phase.
+						</p>
+						<a href="https://explorer.opennet.paxeer.app" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
+							View OpenNet Explorer →
+						</a>
+					</div>
+
+					<div class="network-card p-8 rounded-xl border border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-transparent backdrop-blur">
+						<h3 class="text-2xl font-bold mb-4">Paxeer Mainnet</h3>
+						<p class="text-white/70 mb-6">
+							The live mainnet for fully funded traders. Once you pass your evaluation, your live trading happens on Paxeer's production network with full blockchain verification.
+						</p>
+						<a href="https://paxscan.io" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors">
+							View Paxscan Explorer →
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Journey Timeline -->
+		<div class="col-span-full px-4 mt-20">
+			<div class="max-w-4xl mx-auto">
+				<h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Our Journey</h2>
+				
+				<div class="relative space-y-8">
+					<!-- Timeline Line -->
+					<div class="absolute left-8 top-0 bottom-0 w-0.5 bg-white/10 hidden md:block"></div>
+					
+					<div class="timeline-item flex gap-6">
+						<div class="flex-shrink-0 w-16 h-16 rounded-full border-2 border-white/20 bg-black flex items-center justify-center font-bold relative z-10">
+							Q4
+						</div>
+						<div class="flex-1 pb-8">
+							<h3 class="text-xl font-bold mb-2">Conception</h3>
+							<p class="text-white/60 text-sm mb-1">Q4 2024</p>
+							<p class="text-white/70">
+								The Paxeer concept is born out of the need for a high-performance, low-cost derivatives platform.
+							</p>
+						</div>
+					</div>
+
+					<div class="timeline-item flex gap-6">
+						<div class="flex-shrink-0 w-16 h-16 rounded-full border-2 border-white/20 bg-black flex items-center justify-center font-bold relative z-10">
+							Q1
+						</div>
+						<div class="flex-1 pb-8">
+							<h3 class="text-xl font-bold mb-2">Testnet Launch</h3>
+							<p class="text-white/60 text-sm mb-1">Q1 2025</p>
+							<p class="text-white/70">
+								The first public testnet goes live, showcasing the core technology stack and Paxeer VM.
+							</p>
+						</div>
+					</div>
+
+					<div class="timeline-item flex gap-6">
+						<div class="flex-shrink-0 w-16 h-16 rounded-full border-2 border-green-500 bg-black flex items-center justify-center font-bold relative z-10 text-green-400">
+							Q3
+						</div>
+						<div class="flex-1 pb-8">
+							<h3 class="text-xl font-bold mb-2">Mainnet Launch</h3>
+							<p class="text-white/60 text-sm mb-1">Q3 2025</p>
+							<p class="text-white/70">
+								The Paxeer Network mainnet is launched, opening the gates for unrestricted decentralized trading.
+							</p>
+						</div>
+					</div>
+
+					<div class="timeline-item flex gap-6">
+						<div class="flex-shrink-0 w-16 h-16 rounded-full border-2 border-white/20 bg-black flex items-center justify-center font-bold relative z-10">
+							Q4
+						</div>
+						<div class="flex-1">
+							<h3 class="text-xl font-bold mb-2">DAO Formation</h3>
+							<p class="text-white/60 text-sm mb-1">Q4 2025</p>
+							<p class="text-white/70">
+								The Paxeer DAO is established, handing over governance of the protocol to the community.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Foundation Section -->
+		<div class="col-span-full px-4 mt-20">
+			<div class="max-w-4xl mx-auto">
+				<div class="p-8 rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur">
+					<h2 class="text-3xl font-bold mb-6 text-center">The Paxeer Foundation</h2>
+					<p class="text-white/70 text-center">
+						The Paxeer Foundation is an independent, non-profit organization dedicated to fostering the growth and decentralization of the Paxeer Network. The Foundation supports the ecosystem by issuing grants, funding public goods, and spearheading research and development efforts.
+					</p>
+					<p class="text-white/70 text-center mt-4">
+						This commitment to decentralization and community governance ensures that ChainFlow remains transparent, fair, and aligned with trader interests—not corporate profits.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- CTA Section -->
+		<div class="col-span-full px-4 text-center mt-20">
+			<h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Trade with Transparency?</h2>
+			<p class="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
+				Join the first fully on-chain prop firm and experience trading the way it should be.
+			</p>
+			<div class="flex gap-4 justify-center flex-wrap">
+				<a href="https://dashboard.paxeer.app/en" target="_blank" class="px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+					Start Free Evaluation
+				</a>
+				<a href="/features" class="px-8 py-3 border border-white/20 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+					Learn More
+				</a>
+			</div>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.value-card, .network-card {
+		transition: transform 0.2s ease, border-color 0.3s ease;
+	}
+	
+	.value-card:hover, .network-card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(255, 255, 255, 0.2);
+	}
+
+	.timeline-item {
+		position: relative;
+	}
+</style>

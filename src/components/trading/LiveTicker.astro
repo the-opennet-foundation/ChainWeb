@@ -1,0 +1,130 @@
+---
+// Live Price Ticker with GSAP animations
+const API_URL = import.meta.env.PUBLIC_API_URL || 'http://localhost:3001';
+const symbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'dotusd', 'maticusd'];
+---
+
+<div class="ticker-container overflow-hidden py-6 border-y border-white/10">
+	<div id="ticker-track" class="ticker-track flex gap-8">
+		{symbols.map(symbol => (
+			<a href={`/symbol/${symbol}`} class="ticker-item flex items-center gap-4 px-6 whitespace-nowrap hover:bg-white/5 rounded-lg transition-colors cursor-pointer">
+				<span class="symbol font-bold text-white/90 uppercase">{symbol.replace('usd', '/USD')}</span>
+				<span data-symbol={symbol} class="price text-white font-mono">--</span>
+				<span data-symbol={symbol} class="change text-sm"></span>
+			</a>
+		))}
+	</div>
+</div>
+
+<style>
+	.ticker-container {
+		position: relative;
+		background: rgba(255, 255, 255, 0.02);
+	}
+	
+	.ticker-track {
+		display: flex;
+		will-change: transform;
+	}
+	
+	.ticker-item {
+		flex-shrink: 0;
+	}
+	
+	.change.positive {
+		color: #10b981;
+	}
+	
+	.change.negative {
+		color: #ef4444;
+	}
+</style>
+
+<script>
+	import { gsap } from "gsap";
+	
+	// Use empty string for dev (proxied through Vite), production URL for build
+	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+	const symbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'dotusd', 'maticusd'];
+
+	let prices = {};
+
+	async function fetchPrices() {
+		try {
+			const symbolsQuery = symbols.join(',');
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+			
+			const res = await fetch(`${API_URL}/api/v1/quotes?symbols=${symbolsQuery}`, {
+				signal: controller.signal
+			});
+			clearTimeout(timeoutId);
+			
+			if (!res.ok) {
+				throw new Error(`HTTP ${res.status}`);
+			}
+			
+			const data = await res.json();
+			
+			Object.keys(data).forEach(symbol => {
+				const quote = data[symbol];
+				const priceEl = document.querySelector(`[data-symbol="${symbol}"].price`);
+				const changeEl = document.querySelector(`[data-symbol="${symbol}"].change`);
+				
+				if (priceEl && quote) {
+					const oldPrice = prices[symbol] || quote.last;
+					const newPrice = quote.last;
+					prices[symbol] = newPrice;
+					
+					// Animate price change
+					gsap.to(priceEl, {
+						duration: 0.5,
+						onUpdate: function() {
+							const currentVal = gsap.getProperty(this.targets()[0], "textContent");
+							priceEl.textContent = `$${newPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+						}
+					});
+					
+					// Calculate change
+					const change = ((newPrice - quote.open) / quote.open * 100);
+					if (changeEl) {
+						changeEl.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
+						changeEl.className = `change ${change >= 0 ? 'positive' : 'negative'}`;
+					}
+				}
+			});
+		} catch (error) {
+			console.error('Failed to fetch prices:', error);
+		}
+	}
+
+	function init() {
+		const track = document.getElementById('ticker-track');
+		if (!track) return;
+		
+		// Clone items for infinite scroll
+		const items = Array.from(track.children);
+		items.forEach(item => {
+			const clone = item.cloneNode(true);
+			track.appendChild(clone);
+		});
+		
+		// Animate infinite scroll
+		gsap.to(track, {
+			x: `-${track.scrollWidth / 2}px`,
+			duration: 30,
+			ease: "none",
+			repeat: -1,
+		});
+		
+		// Fetch prices immediately and every 2 seconds
+		fetchPrices();
+		setInterval(fetchPrices, 2000);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+</script>

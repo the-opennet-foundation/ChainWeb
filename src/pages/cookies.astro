@@ -1,0 +1,132 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-32">
+		<div class="container mx-auto px-4">
+			<div class="max-w-4xl mx-auto">
+				<h1 class="text-5xl md:text-6xl font-bold mb-6">Cookie Preferences</h1>
+				<p class="text-xl text-white/70 mb-12">
+					Manage how ChainFlow uses cookies and similar technologies.
+				</p>
+
+				<!-- Cookie Settings -->
+				<div class="space-y-6 mb-12">
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+						<div class="flex justify-between items-start mb-4">
+							<div class="flex-1">
+								<h3 class="text-xl font-bold mb-2">Strictly Necessary Cookies</h3>
+								<p class="text-sm text-white/70">
+									These cookies are essential for the website to function properly. They enable core functionality such as security, network management, and accessibility.
+								</p>
+							</div>
+							<div class="ml-4">
+								<span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold">Always Active</span>
+							</div>
+						</div>
+						<div class="text-xs text-white/50">
+							<strong>Examples:</strong> Session cookies, authentication tokens, security cookies
+						</div>
+					</div>
+
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+						<div class="flex justify-between items-start mb-4">
+							<div class="flex-1">
+								<h3 class="text-xl font-bold mb-2">Performance Cookies</h3>
+								<p class="text-sm text-white/70">
+									These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
+								</p>
+							</div>
+							<div class="ml-4">
+								<label class="relative inline-flex items-center cursor-pointer">
+									<input type="checkbox" class="sr-only peer" checked>
+									<div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+								</label>
+							</div>
+						</div>
+						<div class="text-xs text-white/50">
+							<strong>Examples:</strong> Google Analytics, page view tracking, error reporting
+						</div>
+					</div>
+
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+						<div class="flex justify-between items-start mb-4">
+							<div class="flex-1">
+								<h3 class="text-xl font-bold mb-2">Functional Cookies</h3>
+								<p class="text-sm text-white/70">
+									These cookies enable enhanced functionality and personalization, such as remembering your preferences and settings.
+								</p>
+							</div>
+							<div class="ml-4">
+								<label class="relative inline-flex items-center cursor-pointer">
+									<input type="checkbox" class="sr-only peer" checked>
+									<div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+								</label>
+							</div>
+						</div>
+						<div class="text-xs text-white/50">
+							<strong>Examples:</strong> Language preferences, theme settings, notification preferences
+						</div>
+					</div>
+
+					<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+						<div class="flex justify-between items-start mb-4">
+							<div class="flex-1">
+								<h3 class="text-xl font-bold mb-2">Targeting/Advertising Cookies</h3>
+								<p class="text-sm text-white/70">
+									These cookies may be set through our site by our advertising partners to build a profile of your interests and show you relevant ads.
+								</p>
+							</div>
+							<div class="ml-4">
+								<label class="relative inline-flex items-center cursor-pointer">
+									<input type="checkbox" class="sr-only peer">
+									<div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+								</label>
+							</div>
+						</div>
+						<div class="text-xs text-white/50">
+							<strong>Examples:</strong> Social media cookies, ad targeting, retargeting pixels
+						</div>
+					</div>
+				</div>
+
+				<!-- Save Button -->
+				<div class="flex gap-4">
+					<button class="flex-1 px-8 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition-colors">
+						Save Preferences
+					</button>
+					<button class="px-8 py-3 border border-white/20 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+						Accept All
+					</button>
+				</div>
+
+				<!-- Additional Info -->
+				<div class="mt-12 p-6 rounded-xl border border-white/10 bg-white/5">
+					<h3 class="text-xl font-bold mb-4">About Cookies</h3>
+					<p class="text-white/70 mb-4">
+						Cookies are small text files that are placed on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and understanding how you use our site.
+					</p>
+					<p class="text-white/70 mb-4">
+						You can change your cookie preferences at any time by returning to this page. For more information, please see our{" "}
+						<a href="/privacy" class="text-blue-400 hover:text-blue-300 underline">Privacy Policy</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>
+
+<script>
+	// Cookie preference handling would go here
+	document.addEventListener('DOMContentLoaded', () => {
+		const saveBtn = document.querySelector('button');
+		if (saveBtn) {
+			saveBtn.addEventListener('click', () => {
+				alert('Cookie preferences saved!');
+			});
+		}
+	});
+</script>

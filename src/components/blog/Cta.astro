@@ -1,0 +1,23 @@
+---
+import Newsletter from "@components/blog/Newsletter.astro";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<section class:list={["bg-white text-black", className]}>
+	<div class="mx-auto max-w-7xl px-8 py-12 md:px-12 lg:px-32 lg:py-24">
+		<div class="flex flex-col items-center justify-center gap-10 p-8 text-center lg:p-20">
+			<p class="mt-8 font-display text-4xl font-semibold md:text-6xl lg:text-8xl">{t("newsletter_subscribe")}</p>
+			<Newsletter class="w-full" />
+		</div>
+	</div>
+</section>

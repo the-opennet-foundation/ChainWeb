@@ -1,0 +1,7 @@
+[install]
+# Set default registry
+registry = "https://registry.npmjs.org"
+
+# Configure private registry scoped to a particular organization
+[install.scopes]
+"@gsap" = { url = "https://npm.greensock.com", token = "$GSAP_TOKEN" }

@@ -1,0 +1,101 @@
+---
+// ChainFlow Features Section
+---
+
+<div id="features" class="section gap-y-20 py-32 text-xl md:text-2xl">
+	<div class="col-span-full col-start-1 px-4 text-center sm:col-span-3 sm:col-start-2">
+		<h2 id="features-title" class="font-display text-5xl md:text-6xl lg:text-8xl mb-8">Revolutionary On-Chain Trading</h2>
+		<p id="features-subtitle" class="text-lg text-white/70">
+			Experience complete transparency with blockchain-verified trades and zero evaluation costs
+		</p>
+	</div>
+
+	<div class="feature-card col-span-full col-start-1 px-4 sm:col-span-1 sm:col-start-1 text-center">
+		<h3 class="text-2xl font-bold mb-4">Zero Cost Evaluations</h3>
+		<p class="text-base text-white/70">
+			All evaluations are completely free on our OpenNet blockchain. No upfront costs, no financial barriers.
+		</p>
+	</div>
+
+	<div class="feature-card col-span-full col-start-1 px-4 sm:col-span-1 sm:col-start-2 text-center">
+		<h3 class="text-2xl font-bold mb-4">Public Ledger</h3>
+		<p class="text-base text-white/70">
+			Every trade recorded on blockchain. Fully transparent, verifiable on OpenNet Explorer and Paxscan.
+		</p>
+	</div>
+
+	<div class="feature-card col-span-full col-start-1 px-4 sm:col-span-1 sm:col-start-3 text-center">
+		<h3 class="text-2xl font-bold mb-4">OpenNet & Paxeer</h3>
+		<p class="text-base text-white/70">
+			Evaluate on OpenNet EVM chain, trade funded accounts on Paxeer mainnet with real capital.
+		</p>
+	</div>
+
+	<div class="feature-card col-span-full col-start-1 px-4 sm:col-span-1 sm:col-start-4 text-center">
+		<h3 class="text-2xl font-bold mb-4">Blockchain Verified</h3>
+		<p class="text-base text-white/70">
+			Immutable trading records. Every trade, profit, and metric verified on-chain and publicly accessible.
+		</p>
+	</div>
+
+	<div class="feature-card col-span-full col-start-1 px-4 sm:col-span-2 sm:col-start-2 text-center">
+		<h3 class="text-2xl font-bold mb-4">Fast Withdrawals</h3>
+		<p class="text-base text-white/70">
+			On-chain payouts processed within 24-48 hours. Transparent, fast, and secure.
+		</p>
+	</div>
+</div>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+
+	gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
+
+	function init() {
+		// Animate title with scramble
+		gsap.from("#features-title", {
+			scrollTrigger: {
+				trigger: "#features-title",
+				start: "top 80%",
+				end: "center 60%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 1,
+			scrambleText: {
+				text: "Revolutionary On-Chain Trading",
+				chars: "upperCase",
+				speed: 0.3,
+			},
+		});
+
+		// Fade in subtitle
+		gsap.from("#features-subtitle", {
+			scrollTrigger: {
+				trigger: "#features-subtitle",
+				start: "top 80%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 0.8,
+			opacity: 0,
+			y: 20,
+		});
+
+		// Stagger animate feature cards
+		gsap.from(".feature-card", {
+			scrollTrigger: {
+				trigger: ".feature-card",
+				start: "top 85%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 0.6,
+			opacity: 0,
+			y: 30,
+			stagger: 0.15,
+		});
+	}
+
+	document.removeEventListener("DOMContentLoaded", init);
+	document.addEventListener("DOMContentLoaded", init);
+</script>

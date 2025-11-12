@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-32">
+		<div class="container mx-auto px-4">
+			<div class="max-w-4xl mx-auto">
+				<h1 class="text-5xl md:text-6xl font-bold mb-6">System Status</h1>
+				<p class="text-xl text-white/70 mb-12">
+					Real-time status updates for all ChainFlow services and infrastructure.
+				</p>
+
+				<!-- Status Overview -->
+				<div class="grid gap-6 mb-12">
+					<div class="p-6 rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent">
+						<div class="flex items-center justify-between mb-2">
+							<h3 class="text-xl font-bold">Trading Platform</h3>
+							<span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-bold">Operational</span>
+						</div>
+						<p class="text-white/70 text-sm">All trading services are running normally</p>
+					</div>
+
+					<div class="p-6 rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent">
+						<div class="flex items-center justify-between mb-2">
+							<h3 class="text-xl font-bold">OpenNet Blockchain</h3>
+							<span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-bold">Operational</span>
+						</div>
+						<p class="text-white/70 text-sm">Evaluation accounts are processing normally</p>
+					</div>
+
+					<div class="p-6 rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent">
+						<div class="flex items-center justify-between mb-2">
+							<h3 class="text-xl font-bold">Paxeer Mainnet</h3>
+							<span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-bold">Operational</span>
+						</div>
+						<p class="text-white/70 text-sm">Live trading accounts are functioning normally</p>
+					</div>
+
+					<div class="p-6 rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/10 to-transparent">
+						<div class="flex items-center justify-between mb-2">
+							<h3 class="text-xl font-bold">Dashboard & API</h3>
+							<span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-bold">Operational</span>
+						</div>
+						<p class="text-white/70 text-sm">All dashboard features and API endpoints are responding</p>
+					</div>
+				</div>
+
+				<!-- Recent Updates -->
+				<div class="mt-12">
+					<h2 class="text-3xl font-bold mb-6">Recent Updates</h2>
+					<div class="space-y-4">
+						<div class="p-4 rounded-lg border border-white/10 bg-white/5">
+							<div class="flex justify-between items-start mb-2">
+								<span class="text-sm text-white/50">Jan 15, 2025</span>
+								<span class="px-2 py-1 rounded text-xs bg-blue-500/20 text-blue-400">Maintenance</span>
+							</div>
+							<p class="text-white/80">Scheduled maintenance completed successfully. All systems operational.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

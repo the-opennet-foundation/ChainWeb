@@ -1,0 +1,156 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BootstrapIcon from "@/components/icons/BootstrapIcon.astro";
+
+export const prerender = true;
+
+const categories = [
+	{ id: "crypto", name: "Cryptocurrencies", description: "Bitcoin, Ethereum, and other digital assets", count: 84, multiplier: 10, icon: "currency-bitcoin", color: "from-orange-500/20" },
+	{ id: "forex_major", name: "Major Forex Pairs", description: "EUR/USD, GBP/USD, USD/JPY, etc.", count: 15, multiplier: 500, icon: "cash-stack", color: "from-blue-500/20" },
+	{ id: "forex_minor", name: "Minor Forex Pairs", description: "Cross currency pairs", count: 50, multiplier: 500, icon: "currency-exchange", color: "from-cyan-500/20" },
+	{ id: "us_stocks_tech", name: "US Tech Stocks", description: "Apple, Microsoft, Google, Tesla, etc.", count: 422, multiplier: 500, icon: "cpu", color: "from-purple-500/20" },
+	{ id: "us_stocks_finance", name: "US Financial Stocks", description: "Banks, insurance, financial services", count: 411, multiplier: 500, icon: "bank", color: "from-green-500/20" },
+	{ id: "us_stocks_healthcare", name: "US Healthcare Stocks", description: "Pharma, biotech, medical devices", count: 312, multiplier: 500, icon: "heart-pulse", color: "from-red-500/20" },
+	{ id: "us_stocks_energy", name: "US Energy Stocks", description: "Oil, gas, renewables", count: 166, multiplier: 500, icon: "lightning-charge", color: "from-yellow-500/20" },
+	{ id: "us_stocks_consumer", name: "US Consumer Stocks", description: "Retail, consumer goods and services", count: 478, multiplier: 500, icon: "cart", color: "from-pink-500/20" },
+	{ id: "us_stocks_industrial", name: "US Industrial Stocks", description: "Manufacturing, aerospace, defense", count: 280, multiplier: 500, icon: "gear", color: "from-gray-500/20" },
+	{ id: "indices_major", name: "Major Indices", description: "S&P 500, Nasdaq, Dow Jones, etc.", count: 14, multiplier: 10, icon: "graph-up-arrow", color: "from-indigo-500/20" },
+	{ id: "commodities_energy", name: "Energy Commodities", description: "Crude oil, natural gas, heating oil", count: 17, multiplier: 500, icon: "fuel-pump", color: "from-amber-500/20" },
+	{ id: "commodities_metals", name: "Metal Commodities", description: "Gold, silver, copper, platinum", count: 28, multiplier: 500, icon: "gem", color: "from-yellow-600/20" },
+	{ id: "etfs", name: "ETFs", description: "Exchange-traded funds", count: 100, multiplier: 500, icon: "box-seam", color: "from-teal-500/20" },
+];
+---
+
+<BaseLayout>
+	<div class="min-h-screen py-20">
+		<!-- Hero Section -->
+		<div class="container mx-auto px-4 mb-16">
+			<div class="text-center max-w-4xl mx-auto markets-hero">
+				<h1 class="text-5xl md:text-7xl font-bold mb-6">Trade All Markets</h1>
+				<p class="text-xl text-white/70 mb-8">
+					Access 2,400+ instruments across crypto, forex, stocks, indices, commodities, and ETFs.
+					All on ChainFlow's BookView Router.
+				</p>
+				<div class="flex gap-4 justify-center flex-wrap">
+					<a href="/evaluation" class="bg-white text-black px-8 py-3 rounded-lg font-bold hover:bg-gray-200 transition-colors">
+						Start Free Evaluation
+					</a>
+					<a href="#categories" class="border border-white/20 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition-colors">
+						Browse Markets
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Stats Overview -->
+		<div class="container mx-auto px-4 mb-20">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto stats-grid">
+				<div class="stat-box p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="text-4xl font-bold text-orange-400 mb-2">84</div>
+					<div class="text-white/70 text-sm">Cryptocurrencies</div>
+				</div>
+				<div class="stat-box p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="text-4xl font-bold text-blue-400 mb-2">1,850+</div>
+					<div class="text-white/70 text-sm">US Stocks</div>
+				</div>
+				<div class="stat-box p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="text-4xl font-bold text-green-400 mb-2">65</div>
+					<div class="text-white/70 text-sm">Forex Pairs</div>
+				</div>
+				<div class="stat-box p-6 rounded-xl border border-white/10 bg-white/5 text-center">
+					<div class="text-4xl font-bold text-purple-400 mb-2">159</div>
+					<div class="text-white/70 text-sm">Commodities & ETFs</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Categories Grid -->
+		<div id="categories" class="container mx-auto px-4">
+			<h2 class="text-4xl font-bold mb-12 text-center">Market Categories</h2>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+				{categories.map((category, index) => (
+					<a 
+						href={`/markets/${category.id}`}
+						class="category-card block group"
+					>
+						<div class:list={[
+							"p-6 rounded-xl border border-white/10 h-full transition-all duration-300 group-hover:border-white/30 group-hover:scale-105",
+							`bg-gradient-to-br ${category.color} to-transparent`
+						]}>
+							<div class="flex items-start justify-between mb-4">
+								<BootstrapIcon name={category.icon} class="w-12 h-12 text-white/80" />
+								<div class="text-right">
+									<div class="text-2xl font-bold">{category.count}</div>
+									<div class="text-xs text-white/50">Markets</div>
+								</div>
+							</div>
+							<h3 class="text-xl font-bold mb-2">{category.name}</h3>
+							<p class="text-white/70 text-sm mb-4">{category.description}</p>
+							<div class="flex items-center justify-between">
+								<div class="text-xs text-white/50">
+									<span class="font-mono">
+										{category.multiplier === 10 ? "1 mClust (10 units)" : "1 Clust (500 units)"}
+									</span>
+								</div>
+								<span class="text-sm text-white/80 group-hover:text-white transition-colors flex items-center gap-1">
+									View All
+									<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+									</svg>
+								</span>
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		import { gsap } from "gsap";
+		import { ScrollTrigger } from "gsap/ScrollTrigger";
+		
+		gsap.registerPlugin(ScrollTrigger);
+
+		function initAnimations() {
+			gsap.from('.markets-hero', {
+				duration: 1,
+				opacity: 0,
+				y: 50,
+				ease: 'power3.out'
+			});
+			
+			gsap.from('.stat-box', {
+				scrollTrigger: {
+					trigger: '.stats-grid',
+					start: 'top 80%',
+				},
+				duration: 0.6,
+				opacity: 0,
+				y: 30,
+				stagger: 0.1,
+				ease: 'back.out(1.7)'
+			});
+			
+			gsap.from('.category-card', {
+				scrollTrigger: {
+					trigger: '.category-card',
+					start: 'top 85%',
+				},
+				duration: 0.6,
+				opacity: 0,
+				y: 30,
+				stagger: 0.1,
+				ease: 'power3.out'
+			});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initAnimations);
+		} else {
+			initAnimations();
+		}
+	</script>
+
+</BaseLayout>

@@ -1,0 +1,223 @@
+---
+// ChainFlow Pricing Section
+const plans = [
+	{
+		name: "EVAL-10K",
+		size: "$10,000",
+		profit: "$2,000",
+		daily: "$1,000",
+		total: "20%",
+		days: "5",
+	},
+	{
+		name: "EVAL-25K",
+		size: "$25,000",
+		profit: "$5,000",
+		daily: "$2,500",
+		total: "20%",
+		days: "5",
+	},
+	{
+		name: "EVAL-50K",
+		size: "$50,000",
+		profit: "$10,000",
+		daily: "$5,000",
+		total: "20%",
+		days: "5",
+		popular: true,
+	},
+	{
+		name: "EVAL-100K",
+		size: "$100,000",
+		profit: "$20,000",
+		daily: "$10,000",
+		total: "20%",
+		days: "5",
+	},
+	{
+		name: "EVAL-250K",
+		size: "$250,000",
+		profit: "$50,000",
+		daily: "$25,000",
+		total: "20%",
+		days: "5",
+	},
+	{
+		name: "EVAL-500K",
+		size: "$500,000",
+		profit: "$100,000",
+		daily: "$50,000",
+		total: "20%",
+		days: "5",
+	},
+	{
+		name: "EVAL-1M",
+		size: "$1,000,000",
+		profit: "$200,000",
+		daily: "$100,000",
+		total: "20%",
+		days: "5",
+	},
+	{
+		name: "EVAL-10M",
+		size: "$10,000,000",
+		profit: "$2,000,000",
+		daily: "$1,000,000",
+		total: "20%",
+		days: "5",
+		featured: true,
+	},
+];
+---
+
+<div id="pricing" class="section gap-y-20 py-32">
+	<div class="col-span-full col-start-1 px-4 text-center sm:col-span-3 sm:col-start-2">
+		<h2 id="pricing-title" class="font-display text-5xl md:text-6xl lg:text-8xl mb-8">Zero Cost. Maximum Opportunity.</h2>
+		<p id="pricing-subtitle" class="text-lg text-white/70">
+			Choose your challenge size. All evaluations are completely free on our OpenNet blockchain.
+		</p>
+	</div>
+
+	<div class="col-span-full px-4">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+			{plans.map((plan) => (
+				<div class="pricing-card">
+					<div class:list={[
+						"relative rounded-lg p-6 border h-full text-center",
+						plan.popular ? "border-white/30 bg-white/5" : plan.featured ? "border-yellow-500/50 bg-gradient-to-br from-yellow-500/10 to-transparent" : "border-white/10 bg-black/50"
+					]}>
+						{plan.popular && (
+							<div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+								<span class="bg-white text-black px-3 py-1 rounded-full text-xs font-bold">Most Popular</span>
+							</div>
+						)}
+						{plan.featured && (
+							<div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+								<span class="bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-3 py-1 rounded-full text-xs font-bold">⭐ Elite</span>
+							</div>
+						)}
+
+				<div class="mb-6">
+					<h3 class="text-xl font-bold mb-1">{plan.name}</h3>
+					<p class="text-white/50 text-sm mb-3">{plan.size} evaluation account</p>
+					<div class="mb-4">
+						<span class="text-3xl font-bold">$0</span>
+					</div>
+				</div>
+
+				<ul class="space-y-2 mb-6 text-sm">
+					<li class="flex flex-col text-white/70 items-center">
+						<span class="text-white/40 text-xs">Profit target</span>
+						<span class="font-medium">{plan.profit}</span>
+					</li>
+					<li class="flex flex-col text-white/70 items-center">
+						<span class="text-white/40 text-xs">Daily drawdown</span>
+						<span class="font-medium">{plan.daily}</span>
+					</li>
+					<li class="flex flex-col text-white/70 items-center">
+						<span class="text-white/40 text-xs">Total drawdown</span>
+						<span class="font-medium">{plan.total}</span>
+					</li>
+					<li class="flex flex-col text-white/70 items-center">
+						<span class="text-white/40 text-xs">Min trading days</span>
+						<span class="font-medium">{plan.days}</span>
+					</li>
+					<li class="flex flex-col text-white/70 items-center">
+						<span class="text-white/40 text-xs">Network</span>
+						<span class="font-medium">OpenNet EVM</span>
+					</li>
+				</ul>
+
+					<a
+						href="https://dashboard.paxeer.app"
+						target="_blank"
+						rel="noopener noreferrer"
+						class:list={[
+							"block w-full px-4 py-2 rounded-lg text-center text-sm font-semibold transition-all duration-300",
+							plan.popular || plan.featured
+								? "bg-white text-black hover:bg-gray-200"
+								: "bg-transparent border border-white/20 text-white hover:bg-white/10"
+						]}>
+						Start Challenge →
+					</a>
+				</div>
+			</div>
+		))}
+		</div>
+	</div>
+
+	<div class="col-span-full col-start-1 px-4 text-center sm:col-span-3 sm:col-start-2 mt-8">
+		<a href="/evaluation" class="inline-block text-white/70 hover:text-white transition-colors text-sm mb-4">
+			View detailed rules and requirements →
+		</a>
+		<p id="pricing-footer" class="text-white/50 text-sm">
+			All challenges are 100% free • No hidden costs • Get funded and trade on Paxeer mainnet
+		</p>
+	</div>
+</div>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+
+	gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
+
+	function init() {
+		// Animate title with scramble
+		gsap.from("#pricing-title", {
+			scrollTrigger: {
+				trigger: "#pricing-title",
+				start: "top 80%",
+				end: "center 60%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 1,
+			scrambleText: {
+				text: "Zero Cost. Maximum Opportunity.",
+				chars: "upperCase",
+				speed: 0.3,
+			},
+		});
+
+		// Fade in subtitle
+		gsap.from("#pricing-subtitle", {
+			scrollTrigger: {
+				trigger: "#pricing-subtitle",
+				start: "top 80%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 0.8,
+			opacity: 0,
+			y: 20,
+		});
+
+		// Stagger animate pricing cards
+		gsap.from(".pricing-card", {
+			scrollTrigger: {
+				trigger: ".pricing-card",
+				start: "top 85%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 0.6,
+			opacity: 0,
+			y: 30,
+			stagger: 0.15,
+		});
+
+		// Fade in footer
+		gsap.from("#pricing-footer", {
+			scrollTrigger: {
+				trigger: "#pricing-footer",
+				start: "top 90%",
+				toggleActions: "play none none reverse",
+			},
+			duration: 0.6,
+			opacity: 0,
+			y: 20,
+		});
+	}
+
+	document.removeEventListener("DOMContentLoaded", init);
+	document.addEventListener("DOMContentLoaded", init);
+</script>
