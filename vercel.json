@@ -1,8 +1,8 @@
 {
-	"buildCommand": "npm run build",
+	"buildCommand": "yarn run build",
 	"outputDirectory": "dist",
-	"devCommand": "npm run dev",
-	"installCommand": "npm install",
+	"devCommand": "yarn run dev",
+	"installCommand": "yarn install",
 	"framework": "astro",
 	"rewrites": [
 		{
