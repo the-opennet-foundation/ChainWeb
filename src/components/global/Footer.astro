@@ -5,8 +5,7 @@ const currentLang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(currentLang);
 ---
 
-<footer class="relative flex min-h-screen w-full flex-col gap-y-10 font-mono uppercase">
-	<div class="relative flex-grow"></div>
+<footer class="relative flex w-full flex-col gap-y-10 font-mono uppercase">
 	<div class="container mx-auto px-4 py-12">
 		<!-- Logo and Brand -->
 		<div class="flex items-center gap-3 mb-8">
@@ -67,7 +66,7 @@ const translatePath = useTranslatedPath(currentLang);
 			<div class="max-w-6xl text-xs text-white/50 space-y-4 normal-case leading-relaxed">
 				<p class="font-bold text-white/70 text-sm uppercase">Not a Deposit | Not FDIC Insured | May Lose Value | Not Regulated by SEC or CFTC</p>
 				
-				<p><strong class="text-white/70">ChainFlow Disclaimer:</strong> ChainFlow and its affiliates, including Paxeer Foundation, PaxLabs Inc, OpenLabs Inc, OpenNet LTD, The OpenNetwork Foundation, and TradeFlow LTD (collectively, "ChainFlow"), provide information on this website for general informational purposes only. Testimonials appearing on ChainFlow's websites may not be representative of other clients or customers and are not a guarantee of future performance or success. Use of the information on ChainFlow's websites is at your own risk and ChainFlow and its partners, representatives, agents, employees, and contractors assume no responsibility or liability for any use or misuse of such information. ChainFlow does not provide tax, legal, investment, or accounting advice. You should consult your own advisors before engaging in any transaction.</p>
+				<p><strong class="text-white/70">ChainFlow Disclaimer:</strong> ChainFlow and its affiliates, including Paxeer Foundation, PaxLabs Inc, OpenLabs Inc, OpenNet LTD, The OpenNetwork Foundation, and TradeFlow LTD (collectively, "ChainFlow"), operate ChainFlow V2 as a network-level capital protocol inspired by proprietary trading models. Information on this website is provided for general informational purposes only. Testimonials appearing on ChainFlow's websites may not be representative of other clients or customers and are not a guarantee of future performance or success. Use of the information on ChainFlow's websites is at your own risk and ChainFlow and its partners, representatives, agents, employees, and contractors assume no responsibility or liability for any use or misuse of such information. ChainFlow does not provide tax, legal, investment, or accounting advice. You should consult your own advisors before engaging in any transaction.</p>
 				
 				<p><strong class="text-white/70">Risk Disclosure:</strong> Trading virtual and on-chain assets involves substantial risk of loss. All investments involve risk, and not all risks are suitable for every investor. The value of investments may fluctuate significantly and as a result, traders may lose more than their original capital allocation. The past performance of any trading strategy, asset, or trader does not guarantee future results or returns. Blockchain-based transactions are irreversible and may be subject to network congestion, smart contract vulnerabilities, and other technical risks. Please carefully consider whether trading is appropriate for you in light of your personal financial circumstances. You should only use funds that you can afford to lose without affecting your financial security or lifestyle, and only a portion of those funds should be allocated to any single trade because you cannot expect to profit on every trade.</p>
 				
@@ -100,17 +99,18 @@ const translatePath = useTranslatedPath(currentLang);
 		</div>
 
 		<!-- Bottom Bar -->
-		<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-			<div class="text-sm text-white/70">©2025 ChainFlow - First Fully on Chain Prop Firm</div>
+		<div class="border-t border-black pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+			<div class="text-sm text-white/70">2025 ChainFlow V2 - Network-Level Capital Protocol</div>
 			<button id="go-top-button" aria-label="Go to Top" class="flex items-center gap-2 hover:text-white/80 transition-colors">
 				<span class="text-sm">Back to Top</span>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-					<g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-						<path d="m15 12l-3-3m0 0l-3 3m3-3v6"></path>
-					</g>
-				</svg>
 			</button>
 		</div>
+	</div>
+
+	<div class="w-full border-t border-black bg-black py-10 flex items-center justify-center">
+		<span class="text-[4rem] md:text-[6rem] lg:text-[15rem] font-bold tracking-tight text-white/80 leading-none">
+			ChainFlow V2
+		</span>
 	</div>
 </footer>
 

@@ -7,34 +7,58 @@ const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
 
-<section id="hero" class="section dark-section hero min-h-screen">
+<section id="hero" class="section dark-section hero min-h-screen relative">
 	<div class="mx-auto flex h-full flex-col">
-		<div class="relative flex flex-1 flex-col justify-center gap-8 rounded-lg py-10 pb-28 md:gap-20 md:pb-10 lg:rounded-2xl">
-			<div class="flex flex-col items-center justify-center gap-6">
-				<img src="/Logo.svg" alt="ChainFlow Logo" class="h-24 w-24 md:h-32 md:w-32 lg:h-40 lg:w-40 hero-logo" />
-				<h1 class="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tight hero-title">ChainFlow</h1>
-			</div>
-			
-			<div class="flex flex-col items-center gap-6 px-4 text-center max-w-4xl mx-auto">
-				<h2 class="text-3xl md:text-4xl lg:text-5xl font-bold hero-subtitle">Revolutionary On-Chain Trading</h2>
-				<p class="text-lg md:text-xl text-white/70 max-w-2xl hero-description">
-					Experience complete transparency with blockchain-verified trades and zero evaluation costs
-				</p>
+		<div class="relative flex flex-1 flex-col md:flex-row rounded-lg py-10 pb-28 md:pb-10 lg:rounded-2xl gap-6 md:gap-10">
+			<div class="flex-1 px-4 md:px-0 flex items-center">
+				<div class="h-full w-full border border-white/10 rounded-3xl overflow-hidden">
+					<img
+						src="/hero2.png"
+						alt="ChainFlow V2 network overview"
+						class="h-full w-full object-cover"
+						loading="lazy"
+					/>
+				</div>
 			</div>
 
-			<div class="flex justify-center">
-				<!--?xml version="1.0" encoding="utf-8"?-->
-				<!-- SVG Hidden but kept for future use -->
-				<svg
-					version="1.1"
-					id="majestico-logo-svg"
-					xmlns="http://www.w3.org/2000/svg"
-					xmlns:xlink="http://www.w3.org/1999/xlink"
-					viewBox="0 0 1333.5 196"
-					enable-background="new 0 0 1333.5 196"
-					class="title-svg w-[min(90rem,90vw)] hidden"
-					xml:space="preserve">
-					<g id="M">
+			<div class="flex-1 px-4 md:px-0 flex items-center">
+				<div class="h-full w-full border border-white/10 rounded-3xl overflow-hidden">
+					<img
+						src="/hero.png"
+						alt="ChainFlow V2 trading interface on laptop"
+						class="h-full w-full object-cover"
+						loading="lazy"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<!-- Hidden headings kept for accessibility and GSAP hooks -->
+		<h1 class="hero-title sr-only">ChainFlow</h1>
+		<h2 class="hero-subtitle sr-only">Network-Level Capital Protocol</h2>
+		<p class="hero-description sr-only">
+			Protocol-owned capital at the network layer for builders, traders, and investors.
+		</p>
+		<img src="/Logo.svg" alt="ChainFlow Logo" class="hero-logo sr-only" />
+	</div>
+</section>
+
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!-- SVG Hidden but kept for future use -->
+<svg
+	version="1.1"
+	id="majestico-logo-svg"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	viewBox="0 0 1333.5 196"
+	enable-background="new 0 0 1333.5 196"
+	class="title-svg w-[min(90rem,90vw)] hidden"
+	xml:space="preserve">
+	<g id="M">
+		<defs>
+			<path
+				id="M_x5F_Mask"
+				d="M36.2,53.4v131.1H13.8V10h29.9l57.1,141.5h1.2L159.1,10H189v174.4h-22.4V53.4H165L112,184.4H90.8
 						<defs>
 							<path
 								id="M_x5F_Mask"

@@ -71,11 +71,16 @@ const plans = [
 ---
 
 <div id="pricing" class="section gap-y-20 py-32">
-	<div class="col-span-full col-start-1 px-4 text-center sm:col-span-3 sm:col-start-2">
-		<h2 id="pricing-title" class="font-display text-5xl md:text-6xl lg:text-8xl mb-8">Zero Cost. Maximum Opportunity.</h2>
-		<p id="pricing-subtitle" class="text-lg text-white/70">
-			Choose your challenge size. All evaluations are completely free on our OpenNet blockchain.
-		</p>
+	<div class="col-span-full col-start-1 px-4 flex flex-col items-center sm:grid sm:grid-cols-3 sm:gap-8 sm:items-center">
+		<div class="sm:col-span-2 text-center">
+			<h2 id="pricing-title" class="font-display text-5xl md:text-6xl lg:text-8xl mb-8">Choose Your Network Capital Stream.</h2>
+			<p id="pricing-subtitle" class="text-lg text-white/70">
+				These tiers represent protocol capital allocations—not paid challenges. No fees, no auditions, just different access levels to ChainFlow V2 liquidity.
+			</p>
+		</div>
+		<div class="mt-8 sm:mt-0 flex justify-center sm:justify-end">
+			<img src="/9.webp" alt="Trading desk visualization" class="max-h-75 w-auto rounded-xl border border-black shadow-lg object-cover" loading="lazy" />
+		</div>
 	</div>
 
 	<div class="col-span-full px-4">
@@ -97,36 +102,36 @@ const plans = [
 							</div>
 						)}
 
-				<div class="mb-6">
-					<h3 class="text-xl font-bold mb-1">{plan.name}</h3>
-					<p class="text-white/50 text-sm mb-3">{plan.size} evaluation account</p>
-					<div class="mb-4">
-						<span class="text-3xl font-bold">$0</span>
+					<div class="mb-6">
+						<h3 class="text-xl font-bold mb-1">{plan.name}</h3>
+						<p class="text-white/50 text-sm mb-3">{plan.size} network capital stream</p>
+						<div class="mb-4">
+							<span class="text-3xl font-bold">$0</span>
+						</div>
 					</div>
-				</div>
 
-				<ul class="space-y-2 mb-6 text-sm">
-					<li class="flex flex-col text-white/70 items-center">
-						<span class="text-white/40 text-xs">Profit target</span>
-						<span class="font-medium">{plan.profit}</span>
-					</li>
-					<li class="flex flex-col text-white/70 items-center">
-						<span class="text-white/40 text-xs">Daily drawdown</span>
-						<span class="font-medium">{plan.daily}</span>
-					</li>
-					<li class="flex flex-col text-white/70 items-center">
-						<span class="text-white/40 text-xs">Total drawdown</span>
-						<span class="font-medium">{plan.total}</span>
-					</li>
-					<li class="flex flex-col text-white/70 items-center">
-						<span class="text-white/40 text-xs">Min trading days</span>
-						<span class="font-medium">{plan.days}</span>
-					</li>
-					<li class="flex flex-col text-white/70 items-center">
-						<span class="text-white/40 text-xs">Network</span>
-						<span class="font-medium">OpenNet EVM</span>
-					</li>
-				</ul>
+					<ul class="space-y-2 mb-6 text-sm">
+						<li class="flex flex-col text-white/70 items-center">
+							<span class="text-white/40 text-xs">Suggested risk budget</span>
+							<span class="font-medium">{plan.profit}</span>
+						</li>
+						<li class="flex flex-col text-white/70 items-center">
+							<span class="text-white/40 text-xs">Daily soft guardrail</span>
+							<span class="font-medium">{plan.daily}</span>
+						</li>
+						<li class="flex flex-col text-white/70 items-center">
+							<span class="text-white/40 text-xs">Network exposure band</span>
+							<span class="font-medium">{plan.total}</span>
+						</li>
+						<li class="flex flex-col text-white/70 items-center">
+							<span class="text-white/40 text-xs">Minimum activity window</span>
+							<span class="font-medium">{plan.days}</span>
+						</li>
+						<li class="flex flex-col text-white/70 items-center">
+							<span class="text-white/40 text-xs">Network</span>
+							<span class="font-medium">OpenNet EVM</span>
+						</li>
+					</ul>
 
 					<a
 						href="https://dashboard.paxeer.app"
@@ -138,7 +143,7 @@ const plans = [
 								? "bg-white text-black hover:bg-gray-200"
 								: "bg-transparent border border-white/20 text-white hover:bg-white/10"
 						]}>
-						Start Challenge →
+						Access Capital →
 					</a>
 				</div>
 			</div>
@@ -147,11 +152,8 @@ const plans = [
 	</div>
 
 	<div class="col-span-full col-start-1 px-4 text-center sm:col-span-3 sm:col-start-2 mt-8">
-		<a href="/evaluation" class="inline-block text-white/70 hover:text-white transition-colors text-sm mb-4">
-			View detailed rules and requirements →
-		</a>
 		<p id="pricing-footer" class="text-white/50 text-sm">
-			All challenges are 100% free • No hidden costs • Get funded and trade on Paxeer mainnet
+			Capital access is protocol-driven and free. No evaluation fees, no subscriptions, and no fixed profit targets—just on-chain activity scored by the network.
 		</p>
 	</div>
 </div>

@@ -6,8 +6,8 @@ const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 
 <div class="section gap-y-10 py-20">
 	<div class="col-span-full text-center px-4">
-		<h2 class="text-3xl md:text-4xl font-bold mb-2">Live Market Prices</h2>
-		<p class="text-white/60">Real-time data from ChainFlow Inter-Routing Engine</p>
+		<h2 class="text-3xl md:text-4xl font-bold mb-2">Live On Chain Prices</h2>
+		<p class="text-white/60">Real-time data from The Paxeer Inter-Routing Engine</p>
 	</div>
 
 	<div class="col-span-full px-4">
@@ -106,6 +106,14 @@ const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 			
 			const data = await res.json();
 			
+			const localLogos = {
+				btcusd: '/Bitcoin/btc.webp',
+				ethusd: '/Ethereum/eth.webp',
+				xrpusd: '/XRP/2.png',
+				bnbusd: '/BNB/bnb.webp',
+				adausd: '/Cardano/1.png',
+			};
+
 			featured.forEach(symbol => {
 				const quote = data[symbol];
 				if (!quote) return;
@@ -118,8 +126,12 @@ const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 				const arrowEl = card?.querySelector('.price-arrow');
 				const glowEl = card?.querySelector('.glow-effect');
 				
-				if (logoEl && quote.logo) {
-					logoEl.src = quote.logo;
+				if (logoEl) {
+					if (quote.logo) {
+						logoEl.src = quote.logo;
+					} else if (localLogos[symbol]) {
+						logoEl.src = localLogos[symbol];
+					}
 				}
 				
 				if (priceEl) {
