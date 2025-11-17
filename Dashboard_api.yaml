@@ -1,0 +1,792 @@
+curl -X 'GET' \
+  'https: //scan.paxeer.app/stats/api/v1/pages/main' \
+  -H 'accept: application/json'
+{
+    "average_block_time": {
+        "id": "averageBlockTime",
+        "value": "5.000000000000000",
+        "title": "Average block time",
+        "units": "s",
+        "description": "Average time taken in seconds for a block to be included in the blockchain"
+    },
+    "total_addresses": {
+        "id": "totalAddresses",
+        "value": "770",
+        "title": "Total addresses",
+        "units": null,
+        "description": "Number of addresses that participated in the blockchain"
+    },
+    "total_blocks": {
+        "id": "totalBlocks",
+        "value": "172256",
+        "title": "Total blocks",
+        "units": null,
+        "description": "Number of blocks over all time"
+    },
+    "total_transactions": {
+        "id": "totalTxns",
+        "value": "83850",
+        "title": "Total txns",
+        "units": null,
+        "description": "All transactions including pending, dropped, replaced, failed transactions"
+    },
+    "yesterday_transactions": {
+        "id": "yesterdayTxns",
+        "value": "9420",
+        "title": "Yesterday txns",
+        "units": null,
+        "description": "Number of transactions yesterday (0:00 - 23:59 UTC)"
+    },
+    "total_operational_transactions": null,
+    "yesterday_operational_transactions": null,
+    "op_stack_total_operational_transactions": null,
+    "op_stack_yesterday_operational_transactions": null,
+    "daily_new_transactions": {
+        "chart": [
+            {
+                "date": "2025-11-07",
+                "date_to": "2025-11-07",
+                "value": "261"
+            },
+            {
+                "date": "2025-11-08",
+                "date_to": "2025-11-08",
+                "value": "1333"
+            },
+            {
+                "date": "2025-11-09",
+                "date_to": "2025-11-09",
+                "value": "1857"
+            },
+            {
+                "date": "2025-11-10",
+                "date_to": "2025-11-10",
+                "value": "2926"
+            },
+            {
+                "date": "2025-11-11",
+                "date_to": "2025-11-11",
+                "value": "5295"
+            },
+            {
+                "date": "2025-11-12",
+                "date_to": "2025-11-12",
+                "value": "18477"
+            },
+            {
+                "date": "2025-11-13",
+                "date_to": "2025-11-13",
+                "value": "24411"
+            },
+            {
+                "date": "2025-11-14",
+                "date_to": "2025-11-14",
+                "value": "10842"
+            },
+            {
+                "date": "2025-11-15",
+                "date_to": "2025-11-15",
+                "value": "9420"
+            }
+        ],
+        "info": {
+            "id": "newTxnsWindow",
+            "title": "Daily transactions",
+            "description": "The chart displays daily transactions for the past 30 days",
+            "units": null,
+            "resolutions": [
+                "DAY"
+            ]
+        }
+    },
+    "daily_new_operational_transactions": null,"op_stack_daily_new_operational
+ 
+curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/stats/charts/market' \
+  -H 'accept: application/json'
+{
+        "available_supply": 0,
+        "chart_data": [
+            {
+                "closing_price": "9.49",
+                "date": "2025-11-17",
+                "market_cap": "4746001228.97",
+                "tvl": "4746001228.97"
+            },
+            {
+                "closing_price": "9.37",
+                "date": "2025-11-16",
+                "market_cap": "4682953035.37",
+                "tvl": "4682953035.37"
+            },
+            {
+                "closing_price": "8.22",
+                "date": "2025-11-15",
+                "market_cap": "4107899663.02",
+                "tvl": "4107899663.02"
+            },
+            {
+                "closing_price": "6.68",
+                "date": "2025-11-14",
+                "market_cap": "3341239519.03",
+                "tvl": "3341239519.03"
+            },
+            {
+                "closing_price": "4.23",
+                "date": "2025-11-13",
+                "market_cap": "2115387097.26",
+                "tvl": "2115387097.26"
+            },
+            {
+                "closing_price": "3.44",
+                "date": "2025-11-07",
+                "market_cap": "3440000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.42",
+                "date": "2025-11-06",
+                "market_cap": "3420000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.40",
+                "date": "2025-11-05",
+                "market_cap": "3400000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.38",
+                "date": "2025-11-04",
+                "market_cap": "3380000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.36",
+                "date": "2025-11-03",
+                "market_cap": "3360000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.34",
+                "date": "2025-11-02",
+                "market_cap": "3340000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.32",
+                "date": "2025-11-01",
+                "market_cap": "3320000000",
+                "tvl": null
+            },
+            {
+                "closing_price": "3.30"
+ 
+curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/stats/charts/transactions' \
+  -H 'accept: application/json'
+{
+                    "chart_data": [
+                        {
+                            "date": "2025-11-16",
+                            "transactions_count": 9420
+                        },
+                        {
+                            "date": "2025-11-15",
+                            "transactions_count": 10841
+                        },
+                        {
+                            "date": "2025-11-14",
+                            "transactions_count": 24407
+                        },
+                        {
+                            "date": "2025-11-13",
+                            "transactions_count": 18473
+                        },
+                        {
+                            "date": "2025-11-12",
+                            "transactions_count": 5294
+                        },
+                        {
+                            "date": "2025-11-11",
+                            "transactions_count": 2926
+                        },
+                        {
+                            "date": "2025-11-10",
+                            "transactions_count": 1857
+                        },
+                        {
+                            "date": "2025-11-09",
+                            "transactions_count": 1333
+                        },
+                        {
+                            "date": "2025-11-08",
+                            "transactions_count": 261
+                        },
+                        {
+                            "date": "2025-11-07",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-11-06",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-11-05",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-11-04",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-11-03",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-11-02",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-11-01",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-31",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-30",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-29",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-28",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-27",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-26",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-25",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-24",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-23",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-22",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-21",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-20",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-19",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-18",
+                            "transactions_count": 0
+                        },
+                        {
+                            "date": "2025-10-17",
+                            "transactions_count": 0
+                        }
+                    ]
+                } 
+ 
+curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/stats' \
+  -H 'accept: application/json'
+{
+                    "average_block_time": 5000,
+                    "coin_image": "https://pn0ramvpx364khyf.public.blob.vercel-storage.com/nxybot.png",
+                    "coin_price": 7.95,
+                    "coin_price_change_percentage": -8.44,
+                    "gas_price_updated_at": "2025-11-17T22:09:26.341Z",
+                    "gas_prices": {
+                        "average": {
+                            "time": 1867936,
+                            "wei": "95000000007",
+                            "priority_fee_wei": "9500000000",
+                            "price": 95,
+                            "base_fee": 0.95,
+                            "fiat_price": "0.00",
+                            "priority_fee": 9.5
+                        },
+                        "slow": {
+                            "time": 387755,
+                            "wei": "95000000007",
+                            "priority_fee_wei": "9500000000",
+                            "price": 95,
+                            "base_fee": 0.95,
+                            "fiat_price": "0.00",
+                            "priority_fee": 9.5
+                        },
+                        "fast": {
+                            "time": 3273229,
+                            "wei": "95000000007",
+                            "priority_fee_wei": "9500000000",
+                            "price": 95,
+                            "base_fee": 0.95,
+                            "fiat_price": "0.00",
+                            "priority_fee": 9.5
+                        }
+                    },
+                    "gas_prices_update_in": 30,
+                    "gas_used_today": "981556644",
+                    "market_cap": 3976967114.43,
+                    "network_utilization_percentage": 0.3622113893501605,
+                    "secondary_coin_image": null,
+                    "secondary_coin_price": null,
+                    "static_gas_price": null,
+                    "total_addresses": "770",
+                    "total_blocks": "172267",
+                    "total_gas_used": "0",
+                    "total_transactions": "83856",
+                    "transactions_today": "9034",
+                    "tvl": 3976967114.43
+                } 
+
+curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/addresses/0xb4c2cd158ee34b23cfc4a632c6bd6ddb3c654ebc/token-transfers' \
+  -H 'accept: application/json'
+{
+                    "items": [
+                        {
+                            "block_hash": "0x01c0c8b1d1da7b792c107c98769613ad06ef71726b1492253708c628d4499c78",
+                            "block_number": 43897,
+                            "from": {
+                                "ens_domain_name": null,
+                                "hash": "0xB4C2CD158EE34B23CfC4a632c6BD6DdB3C654eBC",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "log_index": 0,
+                            "method": "transfer",
+                            "timestamp": "2025-11-10T11:51:58.000000Z",
+                            "to": {
+                                "ens_domain_name": null,
+                                "hash": "0x081b03A3a48b7ab209ceEb9CEFaAC1e056cc7747",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "token": {
+                                "address_hash": "0xb74737f617A7a6aC0699A9c668a23FFFd96f67e4",
+                                "circulating_market_cap": "788059459.110037",
+                                "decimals": "18",
+                                "exchange_rate": "0.999655",
+                                "holders_count": "99",
+                                "icon_url": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+                                "name": "Tether USD",
+                                "reputation": "ok",
+                                "symbol": "USDT",
+                                "total_supply": "500000000000000000000000000",
+                                "type": "ERC-20",
+                                "volume_24h": "120837735096"
+                            },
+                            "token_type": "ERC-20",
+                            "total": {
+                                "decimals": "18",
+                                "value": "500000000000000000000000000"
+                            },
+                            "transaction_hash": "0x061ccccaedea37dada1013e28fd29485af773581aa255f781e4d0f034030f912",
+                            "type": "token_transfer"
+                        },
+                        {
+                            "block_hash": "0x74ef8e74ce9a5373915559ae12f90406a5a341381585a2bf7d59957ca7fd2817",
+                            "block_number": 30135,
+                            "from": {
+                                "ens_domain_name": null,
+                                "hash": "0x0000000000000000000000000000000000000000",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "log_index": 0,
+                            "method": "0x84bb1e42",
+                            "timestamp": "2025-11-09T16:45:08.000000Z",
+                            "to": {
+                                "ens_domain_name": null,
+                                "hash": "0xB4C2CD158EE34B23CfC4a632c6BD6DdB3C654eBC",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "token": {
+                                "address_hash": "0xb74737f617A7a6aC0699A9c668a23FFFd96f67e4",
+                                "circulating_market_cap": "788059459.110037",
+                                "decimals": "18",
+                                "exchange_rate": "0.999655",
+                                "holders_count": "99",
+                                "icon_url": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+                                "name": "Tether USD",
+                                "reputation": "ok",
+                                "symbol": "USDT",
+                                "total_supply": "500000000000000000000000000",
+                                "type": "ERC-20",
+                                "volume_24h": "120837735096"
+                            },
+                            "token_type": "ERC-20",
+                            "total": {
+                                "decimals": "18",
+                                "value": "500000000000000000000000000"
+                            },
+                            "transaction_hash": "0x699b795fe02f70c6b1771f76b7f356565fd34547bac3b334c747c2db5d9d7993",
+                            "type": "token_minting"
+                        }
+                    ],
+                    "next_page_params": null
+                } 
+
+curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/addresses/0xb4c2cd158ee34b23cfc4a632c6bd6ddb3c654ebc/internal-transactions' \
+  -H 'accept: application/json' 
+{
+                    "items": [
+                        {
+                            "block_index": 0,
+                            "block_number": 171582,
+                            "created_contract": {
+                                "ens_domain_name": null,
+                                "hash": "0xc34c90197Ff0802A522cda93b6FFb33c10450E96",
+                                "implementations": [],
+                                "is_contract": true,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "error": null,
+                            "from": {
+                                "ens_domain_name": null,
+                                "hash": "0xB4C2CD158EE34B23CfC4a632c6BD6DdB3C654eBC",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "gas_limit": "5550586",
+                            "index": 0,
+                            "success": true,
+                            "timestamp": "2025-11-17T21:12:23.000000Z",
+                            "to": null,
+                            "transaction_hash": "0x623e9327e2fc8bef52f4c00204e2a465773c34d640034aa77492726433dd265a",
+                            "transaction_index": 0,
+                            "type": "create",
+                            "value": "0"
+                        },
+                        {
+                            "block_index": 2,
+                            "block_number": 106325,
+                            "created_contract": {
+                                "ens_domain_name": null,
+                                "hash": "0xC2fECD06fc6711daC7ABC8B7f7a610D801249255",
+                                "implementations": [],
+                                "is_contract": true,
+                                "is_scam": false,
+                                "is_verified": true,
+                                "metadata": null,
+                                "name": "PriceDataOracle",
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "error": null,
+                            "from": {
+                                "ens_domain_name": null,
+                                "hash": "0xB4C2CD158EE34B23CfC4a632c6BD6DdB3C654eBC",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "gas_limit": "1368006",
+                            "index": 0,
+                            "success": true,
+                            "timestamp": "2025-11-14T02:34:18.000000Z",
+                            "to": null,
+                            "transaction_hash": "0xb0d89d6b3b94da3c9c1dda826392d5cef6a2de1c80a6de3fb4e392677e227d1b",
+                            "transaction_index": 2,
+                            "type": "create",
+                            "value": "0"
+                        },
+                        {
+                            "block_index": 0,
+                            "block_number": 105968,
+                            "created_contract": {
+                                "ens_domain_name": null,
+                                "hash": "0x8b6DA652B1666a34dEA760123FAb64F54A6FAF67",
+                                "implementations": [],
+                                "is_contract": true,
+                                "is_scam": false,
+                                "is_verified": true,
+                                "metadata": null,
+                                "name": "PriceDataOracle",
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "error": null,
+                            "from": {
+                                "ens_domain_name": null,
+                                "hash": "0xB4C2CD158EE34B23CfC4a632c6BD6DdB3C654eBC",
+                                "implementations": [],
+                                "is_contract": false,
+                                "is_scam": false,
+                                "is_verified": false,
+                                "metadata": null,
+                                "name": null,
+                                "private_tags": [],
+                                "proxy_type": null,
+                                "public_tags": [],
+                                "reputation": "ok",
+                                "watchlist_names": []
+                            },
+                            "gas_limit": "1367982",
+                            "index": 0,
+                            "success": true,
+                            "timestamp": "2025-11-14T02:04:33.000000Z",
+                            "to": null,
+                            "transaction_hash": "0x389a0e48f4a80d77826214f0fd51846dece8e9d9505dc55d8c73467b4a589cef",
+                            "transaction_index": 0,
+                            "type": "create",
+                            "value": "0"
+                        }
+                    ],
+                    "next_page_params": null
+                }
+
+ curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/addresses/0xb4c2cd158ee34b23cfc4a632c6bd6ddb3c654ebc/coin-balance-history-by-day' \
+  -H 'accept: application/json' 
+{
+                    "items": [
+                        {
+                            "date": "2025-11-09",
+                            "value": "5500000000000000000000"
+                        },
+                        {
+                            "date": "2025-11-10",
+                            "value": "5499982129234349874435"
+                        },
+                        {
+                            "date": "2025-11-11",
+                            "value": "5499982082804349549425"
+                        },
+                        {
+                            "date": "2025-11-14",
+                            "value": "5499303898549338949276"
+                        },
+                        {
+                            "date": "2025-11-17",
+                            "value": "1457362509454688190153"
+                        }
+                    ],
+                    "days": 10
+                }
+
+ curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/addresses/0x837212d006198a30ff5f18574b0c7fb79dbbfa64/tokens' \
+  -H 'accept: application/json' 
+{
+                    "items": [
+                        {
+                            "token": {
+                                "address_hash": "0xA1b7b8785317B47d95fFC0Eb4713566A8858b496",
+                                "circulating_market_cap": "499905680.00000006",
+                                "decimals": "18",
+                                "exchange_rate": "0.99981136",
+                                "holders_count": "119",
+                                "icon_url": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
+                                "name": "USDC",
+                                "reputation": "ok",
+                                "symbol": "USDC",
+                                "total_supply": "500000000000000000000000000",
+                                "type": "ERC-20",
+                                "volume_24h": "1189272603.7"
+                            },
+                            "token_id": null,
+                            "token_instance": null,
+                            "value": "11635331647928125945176806"
+                        },
+                        {
+                            "token": {
+                                "address_hash": "0x145624a76358514B108E21f06365c0eC7A26aFe6",
+                                "circulating_market_cap": "4434918544.97",
+                                "decimals": "18",
+                                "exchange_rate": "8.87",
+                                "holders_count": "97",
+                                "icon_url": null,
+                                "name": "Wrapped Paxeer",
+                                "reputation": "ok",
+                                "symbol": "WPAX",
+                                "total_supply": "9500000000000000000000000",
+                                "type": "ERC-20",
+                                "volume_24h": "101668050.6"
+                            },
+                            "token_id": null,
+                            "token_instance": null,
+                            "value": "629484791044158235263518"
+                        },
+                        {
+                            "token": {
+                                "address_hash": "0xbc39Ab2Dc03e7A2ecF65d35F843d537586cC5019",
+                                "circulating_market_cap": null,
+                                "decimals": "18",
+                                "exchange_rate": null,
+                                "holders_count": "1",
+                                "icon_url": null,
+                                "name": "USD Token",
+                                "reputation": "ok",
+                                "symbol": "USD",
+                                "total_supply": "1000000000000000000000000000",
+                                "type": "ERC-20",
+                                "volume_24h": null
+                            },
+                            "token_id": null,
+                            "token_instance": null,
+                            "value": "1000000000000000000000000000"
+                        }
+                    ],
+                    "next_page_params": null
+                }
+
+ curl -X 'GET' \
+  'https: //scan.paxeer.app/api/v2/addresses/0x837212d006198a30ff5f18574b0c7fb79dbbfa64/token-balances' \
+  -H 'accept: application/json' 
+[
+                    {
+                        "token": {
+                            "address_hash": "0xA1b7b8785317B47d95fFC0Eb4713566A8858b496",
+                            "circulating_market_cap": "499907804.99999994",
+                            "decimals": "18",
+                            "exchange_rate": "0.99981561",
+                            "holders_count": "119",
+                            "icon_url": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
+                            "name": "USDC",
+                            "reputation": "ok",
+                            "symbol": "USDC",
+                            "total_supply": "500000000000000000000000000",
+                            "type": "ERC-20",
+                            "volume_24h": "958464859.1"
+                        },
+                        "token_id": null,
+                        "token_instance": null,
+                        "value": "11635331647928125945176806"
+                    },
+                    {
+                        "token": {
+                            "address_hash": "0x145624a76358514B108E21f06365c0eC7A26aFe6",
+                            "circulating_market_cap": "4434918544.97",
+                            "decimals": "18",
+                            "exchange_rate": "8.87",
+                            "holders_count": "97",
+                            "icon_url": null,
+                            "name": "Wrapped Paxeer",
+                            "reputation": "ok",
+                            "symbol": "WPAX",
+                            "total_supply": "9500000000000000000000000",
+                            "type": "ERC-20",
+                            "volume_24h": "101124613.83"
+                        },
+                        "token_id": null,
+                        "token_instance": null,
+                        "value": "629484791044158235263518"
+                    },
+                    {
+                        "token": {
+                            "address_hash": "0xbc39Ab2Dc03e7A2ecF65d35F843d537586cC5019",
+                            "circulating_market_cap": null,
+                            "decimals": "18",
+                            "exchange_rate": null,
+                            "holders_count": "1",
+                            "icon_url": null,
+                            "name": "USD Token",
+                            "reputation": "ok",
+                            "symbol": "USD",
+                            "total_supply": "1000000000000000000000000000",
+                            "type": "ERC-20",
+                            "volume_24h": null
+                        },
+                        "token_id": null,
+                        "token_instance": null,
+                        "value": "1000000000000000000000000000"
+                    }
+                ]
