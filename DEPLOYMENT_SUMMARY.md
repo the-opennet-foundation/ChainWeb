@@ -1,7 +1,6 @@
 # Deployment Configuration 
 
 ## Changes Made for Vercel Deployment
-
 ### 1. Updated Astro Configuration (`astro.config.mjs`)
 - ✅ Replaced `@astrojs/node` adapter with `@astrojs/vercel/serverless`
 - ✅ Updated Vite proxy to use `dashboard.paxeer.app` as default target
