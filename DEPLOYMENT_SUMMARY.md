@@ -1,4 +1,4 @@
-# Deployment Configuration Summary
+# Deployment Configuration 
 
 ## Changes Made for Vercel Deployment
 
