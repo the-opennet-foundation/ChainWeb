@@ -43,36 +43,36 @@ export const ui = {
 			"Crafting digital echoes that resonate across screens and hearts. We turn whispers into conversations that matter.",
 		"privacy.wip": "Work in progress",
 		"privacy.wip.content": "This page will be updated soon",
-		"faqs.question1": "What is ChainFlow and how is it different from other prop firms?",
+		"faqs.question1": "What is ChainFlow V2?",
 		"faqs.answer1":
-			"ChainFlow is the world's first fully on-chain proprietary trading firm. Unlike traditional prop firms, all our evaluations are completely free ($0 cost), and every trade is recorded on the blockchain for complete transparency. We use OpenNet (our custom EVM chain) for evaluations and Paxeer mainnet for funded traders.",
-		"faqs.question2": "Why are evaluations completely free?",
+			"ChainFlow V2 is a network-level capital protocol, not just a prop trading firm. The protocol issues funded smart wallets to users and provides capital directly at the network layer so builders, traders, and investors can operate on-chain without buying challenges or paying for accounts.",
+		"faqs.question2": "How does capital provision work?",
 		"faqs.answer2":
-			"We believe in removing financial barriers to opportunity. By leveraging blockchain technology and our custom OpenNet EVM chain, we've eliminated the overhead costs that traditional prop firms pass on to traders. This allows us to offer zero-cost evaluations while maintaining the highest standards.",
-		"faqs.question3": "What are OpenNet and Paxeer?",
+			"Every user starts with an initial 50K capital line inside a ChainFlow smart wallet. From there, the protocol can scale that line up towards 1M per user based on how you operate on-chain — across trading, building, liquidity, and other activity.",
+		"faqs.question3": "What is a funded smart wallet?",
 		"faqs.answer3":
-			"OpenNet is our custom EVM-compatible blockchain designed specifically for evaluation accounts. It provides a secure, transparent environment for traders to prove their skills. Paxeer is the live mainnet where funded traders operate with real capital. Both networks feature public ledgers ensuring complete transparency.",
-		"faqs.question4": "How does the public ledger work?",
+			"A funded smart wallet is a wallet issued by the protocol that holds your capital line. You use it like a normal on-chain wallet to trade, deploy apps, provide liquidity, or invest. Under the hood, the protocol tracks activity and risk, and uses that to manage your capital limits and payouts.",
+		"faqs.question4": "Where does the capital come from?",
 		"faqs.answer4":
-			"Every trade executed on ChainFlow is recorded on the blockchain, creating an immutable, publicly verifiable record. Anyone can view trading history, performance metrics, and account activity on our block explorers. This transparency ensures fairness and builds trust.",
-		"faqs.question5": "What happens after I pass the evaluation?",
+			"Capital comes from community funding pools in ETH and OP, plus approximately 1.5B USD worth of collateralized staked PAX coins. The protocol routes this pooled capital across users and strategies based on risk and performance signals.",
+		"faqs.question5": "How does the algorithm decide scaling and payouts?",
 		"faqs.answer5":
-			"Once you successfully complete your evaluation on OpenNet, you'll be funded and transition to trading on Paxeer, our live mainnet. You'll trade with real capital, earn real profits based on your profit split, and all trades remain publicly verifiable on the blockchain.",
-		"faqs.question6": "Are there any time limits or trading rules?",
+			"ChainFlow V2 runs a proprietary network-wide algorithm that monitors each funded smart wallet using 500+ on-chain and behavioral data points. Large language models (LLMs) and risk models work together to decide when to increase or decrease your capital line and when you are eligible for payouts.",
+		"faqs.question6": "Are there evaluations, fees, or profit targets?",
 		"faqs.answer6":
-			"We don't impose artificial time limits on evaluations. Trade at your own pace and prove your consistency. We do have standard risk management rules (daily loss limits, maximum drawdown) to protect capital, but these are clearly outlined.",
-		"faqs.question7": "How do I withdraw my profits?",
+			"No. There are no paid evaluations, audition phases, or fixed profit targets. You don't pay signup fees or challenge fees. Instead, you simply use your smart wallet on-chain, and the protocol continuously scores your behavior to manage risk and capital.",
+		"faqs.question7": "How do payouts work?",
 		"faqs.answer7":
-			"Profits are paid out on-chain, directly to your wallet. Since we operate on blockchain infrastructure, withdrawals are fast, transparent, and verifiable. You can request withdrawals according to your profit split agreement, with most payouts processed within 24-48 hours.",
-		"faqs.question8": "What trading instruments are available?",
+			"When the algorithm determines that your smart wallet has generated realizable profit within acceptable risk, it can unlock payouts to you. Payouts are sent on-chain, directly to your wallet, and are fully transparent and verifiable on the Paxeer and OpenNet explorers.",
+		"faqs.question8": "What can I do with the capital?",
 		"faqs.answer8":
-			"ChainFlow supports a wide range of trading instruments including crypto pairs, forex, commodities, and indices. All instruments are available on both OpenNet (evaluation) and Paxeer (funded) networks.",
-		"faqs.question9": "Can I see other traders' performance?",
+			"You can use your funded smart wallet across the ecosystem: trade on-chain (spot or derivatives), provide or route liquidity, interact with DeFi protocols, or build and launch apps that rely on the same capital line. The protocol focuses on how you use the wallet, not on forcing a single trading challenge format.",
+		"faqs.question9": "Is everything on-chain and transparent?",
 		"faqs.answer9":
-			"Yes! Thanks to our public ledger, you can view all trading activity on OpenNet Explorer and Paxscan. This includes performance metrics, trade history, and account statistics for complete transparency.",
-		"faqs.question10": "What makes ChainFlow trustworthy?",
+			"Yes. Activity linked to your funded smart wallet is recorded on-chain, and network-level metrics are visible through explorers such as OpenNet and Paxscan. This allows both users and the community to verify capital flows, performance, and payouts.",
+		"faqs.question10": "How do I get started with ChainFlow V2?",
 		"faqs.answer10":
-			"Every aspect of ChainFlow is blockchain-verified and publicly accessible. From evaluation trades to profit distributions, everything is recorded on-chain. This eliminates the opacity that plagues traditional prop firms and ensures complete accountability.",
+			"Getting started is simple: connect, receive your funded smart wallet, and begin operating on-chain as you normally would. There are no auditions to pass and no upfront costs — the protocol handles capital allocation, risk, and payouts in the background.",
 		"faq.otherquestions": "Other questions?",
 		"thanks.subtitle": "Mail sent successfully",
 		"thanks.title": "Thank you",

@@ -1,0 +1,233 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const [mainRes, marketRes, overviewRes] = await Promise.all([
+	fetch("https://scan.paxeer.app/stats/api/v1/pages/main"),
+	fetch("https://scan.paxeer.app/api/v2/stats/charts/market"),
+	fetch("https://scan.paxeer.app/api/v2/stats"),
+]);
+
+if (!mainRes.ok || !marketRes.ok || !overviewRes.ok) {
+	throw new Error("Failed to load network stats");
+}
+
+const mainData = await mainRes.json();
+const marketData = await marketRes.json();
+const overview = await overviewRes.json();
+
+const dailyTxns = mainData.daily_new_transactions?.chart ?? [];
+const marketChart = marketData.chart_data ?? [];
+
+const formatNumber = (value: string | number | null, digits = 0) => {
+	if (value === null || value === undefined) return "-";
+	const num = typeof value === "string" ? Number(value) : value;
+	if (!Number.isFinite(num)) return "-";
+	return num.toLocaleString(undefined, {
+		maximumFractionDigits: digits,
+		minimumFractionDigits: digits,
+	});
+};
+
+const keyStats = [
+	{
+		id: "price",
+		label: "Price",
+		value: overview.coin_price ? `$${overview.coin_price.toFixed(2)}` : "-",
+		helper:
+			overview.coin_price_change_percentage !== undefined &&
+			overview.coin_price_change_percentage !== null
+				? `${overview.coin_price_change_percentage.toFixed(2)}% 24h`
+				: null,
+	},
+	{
+		id: "marketCap",
+		label: "Market cap",
+		value: overview.market_cap ? `$${formatNumber(overview.market_cap, 2)}` : "-",
+		helper: null,
+	},
+	{
+		id: "tvl",
+		label: "TVL",
+		value: overview.tvl ? `$${formatNumber(overview.tvl, 2)}` : "-",
+		helper: null,
+	},
+	{
+		id: "avgBlockTime",
+		label: "Avg block time",
+		value: mainData.average_block_time?.value
+			? `${Number(mainData.average_block_time.value).toFixed(2)} s`
+			: overview.average_block_time
+				? `${(overview.average_block_time / 1000).toFixed(2)} s`
+				: "-",
+		helper: null,
+	},
+	{
+		id: "totalBlocks",
+		label: "Total blocks",
+		value:
+			mainData.total_blocks?.value ??
+			overview.total_blocks ??
+			"-",
+		helper: null,
+	},
+	{
+		id: "totalTxns",
+		label: "Total txns",
+		value:
+			mainData.total_transactions?.value ??
+			overview.total_transactions ??
+			"-",
+		helper: null,
+	},
+	{
+		id: "yesterdayTxns",
+		label: "Yesterday txns",
+		value: mainData.yesterday_transactions?.value ?? "-",
+		helper: null,
+	},
+	{
+		id: "addresses",
+		label: "Total addresses",
+		value:
+			mainData.total_addresses?.value ??
+			overview.total_addresses ??
+			"-",
+		helper: null,
+	},
+];
+---
+
+<BaseLayout>
+	<div class="section gap-y-16 py-24">
+		<div class="col-span-full px-4 text-center">
+			<span class="text-sm font-bold text-green-400 mb-4 block">Network</span>
+			<h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-4">Paxeer Network Overview</h1>
+			<p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto">
+				Live on-chain metrics, market data and utilization stats for the Paxeer network.
+			</p>
+		</div>
+
+		<div class="col-span-full px-4">
+			<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+				{keyStats.map((stat) => (
+					<div class="network-card p-5 rounded-xl border border-white/10 bg-white/5">
+						<div class="text-xs uppercase tracking-wide text-white/50 mb-1">
+							{stat.label}
+						</div>
+						<div class="text-2xl font-semibold mb-1">
+							{stat.value}
+						</div>
+						{stat.helper && (
+							<div class="text-xs text-white/60">
+								{stat.helper}
+							</div>
+						)}
+					</div>
+				))}
+			</div>
+		</div>
+
+		<div class="col-span-full px-4 mt-12">
+			<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+				<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+					<h2 class="text-xl font-semibold mb-4">Daily transactions</h2>
+					<p class="text-sm text-white/60 mb-4">
+						The chart shows confirmed transactions per day.
+					</p>
+					<div class="space-y-2 max-h-80 overflow-auto pr-1 custom-scrollbar">
+						{dailyTxns.map((point: any) => (
+							<div class="flex items-center justify-between text-sm bg-white/5 rounded-lg px-3 py-2" key={point.date}>
+								<span class="text-white/70">
+									{point.date}
+								</span>
+								<span class="font-mono">
+									{formatNumber(point.value, 0)}
+								</span>
+							</div>
+						))}
+						{dailyTxns.length === 0 && (
+							<div class="text-sm text-white/60">No transaction history available.</div>
+						)}
+					</div>
+				</div>
+
+				<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+					<h2 class="text-xl font-semibold mb-4">Market performance</h2>
+					<p class="text-sm text-white/60 mb-4">
+						Historical closing price, market cap and TVL for the Paxeer token.
+					</p>
+					<div class="space-y-2 max-h-80 overflow-auto pr-1 custom-scrollbar">
+						{marketChart.map((point: any) => (
+							<div class="grid grid-cols-3 gap-2 text-xs md:text-sm bg-white/5 rounded-lg px-3 py-2" key={point.date}>
+								<div class="text-white/70">{point.date}</div>
+								<div class="font-mono">${formatNumber(point.closing_price, 2)}</div>
+								<div class="font-mono text-right">MC: ${formatNumber(point.market_cap, 0)}</div>
+							</div>
+						))}
+						{marketChart.length === 0 && (
+							<div class="text-sm text-white/60">No market data available.</div>
+						)}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-span-full px-4 mt-12">
+			<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-6">
+				{overview.coin_image && (
+					<div class="shrink-0">
+						<img src={overview.coin_image} alt="Paxeer token" class="w-16 h-16 rounded-full border border-white/10" loading="lazy" />
+					</div>
+				)}
+				<div>
+					<h2 class="text-xl font-semibold mb-2">Network utilization</h2>
+					<p class="text-sm text-white/70 mb-3">
+						Real-time gas usage and utilization across the Paxeer network.
+					</p>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+						<div class="network-card p-4 rounded-xl border border-white/10 bg-white/5">
+							<div class="text-xs text-white/50 mb-1">Network utilization</div>
+							<div class="text-lg font-semibold">
+								{overview.network_utilization_percentage
+									? `${(overview.network_utilization_percentage * 100).toFixed(2)}%`
+									: "-"}
+							</div>
+						</div>
+						<div class="network-card p-4 rounded-xl border border-white/10 bg-white/5">
+							<div class="text-xs text-white/50 mb-1">Gas used today</div>
+							<div class="text-lg font-mono">
+								{formatNumber(overview.gas_used_today ?? 0, 0)}
+							</div>
+						</div>
+						<div class="network-card p-4 rounded-xl border border-white/10 bg-white/5">
+							<div class="text-xs text-white/50 mb-1">Transactions today</div>
+							<div class="text-lg font-mono">
+								{formatNumber(overview.transactions_today ?? 0, 0)}
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.network-card {
+		transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.network-card:hover {
+		transform: translateY(-2px);
+		border-color: rgba(255, 255, 255, 0.22);
+		box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+	}
+
+	.custom-scrollbar::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.18);
+		border-radius: 9999px;
+	}
+</style>
