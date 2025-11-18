@@ -25,7 +25,7 @@ const personalWallet = inAppWallet();
 const smartWalletConfig = smartWallet({
 	chain,
 	factoryAddress: "0x82bd8459C3328F0CfE047B4b1c9e2d1e262D7411",
-	gasless: true,
+	gasless: false,
 });
 
 type Holding = {
@@ -55,6 +55,13 @@ type TxItem = {
 	direction: "in" | "out";
 };
 
+type NativePaxBalance = {
+	amountPax: number;
+	amountPaxFormatted: string;
+	usdValue: number;
+	usdValueFormatted: string;
+};
+
 const SAMPLE_HOLDINGS: Holding[] = [
 	{ symbol: "PAX", name: "Paxeer", balance: "48,230.12", valueUsd: "$382,000" },
 	{ symbol: "ETH", name: "Ether", balance: "12.04", valueUsd: "$38,400" },
@@ -68,6 +75,20 @@ const SAMPLE_NETWORK_STATS: NetworkStatsSummary = {
 	avgBlockTime: "5.0s",
 };
 
+const PAXEER_TEST_ADDRESS = import.meta.env.PUBLIC_PAXEER_TEST_ADDRESS as string | undefined;
+
+function paxeerViaAllOrigins(path: string): string {
+	const base = "https://scan.paxeer.app";
+	const target = `${base}${path}`;
+	const encoded = encodeURIComponent(target);
+	return `https://api.allorigins.win/raw?url=${encoded}`;
+}
+
+function viaAllOriginsAbsolute(url: string): string {
+	const encoded = encodeURIComponent(url);
+	return `https://api.allorigins.win/raw?url=${encoded}`;
+}
+
 export default function DashboardShell() {
 	const [status, setStatus] = useState<"idle" | "connecting" | "connected" | "error">("idle");
 	const [error, setError] = useState<string | null>(null);
@@ -79,6 +100,7 @@ export default function DashboardShell() {
 	const [dataError, setDataError] = useState<string | null>(null);
 	const [balanceSeries, setBalanceSeries] = useState<BalancePoint[] | null>(null);
 	const [transactions, setTransactions] = useState<TxItem[]>([]);
+	const [nativePaxBalance, setNativePaxBalance] = useState<NativePaxBalance | null>(null);
 
 	async function handleGoogleConnect() {
 		setStatus("connecting");
@@ -115,7 +137,8 @@ export default function DashboardShell() {
 
 	// Load Paxeer portfolio + network stats once the smart account is connected
 	useEffect(() => {
-		if (status !== "connected" || !smartAddress) return;
+		const addressForData = PAXEER_TEST_ADDRESS || smartAddress;
+		if (status !== "connected" || !addressForData) return;
 
 		let cancelled = false;
 
@@ -124,7 +147,7 @@ export default function DashboardShell() {
 			setDataError(null);
 			try {
 				// Network stats (global)
-				const statsRes = await fetch("/api/paxeer/api/v2/stats");
+				const statsRes = await fetch(paxeerViaAllOrigins("/api/v2/stats"));
 				if (statsRes.ok) {
 					const stats: any = await statsRes.json();
 					if (!cancelled) {
@@ -140,9 +163,9 @@ export default function DashboardShell() {
 					}
 				}
 
-				// Basic holdings for the connected smart account
+				// Basic holdings for the connected smart account (or test address)
 				const holdingsRes = await fetch(
-					`/api/paxeer/api/v2/addresses/${smartAddress}/token-balances`,
+					paxeerViaAllOrigins(`/api/v2/addresses/${addressForData}/token-balances`),
 				);
 				if (holdingsRes.ok) {
 					const raw: any[] = await holdingsRes.json();
@@ -167,11 +190,29 @@ export default function DashboardShell() {
 						});
 						setHoldings(mapped);
 					}
+				} else if (holdingsRes.status === 404 && !cancelled) {
+					setHoldings([]);
+				}
+
+				// Native PAX coin balance (Paxeer address endpoint)
+				const nativeRes = await fetch(
+					paxeerViaAllOrigins(`/api/v2/addresses/${addressForData}`),
+				);
+				let nativeAmountPax: number | null = null;
+				if (nativeRes.ok) {
+					const nativeJson: any = await nativeRes.json();
+					const rawBalance = Number(nativeJson.coin_balance ?? 0);
+					if (Number.isFinite(rawBalance) && rawBalance > 0) {
+						// coin_balance is in wei-like units (10^18)
+						nativeAmountPax = rawBalance / Math.pow(10, 18);
+					}
 				}
 
 				// Native balance history (for simple chart)
 				const balanceRes = await fetch(
-					`/api/paxeer/api/v2/addresses/${smartAddress}/coin-balance-history-by-day`,
+					paxeerViaAllOrigins(
+						`/api/v2/addresses/${addressForData}/coin-balance-history-by-day`,
+					),
 				);
 				if (balanceRes.ok) {
 					const hist: any = await balanceRes.json();
@@ -183,17 +224,19 @@ export default function DashboardShell() {
 						}));
 						setBalanceSeries(series);
 					}
+				} else if (balanceRes.status === 404 && !cancelled) {
+					setBalanceSeries([]);
 				}
 
-				// Recent token transfers for this smart account
+				// Recent token transfers for this smart account (or test address)
 				const txRes = await fetch(
-					`/api/paxeer/api/v2/addresses/${smartAddress}/token-transfers`,
+					paxeerViaAllOrigins(`/api/v2/addresses/${addressForData}/token-transfers`),
 				);
 				if (txRes.ok) {
 					const txPayload: any = await txRes.json();
 					const items: any[] = txPayload.items || [];
 					if (!cancelled && items.length) {
-						const lower = smartAddress.toLowerCase();
+						const lower = (addressForData || smartAddress || "").toLowerCase();
 						const mappedTx: TxItem[] = items.slice(0, 4).map((tx) => {
 							const from = tx.from?.hash?.toLowerCase?.() || "";
 							const to = tx.to?.hash?.toLowerCase?.() || "";
@@ -215,6 +258,36 @@ export default function DashboardShell() {
 							};
 						});
 						setTransactions(mappedTx);
+					}
+				} else if (txRes.status === 404 && !cancelled) {
+					setTransactions([]);
+				}
+
+				// If we have a native PAX amount, fetch USD price from Sidiora and compute value
+				if (!cancelled && nativeAmountPax != null) {
+					try {
+						const priceRes = await fetch(
+							viaAllOriginsAbsolute("https://sidiora.exchange/api/price/stats"),
+						);
+						if (priceRes.ok) {
+							const priceJson: any = await priceRes.json();
+							const price = Number(priceJson.current ?? 0);
+							if (Number.isFinite(price) && price > 0) {
+								const usd = nativeAmountPax * price;
+								setNativePaxBalance({
+									amountPax: nativeAmountPax,
+									amountPaxFormatted: nativeAmountPax.toLocaleString(undefined, {
+										maximumFractionDigits: 4,
+									}),
+									usdValue: usd,
+									usdValueFormatted: `$${usd.toLocaleString(undefined, {
+										maximumFractionDigits: 2,
+									})}`,
+								});
+							}
+						}
+					} catch (priceErr) {
+						// Swallow price errors; nativePaxBalance will just remain null
 					}
 				}
 			} catch (err: any) {
@@ -269,12 +342,24 @@ export default function DashboardShell() {
 						<div className="p-6 rounded-2xl border border-white/10 bg-black/40 text-left flex flex-col gap-4">
 							<p className="text-xs uppercase tracking-wide text-white/40">Wallet value</p>
 							<p className="text-4xl md:text-5xl font-semibold">
-								{holdings && holdings.length
-									? `~$${holdings
-											.reduce((acc: number, h: Holding) => acc + (Number(h.valueUsd.replace(/[^0-9.]/g, "")) || 0), 0)
-											.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-									: "$515,400"}
+								{(() => {
+									const holdingsUsd = (holdings || []).reduce((acc: number, h: Holding) => {
+										const v = Number(h.valueUsd.replace(/[^0-9.]/g, "")) || 0;
+										return acc + v;
+									}, 0);
+									const nativeUsd = nativePaxBalance?.usdValue ?? 0;
+									const total = holdingsUsd + nativeUsd;
+									if (!Number.isFinite(total) || total <= 0) return "$0.00";
+									return `~$${total.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+								})()}
 							</p>
+							{nativePaxBalance && (
+								<p className="text-sm text-emerald-300/90">
+									{nativePaxBalance.amountPaxFormatted} PAX
+									<span className="text-white/60">  b7 </span>
+									<span className="text-white/80">{nativePaxBalance.usdValueFormatted}</span>
+								</p>
+							)}
 							<p className="text-sm text-white/60">
 								Estimated total value across tokens held by your ChainFlow smart account.
 							</p>
