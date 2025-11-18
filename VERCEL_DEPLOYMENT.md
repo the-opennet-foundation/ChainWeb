@@ -1,7 +1,6 @@
 # Vercel Deployment Guide
 
 This project is configured for deployment on Vercel with API proxying to `dashboard.paxeer.app`.
-
 ## Setup
 
 ### 1. Install Dependencies
