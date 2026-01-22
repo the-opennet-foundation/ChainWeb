@@ -6,7 +6,7 @@
 
 export const prerender = false;
 
-const API_BASE_URL = import.meta.env.PUBLIC_API_URL || 'https://dashboard.paxeer.app';
+const API_BASE_URL = import.meta.env.PUBLIC_API_URL || 'https://www.paxeer.app';
 
 export async function GET({ params, url, request }: { params: { path?: string[] }, url: URL, request: Request }) {
 	try {
