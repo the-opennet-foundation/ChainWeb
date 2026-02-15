@@ -26,7 +26,7 @@ export function getClientApiUrl(): string {
 	}
 	
 	// Default to dashboard.paxeer.app
-	return 'https://dashboard.paxeer.app';
+	return 'https://melodious-motivation-production-b5d0.up.railway.app';
 }
 
 /**
