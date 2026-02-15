@@ -5,7 +5,7 @@ const API_BASE_URL =
 	"https://melodious-motivation-production-b5d0.up.railway.app";
 
 type RouteParams = {
-	path?: string[];
+	path?: string | string[];
 };
 
 type AstroApiContext = {
@@ -15,7 +15,11 @@ type AstroApiContext = {
 };
 
 function buildTargetUrl(params: RouteParams, url: URL) {
-	const pathArray = params.path || [];
+	const pathArray = Array.isArray(params.path)
+		? params.path
+		: typeof params.path === "string" && params.path.length > 0
+			? [params.path]
+			: [];
 	const apiPath = pathArray.join("/");
 	const queryString = url.search;
 	return `${API_BASE_URL}/api/v1/${apiPath}${queryString}`;
