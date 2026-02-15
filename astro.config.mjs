@@ -21,7 +21,7 @@ export default defineConfig({
 			},
 			proxy: {
 				'/api': {
-					target: process.env.PUBLIC_API_URL || 'https://dashboard.paxeer.app',
+					target: process.env.PUBLIC_API_URL || 'https://melodious-motivation-production-b5d0.up.railway.app',
 					changeOrigin: true,
 					secure: true,
 				},
