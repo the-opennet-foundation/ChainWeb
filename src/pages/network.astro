@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
+export const prerender = true;
+
 const [mainRes, marketRes, overviewRes] = await Promise.all([
 	fetch("https://paxscan.paxeer.app/stats/api/v1/pages/main"),
 	fetch("https://paxscan.paxeer.app/api/v2/stats/charts/market"),
