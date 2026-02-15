@@ -21,7 +21,7 @@ export function getApiUrl(): string {
 	}
 	
 	// Server-side: Use environment variable or default
-	return import.meta.env.PUBLIC_API_URL || 'https://dashboard.paxeer.app';
+	return import.meta.env.PUBLIC_API_URL || 'https://melodious-motivation-production-b5d0.up.railway.app';
 }
 
 /**
