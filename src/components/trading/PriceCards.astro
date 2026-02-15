@@ -13,7 +13,7 @@ const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 	<div class="col-span-full px-4">
 		<div id="price-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
 			{featured.map(symbol => (
-				<a href={`/symbol/${symbol}`} data-card={symbol} class="price-card relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur cursor-pointer transition-all hover:border-white/20 hover:scale-105 block">
+				<a href={`/symbol/${symbol}`} data-card={symbol} class="price-card relative overflow-hidden rounded-xl  bg-gradient-to-br from-white/5 to-white/2 p-6 backdrop-blur cursor-pointer transition-all hover:border-white/20 hover:scale-105 block">
 					<div class="flex items-start justify-between mb-4">
 						<div>
 							<img data-logo={symbol} class="w-10 h-10 rounded-full mb-2" alt={symbol} />
@@ -84,7 +84,7 @@ const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 	gsap.registerPlugin(ScrollTrigger);
 	
 	// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
-	const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
+	const API_URL = import.meta.env.PUBLIC_API_URL || '';
 	const featured = ['btcusd', 'ethusd', 'solusd', 'xrpusd'];
 
 	let previousPrices = {};

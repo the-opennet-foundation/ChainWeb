@@ -17,7 +17,7 @@ export function getApiUrl(): string {
 			return apiUrl;
 		}
 		// If no API URL set, use proxy endpoint
-		return '/api/proxy';
+		return '';
 	}
 	
 	// Server-side: Use environment variable or default

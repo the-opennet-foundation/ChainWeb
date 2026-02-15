@@ -6,7 +6,7 @@
 
 export const prerender = false;
 
-const API_BASE_URL = import.meta.env.PUBLIC_API_URL || 'https://www.paxeer.app';
+const API_BASE_URL = import.meta.env.PUBLIC_API_URL || 'https://melodious-motivation-production-b5d0.up.railway.app';
 
 export async function GET({ params, url, request }: { params: { path?: string[] }, url: URL, request: Request }) {
 	try {

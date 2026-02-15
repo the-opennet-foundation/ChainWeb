@@ -21,7 +21,7 @@ export function getClientApiUrl(): string {
 	if (typeof window !== 'undefined') {
 		// Check if we're on the same domain (use proxy)
 		if (window.location.hostname === 'localhost' || window.location.hostname.includes('vercel.app')) {
-			return '/api/proxy';
+			return '';
 		}
 	}
 	

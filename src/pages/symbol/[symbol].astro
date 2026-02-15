@@ -88,19 +88,19 @@ const tvSymbol = getTvSymbol(symbol);
 		<!-- Stats Grid (OHLC + Spread) -->
 		<div class="container mx-auto px-4 mb-8">
 			<div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 opacity-0">
-				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+				<div class="stat-card p-4 rounded-xl  bg-white/5 backdrop-blur text-center">
 					<div class="text-white/50 text-xs mb-1">Open</div>
 					<div class="text-xl font-bold font-mono" data-symbol-open={symbol}>--</div>
 				</div>
-				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+				<div class="stat-card p-4 rounded-xl  bg-white/5 backdrop-blur text-center">
 					<div class="text-white/50 text-xs mb-1">High</div>
 					<div class="text-xl font-bold font-mono text-green-400" data-symbol-high={symbol}>--</div>
 				</div>
-				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+				<div class="stat-card p-4 rounded-xl  bg-white/5 backdrop-blur text-center">
 					<div class="text-white/50 text-xs mb-1">Low</div>
 					<div class="text-xl font-bold font-mono text-red-400" data-symbol-low={symbol}>--</div>
 				</div>
-				<div class="stat-card p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur text-center">
+				<div class="stat-card p-4 rounded-xl  bg-white/5 backdrop-blur text-center">
 					<div class="text-white/50 text-xs mb-1">Spread</div>
 					<div class="text-xl font-bold font-mono" data-symbol-spread={symbol}>--</div>
 				</div>
@@ -125,7 +125,7 @@ const tvSymbol = getTvSymbol(symbol);
 
 		<!-- Additional Info -->
 		<div class="container mx-auto px-4 mt-12">
-			<div class="info-section opacity-0 p-8 rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur">
+			<div class="info-section opacity-0 p-8 rounded-xl  bg-gradient-to-br from-white/5 to-transparent backdrop-blur">
 				<h2 class="text-2xl font-bold mb-4">Trading Information</h2>
 				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 					<div>
@@ -137,28 +137,12 @@ const tvSymbol = getTvSymbol(symbol);
 						<div class="font-mono text-lg">ChainFlow BookView Router</div>
 					</div>
 					<div>
-						<div class="text-white/70 mb-2">Asset Type</div>
-						<div class="font-mono text-lg" data-symbol-type={symbol}>--</div>
-					</div>
-					<div>
 						<div class="text-white/70 mb-2">Bid</div>
 						<div class="font-mono text-lg" data-symbol-bid={symbol}>--</div>
 					</div>
 					<div>
 						<div class="text-white/70 mb-2">Ask</div>
 						<div class="font-mono text-lg" data-symbol-ask={symbol}>--</div>
-					</div>
-					<div>
-						<div class="text-white/70 mb-2">Lot Size</div>
-						<div class="font-mono text-lg" data-symbol-lotsize={symbol}>--</div>
-					</div>
-				</div>
-				
-				<!-- Lot Size Info Box -->
-				<div class="mt-6 p-4 rounded-lg bg-white/5 border border-white/10">
-					<div class="text-sm text-white/80" data-symbol-lotinfo={symbol}>
-						<strong>Lot Size Information:</strong><br/>
-						Loading...
 					</div>
 				</div>
 			</div>
@@ -206,7 +190,7 @@ const tvSymbol = getTvSymbol(symbol);
 		gsap.registerPlugin(ScrollTrigger);
 
 		// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
-		const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
+		const API_URL = import.meta.env.PUBLIC_API_URL || '';
 		const symbolParam = window.location.pathname.split('/').pop() || 'btcusd';
 
 		async function fetchSymbolData() {
@@ -270,65 +254,6 @@ const tvSymbol = getTvSymbol(symbol);
 					if (bid) document.querySelector(`[data-symbol-bid="${symbolParam}"]`)!.textContent = `$${bid.toFixed(2)}`;
 					if (ask) document.querySelector(`[data-symbol-ask="${symbolParam}"]`)!.textContent = `$${ask.toFixed(2)}`;
 					
-					// Determine asset type and lot size
-					const cryptoSymbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'dotusd', 'maticusd'];
-					const indexSymbols = ['tech100', 'usa500', 'usa30', 'sp500', 'nasdaq', 'dowjones'];
-					const futuresSymbols = ['esmain', 'nqmain', 'ymmain'];
-					
-					let assetType = '';
-					let lotSize = '';
-					let lotInfo = '';
-					
-					if (cryptoSymbols.includes(symbolParam.toLowerCase())) {
-						assetType = 'Cryptocurrency';
-						lotSize = '1 mClust';
-						lotInfo = '<strong>Crypto Lot Sizing:</strong><br/>' +
-								 '• Trade in <span class="text-blue-400">mClusts</span> (mini Clusts)<br/>' +
-								 '• 1 mClust = <span class="text-green-400">10 Units</span> of the Underlying<br/>' +
-								 '• 1 point (or Dollar) = <span class="text-green-400">$10 per mClust</span><br/>' +
-								 '• Example: 0.1 mClust BTC = 1 Bitcoin<br/>' +
-								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
-					} else if (indexSymbols.includes(symbolParam.toLowerCase())) {
-						assetType = 'Index';
-						lotSize = '1 mClust';
-						lotInfo = '<strong>Index Lot Sizing:</strong><br/>' +
-								 '• Trade in <span class="text-blue-400">mClusts</span> (mini Clusts)<br/>' +
-								 '• 1 mClust = <span class="text-green-400">10 Units</span> of the Underlying<br/>' +
-								 '• 1 point (or Dollar) = <span class="text-green-400">$10 per mClust</span><br/>' +
-								 '• Perfect for trading major indices<br/>' +
-								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
-					} else if (futuresSymbols.includes(symbolParam.toLowerCase())) {
-						assetType = 'Futures';
-						lotSize = '1 mClust';
-						lotInfo = '<strong>Futures Lot Sizing:</strong><br/>' +
-								 '• Trade in <span class="text-blue-400">mClusts</span> (mini Clusts)<br/>' +
-								 '• 1 mClust = <span class="text-green-400">10 Units</span> of the Underlying<br/>' +
-								 '• 1 point (or Dollar) = <span class="text-green-400">$10 per mClust</span><br/>' +
-								 '• Direct futures market access<br/>' +
-								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
-					} else {
-						// Stocks, Forex, Commodities - everything else
-						assetType = 'Stock / Forex / Commodity';
-						lotSize = '1 Clust';
-						lotInfo = '<strong>Standard Lot Sizing:</strong><br/>' +
-								 '• Trade in <span class="text-purple-400">Clusts</span><br/>' +
-								 '• 1 Clust = <span class="text-green-400">500 Units</span> of the Underlying<br/>' +
-								 '• 1 point (or Dollar) = <span class="text-green-400">$500 per Clust</span><br/>' +
-								 '• Example: 0.5 Clust AAPL = 250 shares<br/>' +
-								 '• <a href="/clust-sizing" class="text-blue-400 underline">Learn more about Clust sizing</a>';
-					}
-					
-					// Update asset type
-					const typeEl = document.querySelector(`[data-symbol-type="${symbolParam}"]`);
-					if (typeEl) typeEl.textContent = assetType;
-					
-					// Update lot size
-					const lotsizeEl = document.querySelector(`[data-symbol-lotsize="${symbolParam}"]`);
-					if (lotsizeEl) lotsizeEl.textContent = lotSize;
-					
-					// Update lot info
-					const lotinfoEl = document.querySelector(`[data-symbol-lotinfo="${symbolParam}"]`);
-					if (lotinfoEl) lotinfoEl.innerHTML = lotInfo;
 				}
 			} catch (error) {
 				console.error('Failed to fetch symbol data:', error);

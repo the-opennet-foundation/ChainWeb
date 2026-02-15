@@ -34,11 +34,14 @@ const keyStats = [
 	{
 		id: "price",
 		label: "Price",
-		value: overview.coin_price ? `$${overview.coin_price.toFixed(2)}` : "-",
+		value:
+			overview.coin_price !== undefined && overview.coin_price !== null
+				? `$${formatNumber(overview.coin_price, 2)}`
+				: "-",
 		helper:
 			overview.coin_price_change_percentage !== undefined &&
 			overview.coin_price_change_percentage !== null
-				? `${overview.coin_price_change_percentage.toFixed(2)}% 24h`
+				? `${formatNumber(overview.coin_price_change_percentage, 2)}% 24h`
 				: null,
 	},
 	{
@@ -112,7 +115,7 @@ const keyStats = [
 		<div class="col-span-full px-4">
 			<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 				{keyStats.map((stat) => (
-					<div class="network-card p-5 rounded-xl border border-white/10 bg-white/5">
+					<div class="network-card p-5 rounded-xl  bg-white/5">
 						<div class="text-xs uppercase tracking-wide text-white/50 mb-1">
 							{stat.label}
 						</div>
@@ -131,7 +134,7 @@ const keyStats = [
 
 		<div class="col-span-full px-4 mt-12">
 			<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-				<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+				<div class="p-6 rounded-xl  bg-white/5">
 					<h2 class="text-xl font-semibold mb-4">Daily transactions</h2>
 					<p class="text-sm text-white/60 mb-4">
 						The chart shows confirmed transactions per day.
@@ -153,7 +156,7 @@ const keyStats = [
 					</div>
 				</div>
 
-				<div class="p-6 rounded-xl border border-white/10 bg-white/5">
+				<div class="p-6 rounded-xl  bg-white/5">
 					<h2 class="text-xl font-semibold mb-4">Market performance</h2>
 					<p class="text-sm text-white/60 mb-4">
 						Historical closing price, market cap and TVL for the Paxeer token.
@@ -178,7 +181,7 @@ const keyStats = [
 			<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start gap-6">
 				{overview.coin_image && (
 					<div class="shrink-0">
-						<img src={overview.coin_image} alt="Paxeer token" class="w-16 h-16 rounded-full border border-white/10" loading="lazy" />
+						<img src={overview.coin_image} alt="Paxeer token" class="w-16 h-16 rounded-full " loading="lazy" />
 					</div>
 				)}
 				<div>
@@ -187,7 +190,7 @@ const keyStats = [
 						Real-time gas usage and utilization across the Paxeer network.
 					</p>
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-						<div class="network-card p-4 rounded-xl border border-white/10 bg-white/5">
+						<div class="network-card p-4 rounded-xl  bg-white/5">
 							<div class="text-xs text-white/50 mb-1">Network utilization</div>
 							<div class="text-lg font-semibold">
 								{overview.network_utilization_percentage
@@ -195,13 +198,13 @@ const keyStats = [
 									: "-"}
 							</div>
 						</div>
-						<div class="network-card p-4 rounded-xl border border-white/10 bg-white/5">
+						<div class="network-card p-4 rounded-xl  bg-white/5">
 							<div class="text-xs text-white/50 mb-1">Gas used today</div>
 							<div class="text-lg font-mono">
 								{formatNumber(overview.gas_used_today ?? 0, 0)}
 							</div>
 						</div>
-						<div class="network-card p-4 rounded-xl border border-white/10 bg-white/5">
+						<div class="network-card p-4 rounded-xl  bg-white/5">
 							<div class="text-xs text-white/50 mb-1">Transactions today</div>
 							<div class="text-lg font-mono">
 								{formatNumber(overview.transactions_today ?? 0, 0)}

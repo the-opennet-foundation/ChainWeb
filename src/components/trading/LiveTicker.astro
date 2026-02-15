@@ -44,7 +44,7 @@ const symbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'do
 	import { gsap } from "gsap";
 	
 	// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
-	const API_URL = import.meta.env.PUBLIC_API_URL || (window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
+	const API_URL = import.meta.env.PUBLIC_API_URL || '';
 	const symbols = ['btcusd', 'ethusd', 'solusd', 'xrpusd', 'bnbusd', 'adausd', 'dotusd', 'maticusd'];
 
 	let prices = {};

@@ -21,7 +21,7 @@ const stocksIndices = [
 	<div class="col-span-full px-4">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
 			{stocksIndices.map(item => (
-				<a href={`/symbol/${item.symbol}`} data-stock-card={item.symbol} class="stock-card group relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-6 backdrop-blur hover:border-white/20 transition-all duration-300 block cursor-pointer">
+				<a href={`/symbol/${item.symbol}`} data-stock-card={item.symbol} class="stock-card group relative overflow-hidden rounded-xl  bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-6 backdrop-blur hover:border-white/20 transition-all duration-300 block cursor-pointer">
 					<div class="flex items-start justify-between mb-4">
 						<div>
 							<h3 class="font-bold text-xl mb-1">{item.name}</h3>
@@ -73,7 +73,7 @@ const stocksIndices = [
 			<h3 class="text-2xl font-bold mb-6 text-center">Live Futures</h3>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 				<!-- E-mini S&P 500 -->
-				<div class="futures-card p-6 rounded-xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-blue-500/5 backdrop-blur">
+				<div class="futures-card p-6 rounded-xl  bg-gradient-to-br from-blue-500/10 to-blue-500/5 backdrop-blur">
 					<div class="flex justify-between items-start mb-4">
 						<div>
 							<div class="text-white/50 text-xs mb-1">E-mini S&P 500</div>
@@ -113,7 +113,7 @@ const stocksIndices = [
 				</div>
 
 				<!-- E-mini Nasdaq-100 -->
-				<div class="futures-card p-6 rounded-xl border border-white/10 bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur">
+				<div class="futures-card p-6 rounded-xl  bg-gradient-to-br from-purple-500/10 to-purple-500/5 backdrop-blur">
 					<div class="flex justify-between items-start mb-4">
 						<div>
 							<div class="text-white/50 text-xs mb-1">E-mini Nasdaq-100</div>
@@ -153,7 +153,7 @@ const stocksIndices = [
 				</div>
 
 				<!-- E-mini Dow Jones -->
-				<div class="futures-card p-6 rounded-xl border border-white/10 bg-gradient-to-br from-orange-500/10 to-orange-500/5 backdrop-blur">
+				<div class="futures-card p-6 rounded-xl  bg-gradient-to-br from-orange-500/10 to-orange-500/5 backdrop-blur">
 					<div class="flex justify-between items-start mb-4">
 						<div>
 							<div class="text-white/50 text-xs mb-1">E-mini Dow Jones</div>
@@ -231,7 +231,9 @@ const stocksIndices = [
 	gsap.registerPlugin(ScrollTrigger);
 
 	// Get API URL - uses proxy endpoint if PUBLIC_API_URL not set
-	const API_URL = import.meta.env.PUBLIC_API_URL || (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? '/api/proxy' : 'https://dashboard.paxeer.app');
+	const API_URL = import.meta.env.PUBLIC_API_URL || '';
+
+	// Stocks/Indices symbols to fetch
 	const stocksIndices = [
 		{ symbol: 'aapl', name: 'Apple' },
 		{ symbol: 'tsla', name: 'Tesla' },
