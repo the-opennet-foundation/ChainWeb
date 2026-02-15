@@ -1,6 +1,6 @@
 export const prerender = false;
 
-const API_BASE_URL = "https://scan.paxeer.app";
+const API_BASE_URL = "https://paxscan.paxeer.app";
 
 export async function GET({ params, url, request }: { params: { path?: string[] }; url: URL; request: Request }) {
 	try {
